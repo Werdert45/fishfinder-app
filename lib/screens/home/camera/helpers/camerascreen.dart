@@ -6,20 +6,24 @@ import 'package:path_provider/path_provider.dart';
 import 'package:fishfinder_app/screens/home/camera/helpers/camerapreview.dart';
 
 // A screen that allows users to take a picture using a given camera.
-class TakePictureScreen extends StatefulWidget {
-  final CameraDescription camera;
-
-  const TakePictureScreen({
-    Key key,
-    @required this.camera,
-  }) : super(key: key);
+class CameraScreen extends StatefulWidget {
+  final List<CameraDescription> cameras;
+//
+//  const TakePictureScreen({
+//    Key key,
+//    @required this.camera,
+//  }) : super(key: key);
+  CameraScreen(this.cameras);
 
   @override
-  TakePictureScreenState createState() => TakePictureScreenState();
+
+  CameraScreenState createState() {
+    return new CameraScreenState();
+  }
 }
 
-class TakePictureScreenState extends State<TakePictureScreen> {
-  CameraController _controller;
+class CameraScreenState extends State<CameraScreen> {
+  CameraController controller;
   Future<void> _initializeControllerFuture;
 
   @override
@@ -27,21 +31,21 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     super.initState();
     // To display the current output from the Camera,
     // create a CameraController.
-    _controller = CameraController(
+    controller = CameraController(
       // Get a specific camera from the list of available cameras.
-      widget.camera,
+      widget.cameras[0],
       // Define the resolution to use.
       ResolutionPreset.high,
     );
 
     // Next, initialize the controller. This returns a Future.
-    _initializeControllerFuture = _controller.initialize();
+    _initializeControllerFuture = controller.initialize();
   }
 
   @override
   void dispose() {
     // Dispose of the controller when the widget is disposed.
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -58,7 +62,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               // If the Future is complete, display the preview.
-              return CameraPreview(_controller);
+              return CameraPreview(controller);
             } else {
               // Otherwise, display a loading indicator.
               return Center(child: CircularProgressIndicator());
@@ -104,7 +108,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             );
 
             // Attempt to take a picture and log where it's been saved.
-            await _controller.takePicture(path);
+            await controller.takePicture(path);
 
             // If the picture was taken, display it on a new screen.
             Navigator.push(
@@ -122,5 +126,3 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     );
   }
 }
-
-// A widget that displays the picture taken by the user.
