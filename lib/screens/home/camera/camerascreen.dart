@@ -3,7 +3,7 @@ import 'package:camera/camera.dart';
 import 'dart:async';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
-import 'package:fishfinder_app/screens/home/camera/helpers/camerapreview.dart';
+import 'package:fishfinder_app/screens/home/camera/camerapreview.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class CameraScreen extends StatefulWidget {
@@ -69,6 +69,17 @@ class CameraScreenState extends State<CameraScreen> {
             }
           },
         ),
+        Container(
+         margin: const EdgeInsets.only(left: 10.0, top: 20.0),
+         child: IconButton(
+             tooltip: "Go Back",
+             icon: new Icon(Icons.clear, color: Colors.white, size: 30.0),
+             onPressed: () {
+               Navigator.pop(context);
+             }
+         ),
+        ),
+
         Align(
             alignment: Alignment.bottomCenter,
             child: Row(
@@ -76,19 +87,21 @@ class CameraScreenState extends State<CameraScreen> {
                 children: <Widget>[
                   new Container(
                       margin: const EdgeInsets.only(left: 20, bottom: 20),
-                      child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 30, semanticLabel: 'Hello'), onPressed: () {
-                        Navigator.pushNamed(context, '/');
+                      child: IconButton(icon: Icon(Icons.switch_camera, color: Colors.white, size: 30, semanticLabel: 'Hello'), onPressed: () {
+                        // Flip camera
                       })),
                   new Container(
                       margin: const EdgeInsets.only(right: 20, bottom: 20),
-                      child:IconButton(icon: Icon(Icons.history, color: Colors.white, size: 30), onPressed: () {
+                      child:IconButton(icon: Icon(Icons.add_photo_alternate, color: Colors.white, size: 30), onPressed: () {
                         Navigator.pushNamed(context, '/camera');
                       }))
                 ])),
       ]),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.transparent,
+        elevation: 0,
+        backgroundColor: Colors.lightBlueAccent,
         child: Center(child:Icon(Icons.camera_alt, size:40, color: Colors.white)),
         // Provide an onPressed callback.
         onPressed: () async {
@@ -126,3 +139,4 @@ class CameraScreenState extends State<CameraScreen> {
     );
   }
 }
+

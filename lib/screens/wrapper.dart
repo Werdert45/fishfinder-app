@@ -3,7 +3,7 @@ import 'package:fishfinder_app/screens/authenticate/authenticate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fishfinder_app/models/user.dart';
-import 'package:fishfinder_app/screens/home/home.dart';
+import 'package:fishfinder_app/screens/home/homescreen/home.dart';
 
 class Wrapper extends StatefulWidget {
   final List<CameraDescription> cameras;

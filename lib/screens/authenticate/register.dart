@@ -26,7 +26,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Colors.lightBlueAccent,
         elevation: 0.0,
         title: Text('Sign up to Flutter app'),
         actions: <Widget>[
