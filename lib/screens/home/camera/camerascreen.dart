@@ -92,7 +92,7 @@ class CameraScreenState extends State<CameraScreen> {
                       })),
                   new Container(
                       margin: const EdgeInsets.only(right: 20, bottom: 20),
-                      child:IconButton(icon: Icon(Icons.add_photo_alternate, color: Colors.white, size: 30), onPressed: () {
+                      child:IconButton(icon: Icon(Icons.image, color: Colors.white, size: 30), onPressed: () {
                         Navigator.pushNamed(context, '/camera');
                       }))
                 ])),
