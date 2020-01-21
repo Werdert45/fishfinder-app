@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:camera/camera.dart';
+import 'package:fishfinder_app/routes.dart';
 
 List<CameraDescription> cameras;
 
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
-        home: Wrapper(cameras:cameras),
+        initialRoute: '/',
+        routes: routes
       ),
     );
   }

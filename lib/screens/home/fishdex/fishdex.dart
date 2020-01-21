@@ -3,17 +3,17 @@ import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
 
-class MainMenu extends StatefulWidget {
+class FishDex extends StatefulWidget {
   final List<CameraDescription> cameras;
-  MainMenu(this.cameras);
+  FishDex(this.cameras);
 
   @override
 
-  _MainMenuState createState() => _MainMenuState();
+  _FishDexState createState() => _FishDexState();
 }
 
 
-class _MainMenuState extends State<MainMenu> {
+class _FishDexState extends State<FishDex> {
   @override
   void initState() {
     super.initState();
@@ -489,30 +489,30 @@ class _MainMenuState extends State<MainMenu> {
               ],
             ),
               Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.lightBlueAccent
-                      ),
-                      child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Row(
+                bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.lightBlueAccent
+                ),
+              child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
 
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                new Container(
-                                    margin: const EdgeInsets.only(left: 20, bottom: 5),
-                                    child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Hello'))),
-                                new Container(
-                                    margin: const EdgeInsets.only(right: 20, bottom: 5),
-                                    child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35), onPressed: () {
-    Navigator.popAndPushNamed(context, '/fishdex');
-    }
-                                    ))
-                              ]))
-                  )),
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new Container(
+                            margin: const EdgeInsets.only(left: 20, bottom: 5),
+                            child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Hello'), onPressed: () {
+                              Navigator.popAndPushNamed(context, '/');
+                            })),
+                        new Container(
+                            margin: const EdgeInsets.only(right: 20, bottom: 5),
+                            child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35)
+                            ))
+                      ]))
+              )),
             ]
 
         ),
