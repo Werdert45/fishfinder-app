@@ -29,490 +29,248 @@ class _FishDexState extends State<FishDex> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Row(children:<Widget>[Icon(Icons.adb, size:30), SizedBox(width: 20), Text("Fishfinder")]),
+          title: Row(children:<Widget>[Icon(Icons.adb, size:30), SizedBox(width: 20), Text("Fishdex")]),
           backgroundColor: Colors.lightBlueAccent,
           elevation: 0.0,
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.keyboard_return, color: Colors.white),
-              label: Visibility(
-                child: Text(''),
-                visible: false,
-              ),
-              onPressed: () async {
-                await _auth.signOut();
-              },
-            )
-          ],
+
         ),
         body: Stack(
 
             children: <Widget>[Column(
               children: <Widget>[
+                SizedBox(height: 20),
+                // Option 1
+                Container(
+                    margin: EdgeInsets.only(left: 10.0),
 
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                    width: 200,
+                                    height: 140,
+                                    child: Card(
+                                        child: Padding(
+                                            padding: EdgeInsets.only(left: 10, right: 5, top: 10, bottom: 0),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  children: <Widget>[
+                                                    Text("Northern Pike", style: new TextStyle(fontSize: 14)),
+                                                    SizedBox(width: 40),
+                                                    Text("#001", style: new TextStyle(fontSize: 14))
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Container(
+
+                                                      margin: EdgeInsets.only(bottom: 40),
+                                                     width: 60,
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Container( width: 60, child: Text('152.4  cm', textAlign: TextAlign.left, style: new TextStyle(fontSize: 11))),
+                                                        SizedBox(height: 4),
+                                                        Container( width: 60, child: Text('27-01-2020', textAlign: TextAlign.left, style: new TextStyle(fontSize: 11))),
+                                                        SizedBox(height: 4),
+                                                        Container( width: 60, child: Text('Vinkeveen', textAlign: TextAlign.left, style: new TextStyle(fontSize: 11)))
+                                                      ],
+                                                    )),
+                                                    Container(
+                                                      margin: EdgeInsets.only(bottom: 12, top: 4),
+                                                      width: 100,
+                                                      height: 80,
+                                                      child: Image(image: AssetImage('assets/images/pike1.png'))
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+
+                                            )
+                                        )
+                                    )
+                                ),
+
+                                Container(
+                                    width: 200,
+                                    height: 140,
+                                    child: Card(
+                                        child: Padding(
+                                            padding: EdgeInsets.only(left: 10, right: 5, top: 10, bottom: 0),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  children: <Widget>[
+                                                    Text("Northern Pike", style: new TextStyle(fontSize: 14)),
+                                                    SizedBox(width: 40),
+                                                    Text("#001", style: new TextStyle(fontSize: 14))
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Container(
+
+                                                        margin: EdgeInsets.only(bottom: 40),
+                                                        width: 60,
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            Container( width: 60, child: Text('152.4  cm', textAlign: TextAlign.left, style: new TextStyle(fontSize: 11))),
+                                                            SizedBox(height: 4),
+                                                            Container( width: 60, child: Text('27-01-2020', textAlign: TextAlign.left, style: new TextStyle(fontSize: 11))),
+                                                            SizedBox(height: 4),
+                                                            Container( width: 60, child: Text('Vinkeveen', textAlign: TextAlign.left, style: new TextStyle(fontSize: 11)))
+                                                          ],
+                                                        )),
+                                                    Container(
+                                                        margin: EdgeInsets.only(bottom: 12, top: 4),
+                                                        width: 100,
+                                                        height: 80,
+                                                        child: Image(image: AssetImage('assets/images/pike1.png'))
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+
+                                            )
+                                        )
+                                    )
+                                ),
+                              ],
+                            )
+                    )
+                ),
+
+                // Option 2
                 Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                        child: Text('Catches', style: new TextStyle(fontSize: 30.0, fontWeight: FontWeight.w600, color: Colors.black))
-                    )),
-                Container(
-                    margin: const EdgeInsets.only(top: 10.0, bottom: 30, left: 20.0, right: 20.0),
-                    height: 35,
-                    child: TextField(
-                        controller: null,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            prefixIcon: Icon(Icons.search)
+                    margin: EdgeInsets.only(left: 10.0),
+
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                                height: 100,
+                                child: Card(
+                                    child: Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Column(
+                                                children: <Widget>[
+                                                  Container( width: 90, child: Text("#003", style: new TextStyle(fontSize: 16.0), textAlign: TextAlign.left )),
+                                                  Container( width: 90, child: Text("Silver Bream", textAlign: TextAlign.left)),
+                                                  Container( width: 90, child: Text("54.8 cm")),
+                                                  Container( width: 90, child: Text("09-02-2020"))
+                                                ]),
+                                            Image(image: AssetImage('assets/images/pike1.png'))
+                                          ],
+
+                                        )
+                                    ))),
+                            Container(
+                                height: 100,
+                                child: Card(
+                                    child: Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Column(
+                                                children: <Widget>[
+                                                  Container( width: 80, child: Text("#004", style: new TextStyle(fontSize: 16.0), textAlign: TextAlign.left )),
+                                                  Container( width: 80, child: Text("Trout", textAlign: TextAlign.left)),
+                                                  Container( width: 80, child: Text("23.5 cm")),
+                                                  Container( width: 80, child: Text("29-12-2019"))
+                                                ]),
+                                            Image(image: AssetImage('assets/images/bitterling1.png'))
+                                          ],
+
+                                        )
+                                    ))),
+                          ],
+
+
+
                         )
                     )
                 ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20.0),
-                        child: Text('Recent Catches', style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, color: Colors.black))
-                    )),
-                // The row of recent catches
+
+                // Option 3
+
                 Container(
                     margin: EdgeInsets.only(left: 10.0),
+                  width: 390,
+                  height: 100,
+                  child: Card(
+                      child: Row(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 5, left: 5),
+                      child: Column(
+                        children: <Widget>[
 
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: SingleChildScrollView(
+                          Container( width: 180, child: Text("Siberian Sturgeon", style: new TextStyle(fontSize: 16.0), textAlign: TextAlign.left )),
+                          SizedBox(height: 5),
+                          Row(
+                            children: <Widget>[
+                              Container( width: 100, child: Text("Length:", style: new TextStyle(fontSize: 12.0), textAlign: TextAlign.left )),
+                              Container( width: 80, child: Text("356.3 cm", style: new TextStyle(fontSize: 12.0), textAlign: TextAlign.left )),
+                            ],
+                          ),
 
-
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: <Widget>[
-
-                                // Dummy data must create a loop to create these cards for every recent catch (max 10)
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                        margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                        width: 100,
-                                        height: 100,
-                                        decoration: new BoxDecoration(
-                                            borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                        ),
-
-                                        child: AspectRatio(
-
-                                            aspectRatio: 1.0 / 1.0,
-                                            child: Image(
-
-                                                image: AssetImage('assets/images/fish1.jpg'),
-                                                fit: BoxFit.fill
-                                            )
-                                        )
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Northern Devil", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                        margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                        width: 100,
-                                        height: 100,
-                                        decoration: new BoxDecoration(
-                                            borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                        ),
-
-                                        child: AspectRatio(
-
-                                            aspectRatio: 1.0 / 1.0,
-                                            child: Image(
-
-                                                image: AssetImage('assets/images/fish2.jpg'),
-                                                fit: BoxFit.fill
-                                            )
-                                        )
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Rainbow Brass", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                        margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                        width: 100,
-                                        height: 100,
-                                        decoration: new BoxDecoration(
-                                            borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                        ),
-
-                                        child: AspectRatio(
-
-                                            aspectRatio: 1.0 / 1.0,
-                                            child: Image(
-
-                                                image: AssetImage('assets/images/fish3.jpg'),
-                                                fit: BoxFit.fill
-                                            )
-                                        )
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Sun karp", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                        margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                        width: 100,
-                                        height: 100,
-                                        decoration: new BoxDecoration(
-                                            borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                        ),
-
-                                        child: AspectRatio(
-
-                                            aspectRatio: 1.0 / 1.0,
-                                            child: Image(
-
-                                                image: AssetImage('assets/images/fish4.jpg'),
-                                                fit: BoxFit.fill
-                                            )
-                                        )
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Pikeperch", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                        margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
-                                        width: 100,
-                                        height: 100,
-                                        decoration: new BoxDecoration(
-                                            borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                        ),
-
-                                        child: AspectRatio(
-
-                                            aspectRatio: 1.0 / 1.0,
-                                            child: Image(
-
-                                                image: AssetImage('assets/images/fish5.jpg'),
-                                                fit: BoxFit.fill
-                                            )
-                                        )
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Sun Brass", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                )
-
-
-                              ],
-                            )))),
-
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 20.0, top: 30.0, right: 20.0, bottom: 0.0),
-                        child: Text("Friends' Catches", style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, color: Colors.black))
-                    )),
-                Container(
-                    margin: EdgeInsets.only(left: 10.0),
-
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: SingleChildScrollView(
-
-
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: <Widget>[
-
-                                // Dummy data must create a loop to create these cards for every recent catch (max 10)
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                      width: 100,
-                                      height: 100,
-                                      decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                      ),
-
-                                      child: Stack(
-                                          children: <Widget>[
-                                            AspectRatio(
-
-                                                aspectRatio: 1.0 / 1.0,
-                                                child: Image(
-
-                                                    image: AssetImage('assets/images/fish6.jpg'),
-                                                    fit: BoxFit.fill
-                                                )
-                                            ),
-                                            Positioned(
-                                                bottom: -3,
-                                                right: -23,
-                                                child: new RawMaterialButton(
-                                                  child: new Icon(
-                                                    Icons.person,
-                                                    color: Colors.blue,
-                                                    size: 15.0,
-                                                  ),
-                                                  shape: new CircleBorder(),
-                                                  elevation: 2.0,
-                                                  fillColor: Colors.white,
-                                                  padding: const EdgeInsets.all(0.0),
-                                                )),
-                                          ]),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Tropical Brass", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                      width: 100,
-                                      height: 100,
-                                      decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                      ),
-
-                                      child: Stack(
-                                          children: <Widget>[
-                                            AspectRatio(
-
-                                                aspectRatio: 1.0 / 1.0,
-                                                child: Image(
-
-                                                    image: AssetImage('assets/images/fish7.jpg'),
-                                                    fit: BoxFit.fill
-                                                )
-                                            ),
-                                            Positioned(
-                                                bottom: -3,
-                                                right: -23,
-                                                child: new RawMaterialButton(
-                                                  child: new Icon(
-                                                    Icons.person,
-                                                    color: Colors.blue,
-                                                    size: 15.0,
-                                                  ),
-                                                  shape: new CircleBorder(),
-                                                  elevation: 2.0,
-                                                  fillColor: Colors.white,
-                                                  padding: const EdgeInsets.all(0.0),
-                                                )),
-                                          ]),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("African Bass", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                      width: 100,
-                                      height: 100,
-                                      decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                      ),
-
-                                      child: Stack(
-                                          children: <Widget>[
-                                            AspectRatio(
-
-                                                aspectRatio: 1.0 / 1.0,
-                                                child: Image(
-
-                                                    image: AssetImage('assets/images/fish8.jpeg'),
-                                                    fit: BoxFit.fill
-                                                )
-                                            ),
-                                            Positioned(
-                                                bottom: -3,
-                                                right: -23,
-                                                child: new RawMaterialButton(
-                                                  child: new Icon(
-                                                    Icons.person,
-                                                    color: Colors.blue,
-                                                    size: 15.0,
-                                                  ),
-                                                  shape: new CircleBorder(),
-                                                  elevation: 2.0,
-                                                  fillColor: Colors.white,
-                                                  padding: const EdgeInsets.all(0.0),
-                                                )),
-                                          ]),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Clownfish", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                      width: 100,
-                                      height: 100,
-                                      decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                      ),
-
-                                      child: Stack(
-                                          children: <Widget>[
-                                            AspectRatio(
-
-                                                aspectRatio: 1.0 / 1.0,
-                                                child: Image(
-
-                                                    image: AssetImage('assets/images/fish9.jpg'),
-                                                    fit: BoxFit.fill
-                                                )
-                                            ),
-                                            Positioned(
-                                                bottom: -3,
-                                                right: -23,
-                                                child: new RawMaterialButton(
-                                                  child: new Icon(
-                                                    Icons.person,
-                                                    color: Colors.blue,
-                                                    size: 15.0,
-                                                  ),
-                                                  shape: new CircleBorder(),
-                                                  elevation: 2.0,
-                                                  fillColor: Colors.white,
-                                                  padding: const EdgeInsets.all(0.0),
-                                                )),
-                                          ]),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Northern Pike", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-
-                                Column(
-                                  children: <Widget>[
-                                    Container(
-                                      margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                      width: 100,
-                                      height: 100,
-                                      decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                      ),
-
-                                      child: Stack(
-                                          children: <Widget>[
-                                            AspectRatio(
-
-                                                aspectRatio: 1.0 / 1.0,
-                                                child: Image(
-
-                                                    image: AssetImage('assets/images/fish10.png'),
-                                                    fit: BoxFit.fill
-                                                )
-                                            ),
-                                            Positioned(
-                                                bottom: -3,
-                                                right: -23,
-                                                child: new RawMaterialButton(
-                                                  child: new Icon(
-                                                    Icons.person,
-                                                    color: Colors.blue,
-                                                    size: 15.0,
-                                                  ),
-                                                  shape: new CircleBorder(),
-                                                  elevation: 2.0,
-                                                  fillColor: Colors.white,
-                                                  padding: const EdgeInsets.all(0.0),
-                                                )),
-                                          ]),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.centerLeft,
-                                        margin: const EdgeInsets.only(right: 0),
-                                        child: Text("Northern Pike", textAlign: TextAlign.left)
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )))),
-
+                          SizedBox(height: 5),
+                          Row(
+                            children: <Widget>[
+                              Container( width: 100, child: Text("Catch Date: ", style: new TextStyle(fontSize: 12.0), textAlign: TextAlign.left )),
+                              Container( width: 80, child: Text("27 Jan 2020", style: new TextStyle(fontSize: 12.0), textAlign: TextAlign.left )),
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: <Widget>[
+                              Container( width: 100, child: Text("Catch Location:", style: new TextStyle(fontSize: 12.0), textAlign: TextAlign.left )),
+                              Container( width: 80, child: Text("Vinkveen, NL", style: new TextStyle(fontSize: 12.0), textAlign: TextAlign.left )),
+                            ],
+                          ),
+                        ],
+                      )),
+                      Column( children: <Widget>[
+                        SizedBox(height: 5),
+                        Container( width: 90, child: Text("#001", style: new TextStyle(fontSize: 16.0), textAlign: TextAlign.left )),
+                        ]),
+                      Image(image: AssetImage('assets/images/pike1.png'))
+                    ],
+                  ))
+                ),
 
               ],
             ),
               Positioned(
-                bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.lightBlueAccent
-                ),
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.lightBlueAccent
+                      ),
+                      child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Row(
 
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        new Container(
-                            margin: const EdgeInsets.only(left: 20, bottom: 5),
-                            child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Hello'), onPressed: () {
-                              Navigator.popAndPushNamed(context, '/');
-                            })),
-                        new Container(
-                            margin: const EdgeInsets.only(right: 20, bottom: 5),
-                            child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35)
-                            ))
-                      ]))
-              )),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                new Container(
+                                    margin: const EdgeInsets.only(left: 20, bottom: 5),
+                                    child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Hello'), onPressed: () {
+                                      Navigator.pop(context);
+                                    }
+                                    )),
+                                new Container(
+                                    margin: const EdgeInsets.only(right: 20, bottom: 5),
+                                    child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35)
+                                    ))
+                              ]))
+                  )),
             ]
 
         ),

@@ -508,8 +508,8 @@ class _MainMenuState extends State<MainMenu> {
                                 new Container(
                                     margin: const EdgeInsets.only(right: 20, bottom: 5),
                                     child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35), onPressed: () {
-    Navigator.popAndPushNamed(context, '/fishdex');
-    }
+                                      Navigator.pushNamed(context, '/fishdex');
+                                    }
                                     ))
                               ]))
                   )),
