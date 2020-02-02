@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 class DisplayPictureScreen extends StatelessWidget {
-  final File imageFile;
-  const DisplayPictureScreen({Key key, this.imageFile}) : super(key: key);
+  final String imagePath;
+  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class DisplayPictureScreen extends StatelessWidget {
       // constructor with the given path to display the image.
       body: Stack(
         children: <Widget>[
-          Image.file(imageFile,fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
+          Image.file(File(imagePath),fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
           Align(
               alignment: Alignment.topRight,
               child: Container(

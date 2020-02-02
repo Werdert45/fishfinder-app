@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:async';
-import 'dart:io';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:fishfinder_app/screens/home/camera/camerapreview.dart';
@@ -25,17 +24,18 @@ class CameraScreen extends StatefulWidget {
 }
 
 class CameraScreenState extends State<CameraScreen> {
-  File _image;
+  var _path;
 
   CameraController controller;
   Future<void> _initializeControllerFuture;
   _accessGallery() async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var path = picture.path;
     this.setState(() {
-      _image = picture;
+      _path = path;
     });
     Navigator.push(context, MaterialPageRoute(
-        builder: (context) => DisplayPictureScreen(imageFile: _image)
+        builder: (context) => DisplayPictureScreen(imagePath: _path)
     ));
   }
 
@@ -141,14 +141,14 @@ class CameraScreenState extends State<CameraScreen> {
             );
 
             // Attempt to take a picture and log where it's been saved.
-            var picture = await controller.takePicture(path);
+            await controller.takePicture(path);
 
             // If the picture was taken, display it on a new screen.
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    DisplayPictureScreen(imageFile: _image),
+                    DisplayPictureScreen(imagePath: path),
               ),
             );
           } catch (e) {
