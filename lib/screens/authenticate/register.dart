@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 
+// @author Ian Ronk
+// @class Register
 
 class Register extends StatefulWidget {
 
+  // toggleView, if true, will show page
   final Function toggleView;
   Register({ this.toggleView });
 
@@ -14,6 +17,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
+  // Set variables for user information from Firebase
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -34,6 +38,7 @@ class _RegisterState extends State<Register> {
             icon: Icon(Icons.person),
             label: Text('Sign in'),
             onPressed: () {
+              // Change toggleView bool
               widget.toggleView();
             },
           )
@@ -70,6 +75,7 @@ class _RegisterState extends State<Register> {
                           style: TextStyle(color: Colors.white)
                       ),
                       onPressed: () async {
+                        // onPressed, check if the form is submitted and register email in Firebase and user != null
                         if (_formKey.currentState.validate()) {
                           dynamic result = await _auth.registerWithEmail(email, password);
                           if (result == null) {

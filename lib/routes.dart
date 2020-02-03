@@ -5,6 +5,11 @@ import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 import 'package:fishfinder_app/screens/wrapper.dart';
 
+// @author Ian Ronk
+// @function routes
+
+// TODO: Get all of the routes and use them in the whole app
+
 Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   '/': (BuildContext context) => Wrapper(cameras:cameras),
   '/home': (BuildContext context) => MainMenu(cameras),

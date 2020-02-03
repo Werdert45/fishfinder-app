@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+// @author Ian Ronk
+// @constants textInputDecoration
+
+// TODO insert these constants into the app and generalize styling
+
 const textInputDecoration = InputDecoration(
   fillColor: Colors.white,
   filled: true,

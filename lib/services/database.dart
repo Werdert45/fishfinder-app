@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// TODO get all recent catches from the database and all of the species
+
+// @author Ian Ronk
+// @class DatabaseService
 
 class DatabaseService {
 

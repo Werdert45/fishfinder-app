@@ -2,8 +2,12 @@ import 'package:fishfinder_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 
+// @author Ian Ronk
+// @class SignIn
+
 class SignIn extends StatefulWidget {
 
+  // toggleView is true, will show the signin page
   final Function toggleView;
   SignIn({ this.toggleView });
 
@@ -16,7 +20,7 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
-  // text field
+  // Variables for user information
   String email = '';
   String password = '';
   String error = '';
@@ -70,6 +74,7 @@ class _SignInState extends State<SignIn> {
                           style: TextStyle(color: Colors.white)
                       ),
                       onPressed: () async {
+                        // Check if user exists and then login (user != null)
                         if (_formKey.currentState.validate()) {
                           dynamic result = await _auth.signInWithEmail(email, password);
 

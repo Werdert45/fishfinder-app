@@ -3,15 +3,16 @@ import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
 
+// @author Ian Ronk
+// @class MainMenu
+
 class MainMenu extends StatefulWidget {
   final List<CameraDescription> cameras;
   MainMenu(this.cameras);
 
   @override
-
   _MainMenuState createState() => _MainMenuState();
 }
-
 
 class _MainMenuState extends State<MainMenu> {
   @override
@@ -19,9 +20,7 @@ class _MainMenuState extends State<MainMenu> {
     super.initState();
   }
 
-
   @override
-
   final AuthService _auth = AuthService();
 
   Widget build(BuildContext context) {
@@ -40,6 +39,7 @@ class _MainMenuState extends State<MainMenu> {
                 visible: false,
               ),
               onPressed: () async {
+                // signOut from Firebase (only needed here, because is only place to logout
                 await _auth.signOut();
               },
             )
@@ -50,6 +50,7 @@ class _MainMenuState extends State<MainMenu> {
             children: <Widget>[Column(
               children: <Widget>[
 
+                // placeholder, will be a loop for all elements in DB
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                     alignment: Alignment.centerLeft,
@@ -484,8 +485,6 @@ class _MainMenuState extends State<MainMenu> {
                                 ),
                               ],
                             )))),
-
-
               ],
             ),
               Positioned(
@@ -504,17 +503,21 @@ class _MainMenuState extends State<MainMenu> {
                               children: <Widget>[
                                 new Container(
                                     margin: const EdgeInsets.only(left: 20, bottom: 5),
-                                    child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Hello'))),
+                                    child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Home'))),
                                 new Container(
                                     margin: const EdgeInsets.only(right: 20, bottom: 5),
-                                    child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35), onPressed: () {
+                                    child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35, semanticLabel: 'FishDex',), onPressed: () {
+                                      // Put the fishdex  screen on top of homescreen
                                       Navigator.pushNamed(context, '/fishdex');
                                     }
-                                    ))
-                              ]))
-                  )),
+                                    )
+                                )
+                              ]
+                          )
+                      )
+                  )
+              ),
             ]
-
         ),
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -523,9 +526,9 @@ class _MainMenuState extends State<MainMenu> {
             backgroundColor: Colors.lightBlueAccent,
             child: const Icon(Icons.camera_alt, size:30, color: Colors.white),
             onPressed:() {
+              // Put camera screen on top of home screen and pass camera down
               Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras)));
             },
-
           ),
         )
     );

@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+// @author Ian Ronk
+// @class DisplayPictureScreen
+
+// TODO
+// Add the function of removing the image if the image is taken through the app
+
 class DisplayPictureScreen extends StatelessWidget {
+
+  // Get path to image
   final String imagePath;
   const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
+      // The image is extracted from either gallery or made picture
       body: Stack(
         children: <Widget>[
+          // Get image file by file path
           Image.file(File(imagePath),fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
           Align(
               alignment: Alignment.topRight,
@@ -27,6 +35,7 @@ class DisplayPictureScreen extends StatelessWidget {
           ),
         ],
       ),
+
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
         label: Row(

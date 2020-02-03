@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
 
+// @author Ian Ronk
+// @class FishDex
+
 class FishDex extends StatefulWidget {
+  // Pass down cameras to Fishdex, to be able to pass it down to the camera
   final List<CameraDescription> cameras;
   FishDex(this.cameras);
 
   @override
-
   _FishDexState createState() => _FishDexState();
 }
-
 
 class _FishDexState extends State<FishDex> {
   @override
@@ -19,11 +20,7 @@ class _FishDexState extends State<FishDex> {
     super.initState();
   }
 
-
   @override
-
-  final AuthService _auth = AuthService();
-
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
@@ -91,7 +88,6 @@ class _FishDexState extends State<FishDex> {
                                         )
                                     )
                                 ),
-
                                 Container(
                                     width: 200,
                                     height: 140,
@@ -110,7 +106,6 @@ class _FishDexState extends State<FishDex> {
                                                 Row(
                                                   children: <Widget>[
                                                     Container(
-
                                                         margin: EdgeInsets.only(bottom: 40),
                                                         width: 60,
                                                         child: Column(
@@ -131,7 +126,6 @@ class _FishDexState extends State<FishDex> {
                                                   ],
                                                 )
                                               ],
-
                                             )
                                         )
                                     )
@@ -167,7 +161,9 @@ class _FishDexState extends State<FishDex> {
                                           ],
 
                                         )
-                                    ))),
+                                    )
+                                )
+                            ),
                             Container(
                                 height: 100,
                                 child: Card(
@@ -184,13 +180,11 @@ class _FishDexState extends State<FishDex> {
                                                 ]),
                                             Image(image: AssetImage('assets/images/bitterling1.png'))
                                           ],
-
                                         )
-                                    ))),
+                                    )
+                                )
+                            ),
                           ],
-
-
-
                         )
                     )
                 ),
@@ -234,6 +228,7 @@ class _FishDexState extends State<FishDex> {
                           ),
                         ],
                       )),
+
                       Column( children: <Widget>[
                         SizedBox(height: 5),
                         Container( width: 90, child: Text("#001", style: new TextStyle(fontSize: 16.0), textAlign: TextAlign.left )),
@@ -264,15 +259,20 @@ class _FishDexState extends State<FishDex> {
                                     child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Hello'), onPressed: () {
                                       Navigator.pop(context);
                                     }
-                                    )),
+                                    )
+                                ),
+
                                 new Container(
                                     margin: const EdgeInsets.only(right: 20, bottom: 5),
                                     child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35)
-                                    ))
-                              ]))
-                  )),
+                                    )
+                                )
+                              ]
+                          )
+                      )
+                  )
+              ),
             ]
-
         ),
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -283,7 +283,6 @@ class _FishDexState extends State<FishDex> {
             onPressed:() {
               Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras)));
             },
-
           ),
         )
     );
