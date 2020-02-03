@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
+import 'package:fishfinder_app/screens/home/species/species.dart';
 
 // @author Ian Ronk
 // @class FishDex
@@ -264,7 +265,9 @@ class _FishDexState extends State<FishDex> {
 
                                 new Container(
                                     margin: const EdgeInsets.only(right: 20, bottom: 5),
-                                    child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35)
+                                    child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35), onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SpeciesScreen()));
+                                    },
                                     )
                                 )
                               ]
