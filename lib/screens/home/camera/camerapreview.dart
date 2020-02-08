@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-
+import 'package:fishfinder_app/screens/home/camera/scanscreen.dart';
+import 'dart:async';
 // @author Ian Ronk
 // @class DisplayPictureScreen
 
@@ -37,7 +38,16 @@ class DisplayPictureScreen extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+
+      Navigator.push(
+      context,
+      MaterialPageRoute(
+      builder: (context) =>
+      ScanPictureScreen(),
+      ),
+      );
+      },
         label: Row(
           children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
         ),
