@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:fishfinder_app/screens/home/camera/scanscreen.dart';
 import 'dart:async';
+import 'package:dio/dio.dart';
+
 // @author Ian Ronk
 // @class DisplayPictureScreen
 
@@ -38,16 +41,40 @@ class DisplayPictureScreen extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
+        onPressed: () async {
+//          var _image = File(imagePath);
+//          List<int> imageBytes = _image.readAsBytesSync();
+//          String base64Image = base64UrlEncode(imageBytes);
+//
+//          var uploadURL = 'http://192.168.2.21:5000/fishfinder/predict/';
+//
+//          Map<String, String> data = {'b64': base64Image};
+//
+//          Dio dio = new Dio();
+//
+//          dio.post(uploadURL, data:data);
 
-      Navigator.push(
-      context,
-      MaterialPageRoute(
-      builder: (context) =>
-      ScanPictureScreen(),
-      ),
-      );
-      },
+          var _image = File(imagePath);
+          List<int> imageBytes = _image.readAsBytesSync();
+          String base64Image = base64UrlEncode(imageBytes);
+          //TODO arrange the base64 as data = {'b64': base64Image}
+          // TODO send request: requests.post(url=URL, data=data
+          var httpClient = new http.Client();
+          var uri = Uri.http("192.168.2.21:5000", "/fishfinder/predict/");
+          Map<String, String> data = {'b64': base64Image};
+          http.Response response = await http.post(uri, body: data);
+          int statusCode = response.statusCode;
+          print("Hello");
+//
+//          uploadFile() async {
+//            var postUri = Uri.http("http://192.168.2.21:5000", "/fishfinder/predict/");
+//            var request = new http.MultipartRequest("POST", postUri);
+//            request.headers.addEntries(data);
+//
+//          }
+
+
+        },
         label: Row(
           children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
         ),
