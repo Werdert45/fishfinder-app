@@ -8,8 +8,9 @@ import 'package:dio/dio.dart';
 // @author Ian Ronk
 // @class DisplayPictureScreen
 
-// TODO
-// Add the function of removing the image if the image is taken through the app
+// TODO Add the function of removing the image if the image is taken through the app
+// TODO add loading circle
+
 
 class DisplayPictureScreen extends StatelessWidget {
 
@@ -42,17 +43,26 @@ class DisplayPictureScreen extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-
+          // Get the image from the image path
           var _image = File(imagePath);
+
+          // Convert into list and stringify
           List<int> imageBytes = _image.readAsBytesSync();
-          // Correctly encoded
+
+          // encode in base64Url
           String base64Image = base64UrlEncode(imageBytes);
           var uri = Uri.http("192.168.2.21:5000", "/fishfinder/predict/");
+
+          // Send in correct format
           Map<String, String> data = {'b64': base64Image};
           print(data['b64'].length);
           http.Response response = await http.post(uri, body:data);
+
+          // Response is the species, resp can be changed into a string for testing
           var resp = response.body;
           print(resp);
+
+          // TODO set path to individual species and gives specific information
         },
         label: Row(
           children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
