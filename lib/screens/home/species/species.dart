@@ -24,7 +24,7 @@ class _SpeciesPageState extends State<SpeciesPage> {
     );
   }
 
-  List<Species> parseJSON(String response) {
+  List<previewSpecies> parseJSON(String response) {
     if (response == null) {
       return [];
     }
