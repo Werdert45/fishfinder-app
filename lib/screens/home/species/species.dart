@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:fishfinder_app/models/preview_species.dart';
 import 'dart:convert';
-
+import 'package:fishfinder_app/screens/home/species/list.dart';
 class SpeciesPage extends StatefulWidget {
   @override
   _SpeciesPageState createState() => _SpeciesPageState();
@@ -18,6 +17,9 @@ class _SpeciesPageState extends State<SpeciesPage> {
           future: DefaultAssetBundle.of(context).loadString('assets/json/preview_species.json'),
           builder: (context, snapshot) {
             List<previewSpecies> species = parseJSON(snapshot.data.toString());
+            return !species.isEmpty
+                ? new SpeciesList(species: species)
+                : new Center(child: new CircularProgressIndicator());
           }
         )
       )

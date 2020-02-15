@@ -4,7 +4,7 @@ import 'package:fishfinder_app/models/preview_species.dart';
 
 class SpeciesList extends StatelessWidget {
   final List<previewSpecies> species;
-  SpeciesList({Key key, this.name}) : super(key: key);
+  SpeciesList({Key key, this.species}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
