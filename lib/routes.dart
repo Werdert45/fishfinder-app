@@ -4,6 +4,7 @@ import 'package:fishfinder_app/screens/home/homescreen/home.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 import 'package:fishfinder_app/screens/wrapper.dart';
+import 'package:fishfinder_app/screens/home/species/species.dart';
 
 // @author Ian Ronk
 // @function routes
@@ -14,5 +15,5 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   '/': (BuildContext context) => Wrapper(cameras:cameras),
   '/home': (BuildContext context) => MainMenu(cameras),
   '/camera': (BuildContext context) => CameraScreen(cameras),
-  '/fishdex': (BuildContext context) => FishDex(cameras),
+  '/fishdex': (BuildContext context) => SpeciesPage(cameras),
 };
