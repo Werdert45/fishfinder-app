@@ -33,7 +33,7 @@ class _SpeciesPageState extends State<SpeciesPage> {
                   future: DefaultAssetBundle.of(context).loadString('assets/json/preview_species.json'),
                   builder: (context, snapshot) {
                     List<previewSpecies> species = parseJSON(snapshot.data.toString());
-                    return !species.isEmpty
+                    return species.isNotEmpty
                         ? new SpeciesList(species: species)
                         : new Center(child: new CircularProgressIndicator());
                   }
