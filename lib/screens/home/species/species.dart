@@ -1,89 +1,126 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:fishfinder_app/models/preview_species.dart';
-import 'dart:convert';
-import 'package:fishfinder_app/screens/home/species/list.dart';
+import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
+import 'package:camera/camera.dart';
 
+// @author Ian Ronk
+// @class Species
 
-class SpeciesPage extends StatefulWidget {
-  final List<CameraDescription> cameras;
-  SpeciesPage(this.cameras);
+class SpeciesScreen extends StatefulWidget {
+  final String speciesName;
+  SpeciesScreen({Key key, @required this.speciesName}) : super(key: key);
 
   @override
-  _SpeciesPageState createState() => _SpeciesPageState();
+  _SpeciesScreenState createState() => _SpeciesScreenState();
 }
 
-class _SpeciesPageState extends State<SpeciesPage> {
-
-  List data;
+class _SpeciesScreenState extends State<SpeciesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Row(children:<Widget>[Icon(Icons.adb, size:30), SizedBox(width: 20), Text("Fishdex")]),
+          title: Text(widget.speciesName),
           backgroundColor: Colors.lightBlueAccent,
           elevation: 0.0,
+
         ),
-      body: Stack(
-        children: <Widget>[
-          new Center(
-              child: new FutureBuilder(
-                  future: DefaultAssetBundle.of(context).loadString('assets/json/preview_species.json'),
-                  builder: (context, snapshot) {
-                    List<previewSpecies> species = parseJSON(snapshot.data.toString());
-                    return species.isNotEmpty
-                        ? new SpeciesList(species: species)
-                        : new Center(child: new CircularProgressIndicator());
-                  }
-              )
-          ),
-          Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.lightBlueAccent
-                  ),
-                  child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: SingleChildScrollView(
+            child: Stack(
+                children: <Widget>[Column(
+                  children: <Widget>[
+                    Image(image: AssetImage('assets/images/' + widget.speciesName.toLowerCase() + '.jpg')),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        child: Row(
                           children: <Widget>[
-                            new Container(
-                                margin: const EdgeInsets.only(left: 20, bottom: 5),
-                                child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Hello'), onPressed: () {
-                                  Navigator.pop(context);
-                                }
-                                )
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.adb),
+                                SizedBox(width: 5),
+                                Text("Esox Lucius", style: TextStyle(fontSize: 14))
+                              ],
                             ),
-
-                            new Container(
-                                margin: const EdgeInsets.only(right: 20, bottom: 5),
-                                child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35), onPressed: () {
-                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => SpeciesPage(cameras)));
-                                },
-                                )
+                            SizedBox(width: 30),
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.assignment_turned_in),
+                                SizedBox(width: 5),
+                                Text("Not Caught", style: TextStyle(fontSize: 14))
+                              ],
+                            ),
+                            SizedBox(width: 30),
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.fastfood),
+                                SizedBox(width: 5),
+                                Text("Not Edible", style: TextStyle(fontSize: 14))
+                              ],
                             )
-                          ]
-                      )
-                  )
-              )
-          )
-        ],
-      )
+                          ],
+                        )
+                    ),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Row(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.equalizer),
+                                SizedBox(width: 5),
+                                Text("Least Concern", style: TextStyle(fontSize: 14))
+                              ],
+                            ),
+                            SizedBox(width: 15),
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.wb_sunny),
+                                SizedBox(width: 5),
+                                Text("Apr - Sept", style: TextStyle(fontSize: 14))
+                              ],
+                            ),
+                            SizedBox(width: 40),
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.explore),
+                                SizedBox(width: 5),
+                                Text("138cm/4.6ft", style: TextStyle(fontSize: 14))
+                              ],
+                            )
+                          ],
+                        )
+                    ),
+                    Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Column(
+                          children: <Widget>[
+                            Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text("General information", style: TextStyle(fontSize: 18))
+                            ),
+                            SizedBox(height: 10),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id rhoncus nibh, id convallis nisl. "
+                                  "Etiam vulputate enim nulla, ac cursus sem sollicitudin a. Nulla rutrum ex eu ornare condimentum. Pellentesque mattis mollis libero a vehicula. "
+                                  "Duis mi risus, faucibus a gravida vel, vehicula id felis. Mauris faucibus, velit a sollicitudin pulvinar, eros quam luctus purus, non laoreet magna "
+                                  "ipsum sollicitudin lorem. Nullam congue quam ac pretium viverra. Donec hendrerit pulvinar nisi, ac viverra eros porta a. Phasellus imperdiet neque massa, "
+                                  "sit amet vestibulum leo dapibus sit amet. Integer interdum nisi at consectetur dapibus. Vivamus vulputate sapien a blandit semper. Proin sapien ipsum, "
+                                  "placerat eu aliquam non, dapibus sit amet velit. Fusce dui massa, lobortis vitae condimentum quis, "
+                                  "lobortis nec dui. Cras feugiat, elit vitae condimentum lobortis, nisl odio semper lorem, quis eleifend dolor justo nec felis. "
+                                  "Praesent sed finibus felis. Sed porttitor neque lobortis odio hendrerit pretium porttitor non eros. In ipsum dolor, semper vitae lacus eget, "
+                                  "tincidunt vestibulum mauris. Curabitur ut ipsum convallis urna laoreet scelerisque. Quisque volutpat massa ac nunc volutpat imperdiet. "
+                                  "Curabitur quis rhoncus ipsum, eu dictum nisi. Vivamus molestie viverra lectus, vitae cursus est lacinia ac. Maecenas pellentesque massa id fermentum placerat."),
+                            )
+                          ],
+                        )
+                    )
 
+
+                  ],
+                ),
+                ]
+            )
+        )
     );
-  }
-
-  List<previewSpecies> parseJSON(String response) {
-    if (response == null) {
-      return [];
-    }
-    final parsed = json.decode(response.toString()).cast<Map<String, dynamic>>();
-    return parsed.map<previewSpecies>((json) => new previewSpecies.fromJSON(json)).toList();
   }
 }

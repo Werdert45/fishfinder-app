@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/models/preview_species.dart';
+import 'package:fishfinder_app/screens/home/species/species.dart';
+
 
 class SpeciesList extends StatelessWidget {
   final List<previewSpecies> species;
@@ -17,6 +19,7 @@ class SpeciesList extends StatelessWidget {
             itemCount: species == null ? 0 : species.length,
             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             itemBuilder: (BuildContext context, int index) {
+
               return new GestureDetector(
                   child: new Container(
                     padding: const EdgeInsets.all(15.0),
@@ -26,7 +29,7 @@ class SpeciesList extends StatelessWidget {
                             alignment: Alignment.center,
                             child: new Column(
                              children: <Widget>[
-                               Image(image: AssetImage('assets/images/bitterling1.png')),
+                               Image(image: AssetImage('assets/images/' + species[index].name.toLowerCase() + '.jpg')),
                                Text.rich(
                                  TextSpan(
                                    children: <TextSpan>[
@@ -45,7 +48,8 @@ class SpeciesList extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-
+                    var speciesName = species[index].name;
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SpeciesScreen(speciesName: speciesName)));
                   }
               );
 
