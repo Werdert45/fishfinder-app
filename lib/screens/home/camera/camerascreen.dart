@@ -59,6 +59,32 @@ class CameraScreenState extends State<CameraScreen> {
     super.dispose();
   }
 
+  void onNewCameraSelected(CameraDescription cameraDescription) async {
+    if (controller != null) {
+      await controller.dispose();
+    }
+    controller = CameraController(
+      cameraDescription,
+      ResolutionPreset.high,
+    );
+
+// If the controller is updated then update the UI.
+    controller.addListener(() {
+      if (mounted) setState(() {});
+
+    });
+
+    try {
+      await controller.initialize();
+    } on CameraException catch (e) {
+     print(e);
+    }
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
