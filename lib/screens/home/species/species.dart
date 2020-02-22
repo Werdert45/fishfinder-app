@@ -6,8 +6,8 @@ import 'package:camera/camera.dart';
 // @class Species
 
 class SpeciesScreen extends StatefulWidget {
-  final String species;
-  SpeciesScreen({Key key, this.species}) : super(key: key);
+  final String speciesName;
+  SpeciesScreen({Key key, @required this.speciesName}) : super(key: key);
 
   @override
   _SpeciesScreenState createState() => _SpeciesScreenState();
@@ -19,7 +19,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text(super.species),
+          title: Text(widget.speciesName),
           backgroundColor: Colors.lightBlueAccent,
           elevation: 0.0,
 
@@ -28,7 +28,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
             child: Stack(
                 children: <Widget>[Column(
                   children: <Widget>[
-                    Image(image: AssetImage('assets/images/pikefront.jpg')),
+                    Image(image: AssetImage('assets/images/' + widget.speciesName.toLowerCase() + '.jpg')),
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         child: Row(

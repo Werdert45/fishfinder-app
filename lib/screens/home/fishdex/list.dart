@@ -48,7 +48,8 @@ class SpeciesList extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SpeciesScreen(species: species[index].name)));
+                    var speciesName = species[index].name;
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SpeciesScreen(speciesName: speciesName)));
                   }
               );
 
