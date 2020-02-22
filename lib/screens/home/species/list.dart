@@ -8,37 +8,49 @@ class SpeciesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
-        itemCount: species == null ? 0 : species.length,
-        itemBuilder: (BuildContext context, int index) {
-          return
-            new Card(
-              child: new Container(
-                child: new Center(
-                    child: new Column(
-                      // Stretch the cards in horizontal axis
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
+    return new SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+        child: GridView.builder(
+            physics: ScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: species == null ? 0 : species.length,
+            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemBuilder: (BuildContext context, int index) {
+              return new GestureDetector(
+                  child: new Container(
+                    padding: const EdgeInsets.all(15.0),
+                    child: new Card(
+                        elevation: 5.0,
+                        child: new Container(
+                            alignment: Alignment.center,
+                            child: new Column(
+                             children: <Widget>[
+                               Image(image: AssetImage('assets/images/bitterling1.png')),
+                               Text.rich(
+                                 TextSpan(
+                                   children: <TextSpan>[
+                                     TextSpan(text: "#"),
+                                     TextSpan(text: species[index].number),
+                                     TextSpan(text: " "),
+                                     TextSpan(text: species[index].name),
 
-                        new Text(
-                          // Read the name field value and set it in the Text widget
-                          species[index].number,
-                          // set some style to text
-                          style: new TextStyle(
-                              fontSize: 20.0, color: Colors.lightBlueAccent),
-                        ),
-                        new Text(
-                          // Read the name field value and set it in the Text widget
-                          "Name:- " + species[index].name,
-                          // set some style to text
-                          style: new TextStyle(
-                              fontSize: 20.0, color: Colors.amber),
-                        ),
-                      ],
-                    )),
-                padding: const EdgeInsets.all(15.0),
-              ),
-            );
-        });
+                                   ]
+                                 )
+                               ),
+                             ],
+                            )
+
+                        )
+                    ),
+                  ),
+                  onTap: () {
+
+                  }
+              );
+
+            })
+    );
   }
+
 }
