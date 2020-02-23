@@ -34,8 +34,8 @@ FishDex and to be able to share it with your friends
 * APP-15: Global named routes
 * APP-14: Switch camera mode
 * ~~APP-13: Image preparation before sending to API~~
-* APP-12: Single page for species
-* APP-11: Create fishdex complete
+* ~APP-12: Single page for species~
+* APP-11: ~Create fishdex complete~
 * ~~APP-10: clean up code and comments~~
 * ~~APP-9: Fix Camera after adding gallery~~
 * ~~APP-8: Access gallery through camera~~
