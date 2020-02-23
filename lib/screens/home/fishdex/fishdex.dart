@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:fishfinder_app/models/preview_species.dart';
+import 'package:fishfinder_app/models/species.dart';
 import 'dart:convert';
 import 'package:fishfinder_app/screens/home/fishdex/list.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
@@ -30,9 +30,9 @@ class _FishDexState extends State<FishDex> {
           children: <Widget>[
             new Center(
                 child: new FutureBuilder(
-                    future: DefaultAssetBundle.of(context).loadString('assets/json/preview_species.json'),
+                    future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
                     builder: (context, snapshot) {
-                      List<previewSpecies> species = parseJSON(snapshot.data.toString());
+                      List<Species> species = parseJSON(snapshot.data.toString());
                       return species.isNotEmpty
                           ? new SpeciesList(species: species)
                           : new Center(child: new CircularProgressIndicator());
@@ -88,12 +88,12 @@ class _FishDexState extends State<FishDex> {
     );
   }
 
-  List<previewSpecies> parseJSON(String response) {
+  List<Species> parseJSON(String response) {
     if (response == null) {
       return [];
     }
     print(json.decode(response.toString()));
     final parsed = json.decode(response.toString()).cast<Map<String, dynamic>>();
-    return parsed.map<previewSpecies>((json) => new previewSpecies.fromJSON(json)).toList();
+    return parsed.map<Species>((json) => new Species.fromJSON(json)).toList();
   }
 }

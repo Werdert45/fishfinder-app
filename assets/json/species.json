@@ -1,3 +1,13 @@
-[{
-
-}]
+[
+  {
+    "number": "001",
+    "name": "Snoek",
+    "latin_name": "Esox Lucius",
+    "length": "1.50m/3'2ft",
+    "edible": "Not Edible",
+    "conservation_state": "Least Concern",
+    "catch_state": "Caught",
+    "catch_time": "Apr - Sept",
+    "general_information": "Lorem Ipsum"
+  }
+]

@@ -6,8 +6,8 @@ class previewSpecies {
 
   factory previewSpecies.fromJSON(Map<String, dynamic> json) {
     return new previewSpecies(
-        number: json['number'] as String,
-        name: json['name'] as String,
+      number: json['number'] as String,
+      name: json['name'] as String,
     );
   }
 }

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
+import 'dart:core';
+import 'package:fishfinder_app/models/species.dart';
+
 
 // @author Ian Ronk
 // @class Species
 
 class SpeciesScreen extends StatefulWidget {
-  final String speciesName;
-  SpeciesScreen({Key key, @required this.speciesName}) : super(key: key);
+//  final String single_species;
+//  SpeciesScreen({Key key, @required this.single_species}) : super(key: key);
 
   @override
   _SpeciesScreenState createState() => _SpeciesScreenState();
@@ -16,10 +19,13 @@ class SpeciesScreen extends StatefulWidget {
 class _SpeciesScreenState extends State<SpeciesScreen> {
   @override
   Widget build(BuildContext context) {
+
+    final Species species = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text(widget.speciesName),
+          title: Text(species.name),
           backgroundColor: Colors.lightBlueAccent,
           elevation: 0.0,
 
@@ -28,7 +34,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
             child: Stack(
                 children: <Widget>[Column(
                   children: <Widget>[
-                    Image(image: AssetImage('assets/images/' + widget.speciesName.toLowerCase() + '.jpg')),
+                    Image(image: AssetImage('assets/images/' + species.name.toLowerCase() + '.jpg')),
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         child: Row(
@@ -37,7 +43,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                               children: <Widget>[
                                 Icon(Icons.adb),
                                 SizedBox(width: 5),
-                                Text("Esox Lucius", style: TextStyle(fontSize: 14))
+                                Text(species.latin_name, style: TextStyle(fontSize: 14))
                               ],
                             ),
                             SizedBox(width: 30),
@@ -45,7 +51,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                               children: <Widget>[
                                 Icon(Icons.assignment_turned_in),
                                 SizedBox(width: 5),
-                                Text("Not Caught", style: TextStyle(fontSize: 14))
+                                Text(species.catch_state, style: TextStyle(fontSize: 14))
                               ],
                             ),
                             SizedBox(width: 30),
@@ -53,7 +59,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                               children: <Widget>[
                                 Icon(Icons.fastfood),
                                 SizedBox(width: 5),
-                                Text("Not Edible", style: TextStyle(fontSize: 14))
+                                Text(species.edible, style: TextStyle(fontSize: 14))
                               ],
                             )
                           ],
@@ -67,7 +73,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                               children: <Widget>[
                                 Icon(Icons.equalizer),
                                 SizedBox(width: 5),
-                                Text("Least Concern", style: TextStyle(fontSize: 14))
+                                Text(species.conservation_state, style: TextStyle(fontSize: 14))
                               ],
                             ),
                             SizedBox(width: 15),
@@ -75,7 +81,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                               children: <Widget>[
                                 Icon(Icons.wb_sunny),
                                 SizedBox(width: 5),
-                                Text("Apr - Sept", style: TextStyle(fontSize: 14))
+                                Text(species.catch_time, style: TextStyle(fontSize: 14))
                               ],
                             ),
                             SizedBox(width: 40),
@@ -83,7 +89,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                               children: <Widget>[
                                 Icon(Icons.explore),
                                 SizedBox(width: 5),
-                                Text("138cm/4.6ft", style: TextStyle(fontSize: 14))
+                                Text(species.length, style: TextStyle(fontSize: 14))
                               ],
                             )
                           ],
@@ -100,16 +106,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                             SizedBox(height: 10),
                             Align(
                               alignment: Alignment.centerLeft,
-                              child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris id rhoncus nibh, id convallis nisl. "
-                                  "Etiam vulputate enim nulla, ac cursus sem sollicitudin a. Nulla rutrum ex eu ornare condimentum. Pellentesque mattis mollis libero a vehicula. "
-                                  "Duis mi risus, faucibus a gravida vel, vehicula id felis. Mauris faucibus, velit a sollicitudin pulvinar, eros quam luctus purus, non laoreet magna "
-                                  "ipsum sollicitudin lorem. Nullam congue quam ac pretium viverra. Donec hendrerit pulvinar nisi, ac viverra eros porta a. Phasellus imperdiet neque massa, "
-                                  "sit amet vestibulum leo dapibus sit amet. Integer interdum nisi at consectetur dapibus. Vivamus vulputate sapien a blandit semper. Proin sapien ipsum, "
-                                  "placerat eu aliquam non, dapibus sit amet velit. Fusce dui massa, lobortis vitae condimentum quis, "
-                                  "lobortis nec dui. Cras feugiat, elit vitae condimentum lobortis, nisl odio semper lorem, quis eleifend dolor justo nec felis. "
-                                  "Praesent sed finibus felis. Sed porttitor neque lobortis odio hendrerit pretium porttitor non eros. In ipsum dolor, semper vitae lacus eget, "
-                                  "tincidunt vestibulum mauris. Curabitur ut ipsum convallis urna laoreet scelerisque. Quisque volutpat massa ac nunc volutpat imperdiet. "
-                                  "Curabitur quis rhoncus ipsum, eu dictum nisi. Vivamus molestie viverra lectus, vitae cursus est lacinia ac. Maecenas pellentesque massa id fermentum placerat."),
+                              child: Text(species.general_information),
                             )
                           ],
                         )

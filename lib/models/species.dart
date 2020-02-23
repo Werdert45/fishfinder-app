@@ -14,15 +14,15 @@ class Species {
 
   factory Species.fromJSON(Map<String, dynamic> json) {
     return new Species(
-      number: json['number'] as String,
-      name: json['name'] as String,
-      latin_name: json['latin_name'] as String,
-      catch_state: json['catch_state'] as String,
-      edible: json['edible'] as String,
-      conservation_state: json['conservation_state'] as String,
-      catch_time: json['catch_time'] as String,
-      length: json['length'] as String,
-      general_information: json['general_information'] as String
+        number: json['number'] as String,
+        name: json['name'] as String,
+        latin_name: json['latin_name'] as String,
+        catch_state: json['catch_state'] as String,
+        edible: json['edible'] as String,
+        conservation_state: json['conservation_state'] as String,
+        catch_time: json['catch_time'] as String,
+        length: json['length'] as String,
+        general_information: json['general_information'] as String
 
     );
   }

@@ -1,17 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fishfinder_app/models/preview_species.dart';
+import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/screens/home/species/species.dart';
-
+import 'dart:core';
 
 class SpeciesList extends StatelessWidget {
-  final List<previewSpecies> species;
+  final List<Species> species;
   SpeciesList({Key key, this.species}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new SingleChildScrollView(
-      scrollDirection: Axis.vertical,
+        scrollDirection: Axis.vertical,
         child: GridView.builder(
             physics: ScrollPhysics(),
             scrollDirection: Axis.vertical,
@@ -28,28 +28,33 @@ class SpeciesList extends StatelessWidget {
                         child: new Container(
                             alignment: Alignment.center,
                             child: new Column(
-                             children: <Widget>[
-                               Image(image: AssetImage('assets/images/' + species[index].name.toLowerCase() + '.jpg')),
-                               Text.rich(
-                                 TextSpan(
-                                   children: <TextSpan>[
-                                     TextSpan(text: "#"),
-                                     TextSpan(text: species[index].number),
-                                     TextSpan(text: " "),
-                                     TextSpan(text: species[index].name),
+                              children: <Widget>[
+                                Image(image: AssetImage('assets/images/' + species[index].name.toLowerCase() + '.jpg')),
+                                Text.rich(
+                                    TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(text: "#"),
+                                          TextSpan(text: species[index].number),
+                                          TextSpan(text: " "),
+                                          TextSpan(text: species[index].name),
 
-                                   ]
-                                 )
-                               ),
-                             ],
+                                        ]
+                                    )
+                                ),
+                              ],
                             )
 
                         )
                     ),
                   ),
                   onTap: () {
-                    var speciesName = species[index].name;
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SpeciesScreen(speciesName: speciesName)));
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => SpeciesScreen(),
+                        settings: RouteSettings(
+                            arguments: species[index]
+                        )
+                    )
+                    );
                   }
               );
 
