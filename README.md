@@ -22,6 +22,7 @@ FishDex and to be able to share it with your friends
 
 ## Issues
 
+* APP-25: Fix having two json files by using one method for single-species page show
 * APP-24: See which fish caught on FishDex
 * APP-23: Show recent catches on homepage
 * APP-22: Add friends functionality
