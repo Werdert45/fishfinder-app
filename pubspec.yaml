@@ -20,6 +20,7 @@ dependencies:
   image_picker:
   flutter:
     sdk: flutter
+  tflite: ^1.0.4
 
 
   firebase_core: ^0.4.0+9
@@ -51,7 +52,10 @@ dev_dependencies:
 flutter:
   # Add image folder (for testing only!!)
   assets:
+    - assets/
     - assets/images/
+    - assets/tflite/fishfinder.tflite
+    - assets/tflite/labels.txt
     - assets/json/species.json
     - assets/json/preview_species.json
 
