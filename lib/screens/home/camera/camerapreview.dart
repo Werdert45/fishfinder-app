@@ -1,9 +1,7 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
-import 'package:dio/dio.dart';
+import 'package:tflite/tflite.dart';
 
 // @author Ian Ronk
 // @class DisplayPictureScreen
@@ -11,12 +9,109 @@ import 'package:dio/dio.dart';
 // TODO Add the function of removing the image if the image is taken through the app
 // TODO add loading circle
 
-
-class DisplayPictureScreen extends StatelessWidget {
+class DisplayPictureScreen extends StatefulWidget {
 
   // Get path to image
   final String imagePath;
   const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
+
+
+
+  @override
+  _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
+}
+
+class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
+
+  File _image;
+  List _recognitions;
+  double _imageHeight;
+  double _imageWidth;
+  bool _busy = false;
+
+  Future predictImagePicker() async {
+    var image = await File(widget.imagePath);
+    if (image == null) return;
+    setState(() {
+      _busy = true;
+    });
+    predictImage(image);
+  }
+
+  Future predictImage(File image) async {
+    if (image == null) return;
+    await recognizeImage(image);
+    // await recognizeImageBinary(image);
+    Tflite.close();
+
+
+    new FileImage(image)
+        .resolve(new ImageConfiguration())
+        .addListener(ImageStreamListener((ImageInfo info, bool _) {
+      setState(() {
+        _imageHeight = info.image.height.toDouble();
+        _imageWidth = info.image.width.toDouble();
+      });
+    }));
+
+    setState(() {
+      _image = image;
+      _busy = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _busy = true;
+
+    loadModel().then((val) {
+      setState(() {
+        _busy = false;
+      });
+    });
+  }
+
+  Future loadModel() async {
+    Tflite.close();
+      String res;
+          res = await Tflite.loadModel(
+            model: "assets/tflite/fishfinder.tflite",
+            labels: "assets/tflite/labels.txt",
+          );
+          print(res);
+  }
+
+  Future recognizeImage(File image) async {
+    var recognitions = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 6,
+      threshold: 0.05,
+      imageMean: 127.5,
+      imageStd: 127.5,
+    );
+    setState(() {
+      _recognitions = recognitions;
+    });
+    print(recognitions);
+  }
+
+  onSelect(model) async {
+    setState(() {
+      _busy = true;
+      _recognitions = null;
+    });
+    await loadModel();
+
+    if (_image != null)
+      predictImage(_image);
+    else
+      setState(() {
+        _busy = false;
+      });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +120,7 @@ class DisplayPictureScreen extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           // Get image file by file path
-          Image.file(File(imagePath),fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
+          Image.file(File(widget.imagePath),fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
           Align(
               alignment: Alignment.topRight,
               child: Container(
@@ -42,28 +137,7 @@ class DisplayPictureScreen extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          // Get the image from the image path
-          var _image = File(imagePath);
-
-          // Convert into list and stringify
-          List<int> imageBytes = _image.readAsBytesSync();
-
-          // encode in base64Url
-          String base64Image = base64UrlEncode(imageBytes);
-          var uri = Uri.http("192.168.2.21:5000", "/fishfinder/predict/");
-
-          // Send in correct format
-          Map<String, String> data = {'b64': base64Image};
-          print(data['b64'].length);
-          http.Response response = await http.post(uri, body:data);
-
-          // Response is the species, resp can be changed into a string for testing
-          var resp = response.body;
-          print(resp);
-
-          // TODO set path to individual species and gives specific information
-        },
+        onPressed: predictImagePicker,
         label: Row(
           children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
         ),
