@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
 import 'package:tflite/tflite.dart';
+import 'package:fishfinder_app/models/species.dart';
+import 'package:fishfinder_app/screens/home/species/species.dart';
 
 // @author Ian Ronk
 // @class DisplayPictureScreen
@@ -15,8 +19,6 @@ class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
   const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
 
-
-
   @override
   _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
 }
@@ -25,6 +27,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   File _image;
   List _recognitions;
+  List test;
   double _imageHeight;
   double _imageWidth;
   bool _busy = false;
@@ -35,15 +38,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     setState(() {
       _busy = true;
     });
-    predictImage(image);
-  }
 
-  Future predictImage(File image) async {
     if (image == null) return;
-    await recognizeImage(image);
-    // await recognizeImageBinary(image);
-    Tflite.close();
-
 
     new FileImage(image)
         .resolve(new ImageConfiguration())
@@ -58,9 +54,49 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       _image = image;
       _busy = false;
     });
+
+    var recognitions = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 6,
+      threshold: 0.05,
+      imageMean: 127.5,
+      imageStd: 127.5,
+    );
+    setState(() {
+      _recognitions = recognitions;
+    });
+
+
+    String speciesList = await DefaultAssetBundle.of(context).loadString('assets/json/species.json');
+    List<dynamic> species = json.decode(speciesList);
+
+    var speciesName = species[_recognitions[0]['index']];
+
+    // Check if _recognitions are made
+    if (_recognitions != null) {
+      // convert the index from the list to a species object
+      Species speciesType = Species.fromJSON(speciesName);
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context) => SpeciesScreen(),
+          settings: RouteSettings(
+              arguments: speciesType
+          )
+      )
+      );
   }
 
-  @override
+
+    Future loadModel() async {
+      Tflite.close();
+      String res;
+      res = await Tflite.loadModel(
+        model: "assets/tflite/fishfinder.tflite",
+        labels: "assets/tflite/labels.txt",
+      );
+    }
+
+
+    @override
   void initState() {
     super.initState();
 
@@ -73,45 +109,14 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     });
   }
 
-  Future loadModel() async {
-    Tflite.close();
-      String res;
-          res = await Tflite.loadModel(
-            model: "assets/tflite/fishfinder.tflite",
-            labels: "assets/tflite/labels.txt",
-          );
-          print(res);
+
+  Future speciesPrediction() async {
+    await predictImagePicker();
+
+
+    }
+
   }
-
-  Future recognizeImage(File image) async {
-    var recognitions = await Tflite.runModelOnImage(
-      path: image.path,
-      numResults: 6,
-      threshold: 0.05,
-      imageMean: 127.5,
-      imageStd: 127.5,
-    );
-    setState(() {
-      _recognitions = recognitions;
-    });
-    print(recognitions);
-  }
-
-  onSelect(model) async {
-    setState(() {
-      _busy = true;
-      _recognitions = null;
-    });
-    await loadModel();
-
-    if (_image != null)
-      predictImage(_image);
-    else
-      setState(() {
-        _busy = false;
-      });
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +142,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: predictImagePicker,
+        onPressed: () async {
+          await predictImagePicker();
+
+        },
         label: Row(
           children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
         ),
