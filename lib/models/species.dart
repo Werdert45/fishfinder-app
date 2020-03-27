@@ -23,7 +23,6 @@ class Species {
         catch_time: json['catch_time'] as String,
         length: json['length'] as String,
         general_information: json['general_information'] as String
-
     );
   }
 

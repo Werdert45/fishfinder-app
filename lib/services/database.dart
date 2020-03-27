@@ -10,20 +10,30 @@ class DatabaseService {
   final String uid;
   DatabaseService({ this.uid});
 
-//  // collection reference
-//  final CollectionReference brewCollection = Firestore.instance.collection('brews');
-//
-//
-//  Future updateUserData(String sugars, String name, int strength) async {
-//    return await brewCollection.document(uid).setData({
-//      'sugars': sugars,
-//      'name': name,
-//      'strength': strength
-//    });
+  // collection reference
+  final CollectionReference fishCatchesCollection = Firestore.instance.collection('fish_catches');
+
+
+  Future updateUserData(String email, List species) async {
+    return await fishCatchesCollection.document(uid).setData({
+      'email': email,
+      'species': species
+    });
+  }
+
+
+//  Future getSpeciesList() async {
+//    return await fishCatchesCollection.document(uid).
 //  }
-//
+
+  Future updateSpeciesList(currentUser, newSpecies) async {
+    return await fishCatchesCollection.document(currentUser).updateData({
+      'species': FieldValue.arrayUnion([newSpecies])
+    });
+  }
+
 //  // list of brews from snapshot
-//  List<Brew> _brewListFromSnapshot(QuerySnapshot snapshot) {
+//  List<> _brewListFromSnapshot(QuerySnapshot snapshot) {
 //    return snapshot.documents.map((doc) {
 //      return Brew(
 //          name: doc.data['name'] ?? '',
@@ -32,11 +42,11 @@ class DatabaseService {
 //      );
 //    }).toList();
 //  }
-//
-//  // get brews stream
-//  Stream<List<Brew>> get brews {
-//    return brewCollection.snapshots().map(_brewListFromSnapshot);
-//  }
+
+  // get brews stream
+  Stream<QuerySnapshot> get fishCatches {
+    return fishCatchesCollection.snapshots();
+  }
 
 
 }

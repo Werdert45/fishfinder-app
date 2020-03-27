@@ -4,6 +4,9 @@ import 'package:fishfinder_app/models/species.dart';
 import 'dart:convert';
 import 'package:fishfinder_app/screens/home/fishdex/list.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
+import 'package:fishfinder_app/services/database.dart';
+import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FishDex extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -18,7 +21,9 @@ class _FishDexState extends State<FishDex> {
   List data;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return StreamProvider<QuerySnapshot>.value(
+      value: DatabaseService().fishCatches,
+    child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -85,6 +90,7 @@ class _FishDexState extends State<FishDex> {
             },
           ),
         )
+    )
     );
   }
 

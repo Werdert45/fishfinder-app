@@ -3,14 +3,15 @@ import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
 import 'dart:core';
 import 'package:fishfinder_app/models/species.dart';
-
+import 'package:fishfinder_app/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // @author Ian Ronk
 // @class Species
 
 class SpeciesScreen extends StatefulWidget {
-//  final String single_species;
-//  SpeciesScreen({Key key, @required this.single_species}) : super(key: key);
+  final String single_species;
+  SpeciesScreen({Key key, @required this.single_species}) : super(key: key);
 
   @override
   _SpeciesScreenState createState() => _SpeciesScreenState();
@@ -21,6 +22,14 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
   Widget build(BuildContext context) {
 
     final Species species = ModalRoute.of(context).settings.arguments;
+
+    Future currentUser() async {
+      FirebaseUser user = await FirebaseAuth.instance.currentUser();
+      var database = DatabaseService();
+      database.updateSpeciesList(user.uid, int.parse(species.number));
+    }
+
+    currentUser();
 
     return Scaffold(
         backgroundColor: Colors.white,
