@@ -66,8 +66,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       _recognitions = recognitions;
     });
 
-
-    String speciesList = await DefaultAssetBundle.of(context).loadString('assets/json/species.json');
+    String speciesList = await DefaultAssetBundle.of(context).loadString(
+        'assets/json/species.json');
     List<dynamic> species = json.decode(speciesList);
 
     var speciesName = species[_recognitions[0]['index']];
@@ -83,18 +83,16 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
           )
       )
       );
+    }
   }
-
 
     Future loadModel() async {
       Tflite.close();
-      String res;
-      res = await Tflite.loadModel(
+      await Tflite.loadModel(
         model: "assets/tflite/fishfinder.tflite",
         labels: "assets/tflite/labels.txt",
       );
     }
-
 
     @override
   void initState() {
@@ -107,15 +105,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         _busy = false;
       });
     });
-  }
-
-
-  Future speciesPrediction() async {
-    await predictImagePicker();
-
-
-    }
-
   }
 
   @override
@@ -144,7 +133,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           await predictImagePicker();
-
         },
         label: Row(
           children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
