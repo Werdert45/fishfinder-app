@@ -29,7 +29,7 @@ FishDex and to be able to share it with your friends
 * APP-22: Add friends functionality
 * APP-21: Write tests 
 * APP-20: Loading screen when scanning
-* APP-19: Return page of the species after API call
+~~* APP-19: Return page of the species after API call~~
 * APP-18: Database setup
 * ~~APP-17: Send image to API and return species~~
 * APP-16: Generalize styling
