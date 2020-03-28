@@ -21,10 +21,13 @@ class DatabaseService {
     });
   }
 
-
-//  Future getSpeciesList() async {
-//    return await fishCatchesCollection.document(uid).
-//  }
+  Future registerOthers(String firstName, String lastName, bool premiumUser) async {
+    return await fishCatchesCollection.document(uid).setData({
+      'firstname': firstName,
+      'surname': lastName,
+      'premium': premiumUser
+    });
+  }
 
   Future updateSpeciesList(currentUser, newSpecies) async {
     return await fishCatchesCollection.document(currentUser).updateData({

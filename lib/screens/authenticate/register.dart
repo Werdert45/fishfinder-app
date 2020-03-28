@@ -161,13 +161,22 @@ class _SignUpPageState extends State<SignUpPage> {
                         Form(
                             key: _formKey,
                             child: Column(
-                                children: <Widget>[TextFormField(
-                                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
-                                    decoration: textInputDecoration.copyWith(hintText: 'Email'),
-                                    onChanged: (val) {
-                                      setState(() => email = val);
-                                    }
-                                ),
+                                children: <Widget>[
+                                  TextFormField(
+                                      validator: (val) => val.isEmpty ? 'Enter your name' : null,
+                                      decoration: textInputDecoration.copyWith(hintText: 'Name'),
+                                      onChanged: (val) {
+                                        setState(() => name = val);
+                                      }
+                                  ),
+                                  SizedBox(height: 15),
+                                  TextFormField(
+                                      validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                                      decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                                      onChanged: (val) {
+                                        setState(() => email = val);
+                                      }
+                                  ),
                                   SizedBox(height: 15),
                                   TextFormField(
                                     validator: (val) => val.length < 6 ? 'Enter a password 6+ chars long' : null,
