@@ -25,7 +25,7 @@ gestippelde alver
 giebel
 goudharder
 goudvis
-Graskarper
+graskarper
 grootkopkarper
 grote marene
 gup
@@ -37,7 +37,7 @@ kopvoorn
 kroeskarper
 kwabaal
 marmergrondel
-Pontische stroomgrondel
+pontische stroomgrondel
 pos
 regenboogforel
 rietvoorn

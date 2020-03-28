@@ -55,6 +55,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/preview/
     - assets/tflite/fishfinder.tflite
     - assets/tflite/labels.txt
     - assets/json/species.json

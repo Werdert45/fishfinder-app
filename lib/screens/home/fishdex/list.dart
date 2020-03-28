@@ -103,7 +103,10 @@ class SpeciesList extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: new Column(
                                   children: <Widget>[
-                                    Image(image: AssetImage('assets/images/' + species[index].name.toLowerCase() + '.jpg')),
+                                    Image.asset(
+                                        'assets/images/preview/' + species[index].name.toLowerCase() + '.jpg',
+                                      height: 130,
+                                    ),
                                     Text.rich(
                                         TextSpan(
                                             children: <TextSpan>[
@@ -132,7 +135,8 @@ class SpeciesList extends StatelessWidget {
                       }
                   );
 
-                })
+                }),
+            SizedBox(height: 50)
           ],
         )
 

@@ -13,7 +13,7 @@
 
   {
     "number": "002",
-    "name": "aal",
+    "name": "afrikaanse meerval",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -25,7 +25,7 @@
 
   {
     "number": "003",
-    "name": "aal",
+    "name": "alver",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -37,7 +37,7 @@
 
   {
     "number": "004",
-    "name": "aal",
+    "name": "amerikaanse hondsvis",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -49,7 +49,7 @@
 
   {
     "number": "005",
-    "name": "aal",
+    "name": "atlantische steur",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -61,7 +61,7 @@
 
   {
     "number": "006",
-    "name": "aal",
+    "name": "baars",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -73,7 +73,7 @@
 
   {
     "number": "007",
-    "name": "aal",
+    "name": "barbeel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -85,7 +85,7 @@
 
   {
     "number": "008",
-    "name": "aal",
+    "name": "beekforel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -96,7 +96,7 @@
   },
   {
     "number": "009",
-    "name": "aal",
+    "name": "bermpje",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -108,7 +108,7 @@
 
   {
     "number": "010",
-    "name": "aal",
+    "name": "bittervoorn",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -120,7 +120,7 @@
 
   {
     "number": "011",
-    "name": "aal",
+    "name": "blankvoorn",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -132,7 +132,7 @@
 
   {
     "number": "012",
-    "name": "aal",
+    "name": "blauwband",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -144,7 +144,7 @@
 
   {
     "number": "013",
-    "name": "aal",
+    "name": "blauwneus",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -156,7 +156,7 @@
 
   {
     "number": "014",
-    "name": "aal",
+    "name": "bot",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -168,7 +168,7 @@
 
   {
     "number": "015",
-    "name": "aal",
+    "name": "brasem",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -180,7 +180,7 @@
 
   {
     "number": "016",
-    "name": "aal",
+    "name": "bronforel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -191,7 +191,7 @@
   },
   {
     "number": "017",
-    "name": "aal",
+    "name": "diklipharder",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -203,7 +203,7 @@
 
   {
     "number": "018",
-    "name": "aal",
+    "name": "donaubrasem",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -215,7 +215,7 @@
 
   {
     "number": "019",
-    "name": "aal",
+    "name": "driedoornige stekelbaars",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -227,7 +227,7 @@
 
   {
     "number": "020",
-    "name": "aal",
+    "name": "dunlipharder",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -239,7 +239,7 @@
 
   {
     "number": "021",
-    "name": "aal",
+    "name": "elrits",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -251,7 +251,7 @@
 
   {
     "number": "022",
-    "name": "aal",
+    "name": "europese meerval",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -263,7 +263,7 @@
 
   {
     "number": "023",
-    "name": "aal",
+    "name": "fint",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -275,7 +275,7 @@
 
   {
     "number": "024",
-    "name": "aal",
+    "name": "gestippelde alver",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -286,7 +286,7 @@
   },
   {
     "number": "025",
-    "name": "aal",
+    "name": "giebel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -298,7 +298,7 @@
 
   {
     "number": "026",
-    "name": "aal",
+    "name": "goudharder",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -310,7 +310,7 @@
 
   {
     "number": "027",
-    "name": "aal",
+    "name": "goudvis",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -322,7 +322,7 @@
 
   {
     "number": "028",
-    "name": "aal",
+    "name": "graskarper",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -334,7 +334,7 @@
 
   {
     "number": "029",
-    "name": "aal",
+    "name": "grootkopkarper",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -346,7 +346,7 @@
 
   {
     "number": "030",
-    "name": "aal",
+    "name": "grote marene",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -358,7 +358,7 @@
 
   {
     "number": "031",
-    "name": "aal",
+    "name": "gup",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -370,7 +370,7 @@
 
   {
     "number": "032",
-    "name": "aal",
+    "name": "karper",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -381,7 +381,7 @@
   },
   {
     "number": "033",
-    "name": "aal",
+    "name": "kesslers grondel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -393,7 +393,7 @@
 
   {
     "number": "034",
-    "name": "aal",
+    "name": "kleine modderkruiper",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -405,7 +405,7 @@
 
   {
     "number": "035",
-    "name": "aal",
+    "name": "kolblei",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -417,7 +417,7 @@
 
   {
     "number": "036",
-    "name": "aal",
+    "name": "kopvoorn",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -429,7 +429,7 @@
 
   {
     "number": "037",
-    "name": "aal",
+    "name": "kroeskarper",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -441,7 +441,7 @@
 
   {
     "number": "038",
-    "name": "aal",
+    "name": "kwabaal",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -453,7 +453,7 @@
 
   {
     "number": "039",
-    "name": "aal",
+    "name": "marmergrondel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -465,7 +465,7 @@
 
   {
     "number": "040",
-    "name": "aal",
+    "name": "pontische stroomgrondel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -476,7 +476,7 @@
   },
   {
     "number": "041",
-    "name": "aal",
+    "name": "pos",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -488,7 +488,7 @@
 
   {
     "number": "042",
-    "name": "aal",
+    "name": "regenboogforel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -500,7 +500,7 @@
 
   {
     "number": "043",
-    "name": "aal",
+    "name": "rietvoorn",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -512,7 +512,7 @@
 
   {
     "number": "044",
-    "name": "aal",
+    "name": "rivierdonderpad",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -524,7 +524,7 @@
 
   {
     "number": "045",
-    "name": "aal",
+    "name": "riviergrondel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -536,7 +536,7 @@
 
   {
     "number": "046",
-    "name": "aal",
+    "name": "roofblei",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -548,7 +548,7 @@
 
   {
     "number": "047",
-    "name": "aal",
+    "name": "serpeling",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -560,7 +560,7 @@
 
   {
     "number": "048",
-    "name": "aal",
+    "name": "siberische steur",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -571,7 +571,7 @@
   },
   {
     "number": "049",
-    "name": "aal",
+    "name": "sneep",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -583,7 +583,7 @@
 
   {
     "number": "050",
-    "name": "aal",
+    "name": "snoek",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -595,7 +595,7 @@
 
   {
     "number": "051",
-    "name": "aal",
+    "name": "snoekbaars",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -607,7 +607,7 @@
 
   {
     "number": "052",
-    "name": "aal",
+    "name": "spiering",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -619,7 +619,7 @@
 
   {
     "number": "053",
-    "name": "aal",
+    "name": "sterlet",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -631,7 +631,7 @@
 
   {
     "number": "054",
-    "name": "aal",
+    "name": "tiendoornige stekelbaars",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -643,7 +643,7 @@
 
   {
     "number": "055",
-    "name": "aal",
+    "name": "vetje",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -655,7 +655,7 @@
 
   {
     "number": "056",
-    "name": "aal",
+    "name": "wijting",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -666,7 +666,7 @@
   },
   {
     "number": "057",
-    "name": "aal",
+    "name": "winde",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -678,7 +678,7 @@
 
   {
     "number": "058",
-    "name": "aal",
+    "name": "zalm",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -690,7 +690,7 @@
 
   {
     "number": "059",
-    "name": "aal",
+    "name": "zeeforel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -702,7 +702,7 @@
 
   {
     "number": "060",
-    "name": "aal",
+    "name": "zeelt",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -714,7 +714,7 @@
 
   {
     "number": "061",
-    "name": "aal",
+    "name": "zilverkarper",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -726,7 +726,7 @@
 
   {
     "number": "062",
-    "name": "aal",
+    "name": "zonnebaars",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -738,7 +738,7 @@
 
   {
     "number": "063",
-    "name": "aal",
+    "name": "zwarte dwergmeerval",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
@@ -750,7 +750,7 @@
 
   {
     "number": "064",
-    "name": "aal",
+    "name": "zwarte grondel",
     "latin_name": "Esox Lucius",
     "length": "1.50m/3'2ft",
     "edible": "Not Edible",
