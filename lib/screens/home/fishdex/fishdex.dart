@@ -25,15 +25,11 @@ class _FishDexState extends State<FishDex> {
       value: DatabaseService().fishCatches,
     child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Row(children:<Widget>[Icon(Icons.adb, size:30), SizedBox(width: 20), Text("Fishdex")]),
-          backgroundColor: Colors.lightBlueAccent,
-          elevation: 0.0,
-        ),
         body: Stack(
           children: <Widget>[
-            new Center(
+
+            new Container(
+            child: Center(
                 child: new FutureBuilder(
                     future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
                     builder: (context, snapshot) {
@@ -43,6 +39,7 @@ class _FishDexState extends State<FishDex> {
                           : new Center(child: new CircularProgressIndicator());
                     }
                 )
+            )
             ),
             Positioned(
                 bottom: 0,

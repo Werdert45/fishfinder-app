@@ -93,6 +93,7 @@ class _MainMenuState extends State<MainMenu> {
                                 )
                                 )
                             ),
+
                             Container(
                                 margin: const EdgeInsets.only(top: 10.0, bottom: 30, left: 20.0, right: 20.0),
                                 height: 35,
@@ -582,7 +583,7 @@ class _MainMenuState extends State<MainMenu> {
                   right: 0,
                   child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.lightBlueAccent
+                          color: Colors.white
                       ),
 
                       child: Align(
@@ -593,10 +594,10 @@ class _MainMenuState extends State<MainMenu> {
                               children: <Widget>[
                                 new Container(
                                     margin: const EdgeInsets.only(left: 20, bottom: 5),
-                                    child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Home'))),
+                                    child: IconButton(icon: Icon(Icons.home, color: Colors.grey, size: 35, semanticLabel: 'Home'))),
                                 new Container(
                                     margin: const EdgeInsets.only(right: 20, bottom: 5),
-                                    child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35, semanticLabel: 'FishDex',), onPressed: () {
+                                    child:IconButton(icon: Icon(Icons.book, color: Colors.grey, size: 35, semanticLabel: 'FishDex',), onPressed: () {
                                       // Put the fishdex  screen on top of homescreen
                                       Navigator.pushNamed(context, '/fishdex');
                                     }
