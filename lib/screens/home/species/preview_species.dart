@@ -67,7 +67,7 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
             child: Stack(
                 children: <Widget>[Column(
                   children: <Widget>[
-                    Image(image: AssetImage('assets/images/' + species.name.toLowerCase() + '.jpg')),
+                    Image.asset('assets/images/preview/' + species.name.toLowerCase() + '.jpg', width:  MediaQuery.of(context).size.width),
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         child: Row(

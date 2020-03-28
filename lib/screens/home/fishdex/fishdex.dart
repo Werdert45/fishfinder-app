@@ -47,7 +47,7 @@ class _FishDexState extends State<FishDex> {
                 right: 0,
                 child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.lightBlueAccent
+                        color: Colors.white
                     ),
                     child: Align(
                         alignment: Alignment.bottomCenter,
@@ -57,7 +57,7 @@ class _FishDexState extends State<FishDex> {
                             children: <Widget>[
                               new Container(
                                   margin: const EdgeInsets.only(left: 20, bottom: 5),
-                                  child: IconButton(icon: Icon(Icons.home, color: Colors.white, size: 35, semanticLabel: 'Hello'), onPressed: () {
+                                  child: IconButton(icon: Icon(Icons.home, color: Colors.grey, size: 35, semanticLabel: 'Hello'), onPressed: () {
                                     Navigator.pop(context);
                                   }
                                   )
@@ -65,7 +65,7 @@ class _FishDexState extends State<FishDex> {
 
                               new Container(
                                   margin: const EdgeInsets.only(right: 20, bottom: 5),
-                                  child:IconButton(icon: Icon(Icons.book, color: Colors.white, size: 35), onPressed: () {
+                                  child:IconButton(icon: Icon(Icons.book, color: Colors.grey, size: 35), onPressed: () {
                                     //Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(cameras)));
                                   },
                                   )

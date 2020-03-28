@@ -33,17 +33,19 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(species.name),
-          backgroundColor: Colors.lightBlueAccent,
-          elevation: 0.0,
 
-        ),
         body: SingleChildScrollView(
             child: Stack(
                 children: <Widget>[Column(
                   children: <Widget>[
-                    Image(image: AssetImage('assets/images/' + species.name.toLowerCase() + '.jpg')),
+                    SizedBox(height: 25),
+                    Row(
+                      children: <Widget>[
+                        IconButton(icon: Icon(Icons.arrow_back), onPressed: () {Navigator.pop(context);},),
+                        Text(species.name)
+                      ],
+                    ),
+                    Image.asset('assets/images/preview/' + species.name.toLowerCase() + '.jpg', width: MediaQuery.of(context).size.width),
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         child: Row(
