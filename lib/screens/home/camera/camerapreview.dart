@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:fishfinder_app/screens/home/species/preview_species.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
@@ -77,7 +77,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       // convert the index from the list to a species object
       Species speciesType = Species.fromJSON(speciesName);
       Navigator.push(context, MaterialPageRoute(
-          builder: (context) => SpeciesScreen(),
+          builder: (context) => PreviewSpeciesScreen(),
           settings: RouteSettings(
               arguments: speciesType
           )
