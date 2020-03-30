@@ -21,6 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
   tflite: ^1.0.4
+  flappy_search_bar: 1.4.1
 
 
   firebase_core: ^0.4.0+9

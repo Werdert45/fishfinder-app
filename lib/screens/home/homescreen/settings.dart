@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
+import 'payment.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -177,7 +178,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       )
                                   ),
                                   onPressed: () {
-                                    Navigator.pop(context);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumPaymentScreen()));
                                   },
                                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                                   color: Colors.orange,

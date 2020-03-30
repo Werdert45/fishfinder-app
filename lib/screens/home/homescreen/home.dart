@@ -95,15 +95,31 @@ class _MainMenuState extends State<MainMenu> {
                             ),
 
                             Container(
-                                margin: const EdgeInsets.only(top: 10.0, bottom: 30, left: 20.0, right: 20.0),
-                                height: 35,
+                                margin: const EdgeInsets.only(top: 0.0, bottom: 0, left: 20.0, right: 20.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    // override textfield's icon color when selected
+                                    primaryColor: Colors.orange,
+                                  ),
                                 child: TextField(
                                     controller: null,
+                                    style: TextStyle(fontSize: 14),
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        prefixIcon: Icon(Icons.search)
+                                        contentPadding: EdgeInsets.symmetric(vertical: 0),
+                                        isDense: true,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(25)
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.orange, width: 2.0),
+                                          borderRadius: BorderRadius.circular(25)
+                                        ),
+                                        focusColor: Colors.orange,
+                                        prefixIcon: Icon(Icons.search, size: 20)
                                     )
                                 )
+                            ),
                             ),
 
                             SizedBox(height: 20),
