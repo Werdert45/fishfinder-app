@@ -4,6 +4,8 @@ import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/screens/home/species/species.dart';
 import 'dart:core';
 
+import 'package:percent_indicator/circular_percent_indicator.dart';
+
 class SpeciesList extends StatelessWidget {
   final List<Species> species;
   SpeciesList({Key key, this.species}) : super(key: key);
@@ -33,52 +35,65 @@ class SpeciesList extends StatelessWidget {
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-                child: Column(
+                child: Row(
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              width: 200,
-                              child: Text("Fishdex", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
-                            )
-                        ),
-                        SizedBox(width: 100),
+                    Container(
+                      width: (MediaQuery.of(context).size.width - 220),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    child: Text("Fishdex", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
+                                  )
+                              ),
+                              SizedBox(width: 100),
 
-                      ],
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: <Widget>[
+                              Text('Latest Catch:', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 16, color: Colors.white))
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text('#014 Snoekbaars', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: <Widget>[
+                              Text('Most frequent catch:', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 16, color: Colors.white))
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text('#062 Regenboogkarper', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text('5 time(s)', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            children: <Widget>[
+                            ],
+                          )
+                        ],
+                      )
                     ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: <Widget>[
-                        Text('Latest Catch:', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 16, color: Colors.white))
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text('#014 Snoekbaars', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: <Widget>[
-                        Text('Most frequent catch:', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 16, color: Colors.white))
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text('#062 Regenboogkarper', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text('5 time(s)', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      children: <Widget>[
-                      ],
+                    CircularPercentIndicator(
+                      radius: (MediaQuery.of(context).size.width - 300),
+                      lineWidth: 15.0,
+                      percent: 0.25,
+                      center: new Text("100%", style: TextStyle(fontSize: 25)),
+                      progressColor: Colors.green,
                     )
                   ],
                 )
