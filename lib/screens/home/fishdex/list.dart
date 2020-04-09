@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/screens/home/species/species.dart';
 import 'dart:core';
-
+import 'package:fishfinder_app/shared/constants.dart';
+import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class SpeciesList extends StatelessWidget {
   final List<Species> species;
   SpeciesList({Key key, this.species}) : super(key: key);
+
+  var speciesCaught = [1,2,3];
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +34,7 @@ class SpeciesList extends StatelessWidget {
                           blurRadius: 5,
                           spreadRadius: 2)
                     ],
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                    gradient: linearGradient),
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -105,50 +105,103 @@ class SpeciesList extends StatelessWidget {
                 itemCount: species == null ? 0 : species.length,
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 itemBuilder: (BuildContext context, int index) {
+                  if(speciesCaught.contains(index)) {
 
-                  return new GestureDetector(
-                      child: new Container(
-                        padding: const EdgeInsets.all(15.0),
-                        child: new Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            elevation: 5.0,
-                            child: new Container(
-                                alignment: Alignment.center,
-                                child: new Column(
-                                  children: <Widget>[
-                                    Image.asset(
+                    return new GestureDetector(
+                        child: new Container(
+                          padding: const EdgeInsets.all(15.0),
+                          child: new GradientCard(
+                            gradient: linearGradient,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              elevation: 5.0,
+                              child: new Container(
+                                  alignment: Alignment.center,
+                                  child: new Column(
+                                    children: <Widget>[
+                                      Image.asset(
                                         'assets/images/preview/' + species[index].name.toLowerCase() + '.jpg',
-                                      height: 130,
-                                    ),
-                                    Text.rich(
-                                        TextSpan(
-                                            children: <TextSpan>[
-                                              TextSpan(text: "#"),
-                                              TextSpan(text: species[index].number),
-                                              TextSpan(text: " "),
-                                              TextSpan(text: species[index].name),
+                                        height: 130,
+                                      ),
+                                      Text.rich(
+                                          TextSpan(
+                                              children: <TextSpan>[
+                                                TextSpan(text: "#"),
+                                                TextSpan(text: species[index].number),
+                                                TextSpan(text: " "),
+                                                TextSpan(text: species[index].name),
 
-                                            ]
-                                        )
-                                    ),
-                                  ],
-                                )
+                                              ]
+                                          )
+                                      ),
+                                    ],
+                                  )
 
-                            )
+                              )
+                          ),
                         ),
-                      ),
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => SpeciesScreen(),
-                            settings: RouteSettings(
-                                arguments: species[index]
-                            )
-                        )
-                        );
-                      }
-                  );
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => SpeciesScreen(),
+                              settings: RouteSettings(
+                                  arguments: species[index]
+                              )
+                          )
+                          );
+                        }
+                    );
+                  }
+
+                  else {
+                    return new GestureDetector(
+                        child: new Container(
+                          padding: const EdgeInsets.all(15.0),
+                          child: new Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              elevation: 5.0,
+                              child: new Container(
+                                  alignment: Alignment.center,
+                                  child: new Column(
+                                    children: <Widget>[
+                                      Image.asset(
+                                        'assets/images/preview/' +
+                                            species[index].name.toLowerCase() +
+                                            '.jpg',
+                                        height: 130,
+                                      ),
+                                      Text.rich(
+                                          TextSpan(
+                                              children: <TextSpan>[
+                                                TextSpan(text: "#"),
+                                                TextSpan(text: species[index]
+                                                    .number),
+                                                TextSpan(text: " "),
+                                                TextSpan(
+                                                    text: species[index].name),
+
+                                              ]
+                                          )
+                                      ),
+                                    ],
+                                  )
+
+                              )
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => SpeciesScreen(),
+                              settings: RouteSettings(
+                                  arguments: species[index]
+                              )
+                          )
+                          );
+                        }
+                    );
+                  }
 
                 }),
             SizedBox(height: 50)

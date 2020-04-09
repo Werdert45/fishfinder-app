@@ -27,7 +27,6 @@ class _FishDexState extends State<FishDex> {
         backgroundColor: Colors.white,
         body: Stack(
           children: <Widget>[
-
             new Container(
             child: Center(
                 child: new FutureBuilder(
@@ -52,7 +51,6 @@ class _FishDexState extends State<FishDex> {
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Row(
-
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               new Container(
@@ -62,7 +60,6 @@ class _FishDexState extends State<FishDex> {
                                   }
                                   )
                               ),
-
                               new Container(
                                   margin: const EdgeInsets.only(right: 20, bottom: 5),
                                   child:IconButton(icon: Icon(Icons.book, color: Colors.grey, size: 35), onPressed: () {
