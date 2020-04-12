@@ -11,10 +11,14 @@ class SpeciesList extends StatelessWidget {
   final List<Species> species;
   SpeciesList({Key key, this.species}) : super(key: key);
 
-  var speciesCaught = [1,2,3];
+  var speciesCaught = [1,2,3,5,5,5,5,6,5,55,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,];
+
 
   @override
   Widget build(BuildContext context) {
+    double progressCaught = (speciesCaught.length / 64)*100;
+
+
     return new SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -90,9 +94,9 @@ class SpeciesList extends StatelessWidget {
                     ),
                     CircularPercentIndicator(
                       radius: (MediaQuery.of(context).size.width - 300),
-                      lineWidth: 15.0,
-                      percent: 0.25,
-                      center: new Text("100%", style: TextStyle(fontSize: 25)),
+                      lineWidth: 20,
+                      percent: speciesCaught.length/64,
+                      center: new Text((progressCaught.toString()).substring(0,4) + "%", style: TextStyle(fontSize: 15)),
                       progressColor: Colors.green,
                     )
                   ],
