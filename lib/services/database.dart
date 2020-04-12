@@ -35,6 +35,8 @@ class DatabaseService {
     });
   }
 
+
+
 //  // list of brews from snapshot
 //  List<> _brewListFromSnapshot(QuerySnapshot snapshot) {
 //    return snapshot.documents.map((doc) {

@@ -11,7 +11,7 @@ class SpeciesList extends StatelessWidget {
   final List<Species> species;
   SpeciesList({Key key, this.species}) : super(key: key);
 
-  var speciesCaught = [1,2,3,5,5,5,5,6,5,55,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,];
+  var speciesCaught = [1,2,3,5,5,5,5,6,5,55,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5];
 
 
   @override
@@ -65,7 +65,7 @@ class SpeciesList extends StatelessWidget {
                           ),
                           Row(
                             children: <Widget>[
-                              Text('#014 Snoekbaars', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
+                              Text('#' + index_show(speciesCaught.last).toString() + " " + species[speciesCaught.last].name, textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
                             ],
                           ),
                           SizedBox(height: 10),
@@ -76,12 +76,12 @@ class SpeciesList extends StatelessWidget {
                           ),
                           Row(
                             children: <Widget>[
-                              Text('#062 Regenboogkarper', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
+                              Text('#' + index_show(most_frequent(speciesCaught)[0]) + " " + species[most_frequent(speciesCaught)[0]].name, textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
                             ],
                           ),
                           Row(
                             children: <Widget>[
-                              Text('5 time(s)', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
+                              Text(most_frequent(speciesCaught)[1].toString() + ' time(s)', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
                             ],
                           ),
                           SizedBox(height: 20),
