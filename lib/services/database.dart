@@ -17,6 +17,7 @@ class DatabaseService {
   Future updateUserData(String email, List species) async {
     return await fishCatchesCollection.document(uid).setData({
       'email': email,
+      'uid': uid,
       'species': species
     });
   }

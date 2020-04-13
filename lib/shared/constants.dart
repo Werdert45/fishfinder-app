@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart';
 
 // @author Ian Ronk
 // @constants textInputDecoration
@@ -64,4 +67,17 @@ index_show(int index) {
   }
 
   return index_show;
+}
+
+// Get the current users
+getUser() async {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseUser user = await _auth.currentUser();
+  String uid = user.uid;
+  return uid.toString();
+}
+
+getSpeciesList() async {
+  var document = Firestore.instance.collection('fish_catches').where(getUser().toString()).snapshots();
+
 }
