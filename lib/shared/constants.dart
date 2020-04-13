@@ -81,3 +81,5 @@ getSpeciesList() async {
   var document = Firestore.instance.collection('fish_catches').where(getUser().toString()).snapshots();
 
 }
+
+//snapshot.data.documents[0]['species']
