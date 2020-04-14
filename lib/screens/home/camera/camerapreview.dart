@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:fishfinder_app/screens/home/species/preview_species.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:async';
 import 'package:tflite/tflite.dart';
 import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/screens/home/species/species.dart';
+import 'package:image/image.dart' as Img;
 
 // @author Ian Ronk
 // @class DisplayPictureScreen
@@ -32,8 +34,25 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   double _imageWidth;
   bool _busy = false;
 
+
   Future predictImagePicker() async {
-    var image = await File(widget.imagePath);
+
+    var directory = await getApplicationDocumentsDirectory();
+    var directoryPlace = directory.toString().split(" ")[1].replaceAll(RegExp(r"[\']+"), '');
+
+    var tempImage = Img.decodeImage(await File(widget.imagePath).readAsBytes());
+    var cropped = Img.copyResize(tempImage, height: 224);
+
+//    var previewImage = widget.imagePath.split(".");
+//    var previewImagePath = previewImage[0] + "_preview.png";
+
+
+    var previewImagePath = (directoryPlace + '/preview.png').toString();
+
+    print(previewImagePath);
+    File(previewImagePath).writeAsBytesSync(Img.encodePng(cropped));
+
+    var image = await File(previewImagePath);
     if (image == null) return;
     setState(() {
       _busy = true;
@@ -84,6 +103,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       )
       );
     }
+
   }
 
     Future loadModel() async {
