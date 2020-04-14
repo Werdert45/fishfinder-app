@@ -17,25 +17,8 @@ class SpeciesList extends StatelessWidget {
 
   String uid;
 
-  Widget _buildList(BuildContext context, DocumentSnapshot document) {
-    return ListTile(
-        title: Text(document['species'].toString())
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-
-    Future<void> userId() async {
-      uid = await getUser();
-    }
-
-    test() async {
-      var test = Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).getDocuments();
-      return test;
-    }
-
-    test();
 
     return new SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -125,7 +108,7 @@ class SpeciesList extends StatelessWidget {
                             radius: (MediaQuery.of(context).size.width - 300),
                             lineWidth: 20,
                             percent: (snapshot.data.documents[0]['species']).length/64,
-                            center: new Text((((snapshot.data.documents[0]['species']).length)/64).toString().substring(0,4) + "%", style: TextStyle(fontSize: 15)),
+                            center: new Text(((((snapshot.data.documents[0]['species']).length)/64)*100).toString().substring(0,4) + "%", style: TextStyle(fontSize: 15)),
                             progressColor: Colors.green,
                           )
                         ],

@@ -22,7 +22,6 @@ class _FishDexState extends State<FishDex> {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<QuerySnapshot>.value(
-      value: DatabaseService().fishCatches,
     child: Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
@@ -92,7 +91,6 @@ class _FishDexState extends State<FishDex> {
     if (response == null) {
       return [];
     }
-    print(json.decode(response.toString()));
     final parsed = json.decode(response.toString()).cast<Map<String, dynamic>>();
     return parsed.map<Species>((json) => new Species.fromJSON(json)).toList();
   }

@@ -1,9 +1,17 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'settings.dart';
+import 'package:fishfinder_app/shared/constants.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:fishfinder_app/models/species.dart';
+import 'package:fishfinder_app/screens/home/homescreen/recentscroll.dart';
+
 
 // @author Ian Ronk
 // @class MainMenu
@@ -11,6 +19,8 @@ import 'settings.dart';
 class MainMenu extends StatefulWidget {
   final List<CameraDescription> cameras;
   MainMenu(this.cameras);
+
+
 
   @override
   _MainMenuState createState() => _MainMenuState();
@@ -26,6 +36,8 @@ class _MainMenuState extends State<MainMenu> {
   final AuthService _auth = AuthService();
   Widget _options() {
   }
+
+  String uid;
 
   Widget _fishdexButton() {
     return InkWell(
@@ -50,6 +62,10 @@ class _MainMenuState extends State<MainMenu> {
 
 
   Widget build(BuildContext context) {
+    Future<void> userId() async {
+      uid = await getUser();
+    };
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
@@ -182,160 +198,19 @@ class _MainMenuState extends State<MainMenu> {
                                 child: Align(
                                     alignment: Alignment.centerLeft,
                                     child: SingleChildScrollView(
-
-
                                         scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          children: <Widget>[
-
-                                            // Dummy data must create a loop to create these cards for every recent catch (max 10)
-
-                                            Column(
-                                              children: <Widget>[
-                                                Container(
-                                                    margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                                    width: 100,
-                                                    height: 100,
-                                                    decoration: new BoxDecoration(
-                                                        borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                                    ),
-
-                                                    child: AspectRatio(
-
-                                                        aspectRatio: 1.0 / 1.0,
-                                                        child: Image(
-
-                                                            image: AssetImage('assets/images/fish1.jpg'),
-                                                            fit: BoxFit.fill
-                                                        )
-                                                    )
-                                                ),
-                                                Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    margin: const EdgeInsets.only(right: 0),
-                                                    child: Text("Northern Devil", textAlign: TextAlign.left)
-                                                ),
-                                              ],
-                                            ),
+                                        child: new FutureBuilder(
+                                            future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
+                                            builder: (context, snapshot) {
+                                              List<Species> species = parseJSON(snapshot.data.toString());
+                                              return species.isNotEmpty
+                                                  ? new RecentScroll(species: species)
+                                                  : new Center(child: new CircularProgressIndicator());
+                                            }
+                                        )
 
 
-                                            Column(
-                                              children: <Widget>[
-                                                Container(
-                                                    margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                                    width: 100,
-                                                    height: 100,
-                                                    decoration: new BoxDecoration(
-                                                        borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                                    ),
-
-                                                    child: AspectRatio(
-
-                                                        aspectRatio: 1.0 / 1.0,
-                                                        child: Image(
-
-                                                            image: AssetImage('assets/images/fish2.jpg'),
-                                                            fit: BoxFit.fill
-                                                        )
-                                                    )
-                                                ),
-                                                Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    margin: const EdgeInsets.only(right: 0),
-                                                    child: Text("Rainbow Brass", textAlign: TextAlign.left)
-                                                ),
-                                              ],
-                                            ),
-
-                                            Column(
-                                              children: <Widget>[
-                                                Container(
-                                                    margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                                    width: 100,
-                                                    height: 100,
-                                                    decoration: new BoxDecoration(
-                                                        borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                                    ),
-
-                                                    child: AspectRatio(
-
-                                                        aspectRatio: 1.0 / 1.0,
-                                                        child: Image(
-
-                                                            image: AssetImage('assets/images/fish3.jpg'),
-                                                            fit: BoxFit.fill
-                                                        )
-                                                    )
-                                                ),
-                                                Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    margin: const EdgeInsets.only(right: 0),
-                                                    child: Text("Sun karp", textAlign: TextAlign.left)
-                                                ),
-                                              ],
-                                            ),
-
-
-                                            Column(
-                                              children: <Widget>[
-                                                Container(
-                                                    margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                                    width: 100,
-                                                    height: 100,
-                                                    decoration: new BoxDecoration(
-                                                        borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                                    ),
-
-                                                    child: AspectRatio(
-
-                                                        aspectRatio: 1.0 / 1.0,
-                                                        child: Image(
-
-                                                            image: AssetImage('assets/images/fish4.jpg'),
-                                                            fit: BoxFit.fill
-                                                        )
-                                                    )
-                                                ),
-                                                Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    margin: const EdgeInsets.only(right: 0),
-                                                    child: Text("Pikeperch", textAlign: TextAlign.left)
-                                                ),
-                                              ],
-                                            ),
-
-
-                                            Column(
-                                              children: <Widget>[
-                                                Container(
-                                                    margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
-                                                    width: 100,
-                                                    height: 100,
-                                                    decoration: new BoxDecoration(
-                                                        borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                                    ),
-
-                                                    child: AspectRatio(
-
-                                                        aspectRatio: 1.0 / 1.0,
-                                                        child: Image(
-
-                                                            image: AssetImage('assets/images/fish5.jpg'),
-                                                            fit: BoxFit.fill
-                                                        )
-                                                    )
-                                                ),
-                                                Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    margin: const EdgeInsets.only(right: 0),
-                                                    child: Text("Sun Brass", textAlign: TextAlign.left)
-                                                ),
-                                              ],
-                                            )
-
-
-                                          ],
-                                        )))),
+                                    ))),
 
                             Align(
                                 alignment: Alignment.centerLeft,
@@ -402,51 +277,6 @@ class _MainMenuState extends State<MainMenu> {
                                               ],
                                             ),
 
-
-                                            Column(
-                                              children: <Widget>[
-                                                Container(
-                                                  margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                                                  width: 100,
-                                                  height: 100,
-                                                  decoration: new BoxDecoration(
-                                                      borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                                                  ),
-
-                                                  child: Stack(
-                                                      children: <Widget>[
-                                                        AspectRatio(
-
-                                                            aspectRatio: 1.0 / 1.0,
-                                                            child: Image(
-
-                                                                image: AssetImage('assets/images/fish7.jpg'),
-                                                                fit: BoxFit.fill
-                                                            )
-                                                        ),
-                                                        Positioned(
-                                                            bottom: -3,
-                                                            right: -23,
-                                                            child: new RawMaterialButton(
-                                                              child: new Icon(
-                                                                Icons.person,
-                                                                color: Colors.blue,
-                                                                size: 15.0,
-                                                              ),
-                                                              shape: new CircleBorder(),
-                                                              elevation: 2.0,
-                                                              fillColor: Colors.white,
-                                                              padding: const EdgeInsets.all(0.0),
-                                                            )),
-                                                      ]),
-                                                ),
-                                                Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    margin: const EdgeInsets.only(right: 0),
-                                                    child: Text("African Bass", textAlign: TextAlign.left)
-                                                ),
-                                              ],
-                                            ),
 
 
                                             Column(
@@ -639,6 +469,15 @@ class _MainMenuState extends State<MainMenu> {
           ),
         )
     );
+  }
+
+  List<Species> parseJSON(String response) {
+    if (response == null) {
+      return [];
+    }
+    print(json.decode(response.toString()));
+    final parsed = json.decode(response.toString()).cast<Map<String, dynamic>>();
+    return parsed.map<Species>((json) => new Species.fromJSON(json)).toList();
   }
 }
 

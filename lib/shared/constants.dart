@@ -82,4 +82,14 @@ getSpeciesList() async {
 
 }
 
-//snapshot.data.documents[0]['species']
+
+showPreviewString(String string, int length) {
+  if (string.length < length) {
+    return string;
+  }
+  else {
+    String substring = string.substring(0,length);
+    return substring + "...";
+  }
+
+}
