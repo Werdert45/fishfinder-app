@@ -37,6 +37,26 @@ class SpeciesList extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(height: 50),
                   Container(
+                    width: (MediaQuery.of(context).size.width - 40),
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      children: <Widget>[
+                        Text("Fishdex", style: TextStyle(fontSize: 25)),
+                        SizedBox(width: MediaQuery.of(context).size.width - 175),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            icon: Icon(Icons.search, size: 25),
+                            onPressed: () {
+                            }
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+
+                  Container(
                       width: (MediaQuery.of(context).size.width - 20),
                       height: 180,
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -62,7 +82,7 @@ class SpeciesList extends StatelessWidget {
                                       Align(
                                           alignment: Alignment.centerLeft,
                                           child: Container(
-                                            child: Text("Fishdex", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
+                                            child: Text("Stats", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
                                           )
                                       ),
                                       SizedBox(width: 100),
