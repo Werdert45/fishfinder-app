@@ -4,6 +4,7 @@ import 'Widget/bezierContainer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fishfinder_app/screens/authenticate/sign_in.dart';
 import 'package:fishfinder_app/shared/constants.dart';
+import 'package:fishfinder_app/services/database.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key key, this.title}) : super(key: key);

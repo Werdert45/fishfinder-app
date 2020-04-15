@@ -13,6 +13,11 @@ class DatabaseService {
   // collection reference
   final CollectionReference fishCatchesCollection = Firestore.instance.collection('fish_catches');
 
+  Future addNameUser(String name) async {
+    return await fishCatchesCollection.document(uid).setData({
+      'name': name
+    });
+  }
 
   Future updateUserData(String email, List species) async {
     return await fishCatchesCollection.document(uid).setData({
@@ -56,3 +61,48 @@ class DatabaseService {
 
 
 }
+
+//Column(
+//children: <Widget>[
+//Container(
+//margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
+//width: 100,
+//height: 100,
+//decoration: new BoxDecoration(
+//borderRadius: new BorderRadius.all(const Radius.circular(30.0))
+//),
+//
+//child: Stack(
+//children: <Widget>[
+//AspectRatio(
+//
+//aspectRatio: 1.0 / 1.0,
+//child: Image(
+//
+//image: AssetImage('assets/images/fish9.jpg'),
+//fit: BoxFit.fill
+//)
+//),
+//Positioned(
+//bottom: -3,
+//right: -23,
+//child: new RawMaterialButton(
+//child: new Icon(
+//Icons.person,
+//color: Colors.blue,
+//size: 15.0,
+//),
+//shape: new CircleBorder(),
+//elevation: 2.0,
+//fillColor: Colors.white,
+//padding: const EdgeInsets.all(0.0),
+//)),
+//]),
+//),
+//Container(
+//alignment: Alignment.centerLeft,
+//margin: const EdgeInsets.only(right: 0),
+//child: Text("Northern Pike", textAlign: TextAlign.left)
+//),
+//],
+//),

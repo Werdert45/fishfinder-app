@@ -49,7 +49,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
     var previewImagePath = (directoryPlace + '/preview.png').toString();
 
-    print(previewImagePath);
     File(previewImagePath).writeAsBytesSync(Img.encodePng(cropped));
 
     var image = await File(previewImagePath);

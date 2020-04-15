@@ -37,6 +37,26 @@ class SpeciesList extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(height: 50),
                   Container(
+                    width: (MediaQuery.of(context).size.width - 40),
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      children: <Widget>[
+                        Text("Fishdex", style: TextStyle(fontSize: 25)),
+                        SizedBox(width: MediaQuery.of(context).size.width - 175),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            icon: Icon(Icons.search, size: 25),
+                            onPressed: () {
+                            }
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+
+                  Container(
                       width: (MediaQuery.of(context).size.width - 20),
                       height: 180,
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -62,7 +82,7 @@ class SpeciesList extends StatelessWidget {
                                       Align(
                                           alignment: Alignment.centerLeft,
                                           child: Container(
-                                            child: Text("Fishdex", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
+                                            child: Text("Stats", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
                                           )
                                       ),
                                       SizedBox(width: 100),
@@ -77,18 +97,18 @@ class SpeciesList extends StatelessWidget {
                                   ),
                                   Row(
                                     children: <Widget>[
-                                      Text('#' + index_show(snapshot.data.documents[0]['species'].last).toString() + " " + species[(snapshot.data.documents[0]['species']).last - 1].name, textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
+                                      Text('#' + index_show(snapshot.data.documents[0]['species'].last).toString() + " " + formatString(species[(snapshot.data.documents[0]['species']).last - 1].name), textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
                                     ],
                                   ),
                                   SizedBox(height: 10),
                                   Row(
                                     children: <Widget>[
-                                      Text('Most frequent catch:', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 16, color: Colors.white))
+                                      Text('Most Frequent Catch:', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 16, color: Colors.white))
                                     ],
                                   ),
                                   Row(
                                     children: <Widget>[
-                                      Text('#' + index_show(most_frequent(snapshot.data.documents[0]['species'])[0]) + " " + species[most_frequent(snapshot.data.documents[0]['species'])[0] - 1].name, textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
+                                      Text('#' + index_show(most_frequent(snapshot.data.documents[0]['species'])[0]) + " " + formatString(species[most_frequent(snapshot.data.documents[0]['species'])[0] - 1].name), textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.blueGrey))
                                     ],
                                   ),
                                   Row(
@@ -125,7 +145,7 @@ class SpeciesList extends StatelessWidget {
 
                           return new GestureDetector(
                               child: new Container(
-                                padding: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(10.0),
                                 child: new GradientCard(
                                     gradient: linearGradient,
                                     shape: RoundedRectangleBorder(
@@ -136,17 +156,25 @@ class SpeciesList extends StatelessWidget {
                                         alignment: Alignment.center,
                                         child: new Column(
                                           children: <Widget>[
-                                            Image.asset(
-                                              'assets/images/preview/' + species[index].name.toLowerCase() + '.jpg',
-                                              height: 130,
+                                            SizedBox(height: 20),
+                                            Container(
+                                              width: 200,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: AssetImage('assets/images/preview/' + species[index].name.toLowerCase() + '.jpg'),
+                                                      fit: BoxFit.cover
+                                                  )
+                                              ),
                                             ),
+                                            SizedBox(height: 7),
                                             Text.rich(
                                                 TextSpan(
                                                     children: <TextSpan>[
                                                       TextSpan(text: "#"),
                                                       TextSpan(text: species[index].number),
                                                       TextSpan(text: " "),
-                                                      TextSpan(text: species[index].name),
+                                                      TextSpan(text: showPreviewString(formatString(species[index].name), 16)),
 
                                                     ]
                                                 )
@@ -172,7 +200,7 @@ class SpeciesList extends StatelessWidget {
                         else {
                           return new GestureDetector(
                               child: new Container(
-                                padding: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(10.0),
                                 child: new Card(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15.0),
@@ -182,25 +210,35 @@ class SpeciesList extends StatelessWidget {
                                         alignment: Alignment.center,
                                         child: new Column(
                                           children: <Widget>[
-                                            Image.asset(
-                                              'assets/images/preview/' +
-                                                  species[index].name.toLowerCase() +
-                                                  '.jpg',
-                                              height: 130,
-                                            ),
-                                            Text.rich(
-                                                TextSpan(
-                                                    children: <TextSpan>[
-                                                      TextSpan(text: "#"),
-                                                      TextSpan(text: species[index]
-                                                          .number),
-                                                      TextSpan(text: " "),
-                                                      TextSpan(
-                                                          text: species[index].name),
-
-                                                    ]
+                                            SizedBox(height: 20),
+                                            Container(
+                                              width: 200,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage('assets/images/preview/' + species[index].name.toLowerCase() + '.jpg'),
+                                                  fit: BoxFit.cover
                                                 )
+                                              ),
                                             ),
+                                            SizedBox(height: 7),
+
+                                            Container(
+                                              padding: EdgeInsets.only(left: 5),
+                                                 child: Text.rich(
+                                                     TextSpan(
+                                                         children: <TextSpan>[
+                                                           TextSpan(text: "#"),
+                                                           TextSpan(text: species[index]
+                                                               .number),
+                                                           TextSpan(text: " "),
+                                                           TextSpan(
+                                                               text: showPreviewString(formatString(species[index].name), 17)),
+
+                                                         ]
+                                                     )
+                                                 )
+                                             )
                                           ],
                                         )
 

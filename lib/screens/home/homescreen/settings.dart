@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'payment.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,6 +13,29 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final AuthService _auth = AuthService();
+
+
+
+  Future<Null> changePassword(String newPassword) async {
+    const String API_KEY = 'AIzaSyBGpzlpJPWgKvDf76Rdqmu4FrD-B7Kefvo';
+    final String changePasswordUrl =
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=$API_KEY';
+
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
+    final String idToken = await user.getIdToken().toString(); // where user is FirebaseUser user
+
+    final Map<String, dynamic> payload = {
+      'email': idToken,
+      'password': newPassword,
+      'returnSecureToken': true
+    };
+
+    await http.post(changePasswordUrl,
+      body: json.encode(payload),
+      headers: {'Content-Type': 'application/json'},
+    );
+  }
 
 
   _logoutButton() {
@@ -31,6 +58,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    changePassword('test');
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -77,7 +106,13 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                         child: ListTile(
-                          title: Text('ianronk0@gmail.com'),
+                          title: TextField(
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'ian.ronk0@gmail.com'
+                              )
+
+                          ),
                           leading: Icon(Icons.email),
                         )
                     ),
@@ -88,7 +123,13 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                         child: ListTile(
-                            title: Text('Ian Ronk'),
+                            title: TextField(
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Ian Ronk'
+                              )
+
+                            ),
                             leading: Icon(Icons.account_box)
                         )
                     ),
@@ -99,7 +140,13 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                         child: ListTile(
-                            title: Text('**********'),
+                            title: TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: '********'
+                              ),
+                            ),
                             leading: Icon(Icons.lock)
                         )
                     ),
