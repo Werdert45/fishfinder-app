@@ -1,0 +1,36 @@
+{
+  "authentication": {
+    "login": "Login",
+    "register_now": "Registreer nu",
+    "email": "Email",
+    "password": "Wachtwoord",
+    "forgot_password": "Wachtwoord Vergeten ?",
+    "no_account": "Nog geen account ?",
+    "register": "Registreer",
+    "back": "Terug",
+    "name": "Naam"
+  },
+  "home_page": {
+    "welcome": "Hi,",
+    "fishdex_title": "Vindt uw vangsten in de FishDex",
+    "fishdex_button": "Vindt nu",
+    "recent_catches": "Recente Vangsten",
+    "friends_catches": "Vangsten van Vrienden"
+  },
+  "settings_page": {
+    "title": "Instellingen",
+    "account": "ACCOUNT",
+    "language": "TAAL",
+    "upgrade_title": "Upgrade naar Premium Membership",
+    "upgrade_hint_1": "Synchroniseer met server",
+    "upgrade_hint_2": "Zie vangsten van vrienden",
+    "upgrade_button": "Upgrade nu ",
+    "logout": "Uitloggen van de app"
+  },
+  "fishdex": {
+    "title": "Fishdex",
+    "stats": "Statistiek",
+    "latest_catch": "Laatste Vangst:",
+    "most_frequent": "Meest gevangen:"
+  }
+}

@@ -64,6 +64,8 @@ flutter:
     - assets/tflite/labels.txt
     - assets/json/species.json
     - assets/json/preview_species.json
+    - assets/json/en.json
+    - assets/json/nl.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

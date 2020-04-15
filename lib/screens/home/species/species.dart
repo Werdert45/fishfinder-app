@@ -23,14 +23,6 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
 
     final Species species = ModalRoute.of(context).settings.arguments;
 
-    Future currentUser() async {
-      FirebaseUser user = await FirebaseAuth.instance.currentUser();
-      var database = DatabaseService();
-      database.updateSpeciesList(user.uid, int.parse(species.number));
-    }
-
-    currentUser();
-
     return Scaffold(
         backgroundColor: Colors.white,
 
