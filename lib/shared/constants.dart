@@ -27,6 +27,11 @@ const linearGradient = LinearGradient(
     colors: [Color(0xff63d5fb), Color(0xff6bf2eb)]);
 
 
+const goldLinearGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [Color(0xfff0db51), Color(0xfffcdd0f)]);
+
 // FUNCTIONALITY
 most_frequent(List list) {
   var map = Map();

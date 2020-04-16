@@ -15,7 +15,16 @@
     "fishdex_title": "Vindt uw vangsten in de FishDex",
     "fishdex_button": "Vindt nu",
     "recent_catches": "Recente Vangsten",
-    "friends_catches": "Vangsten van Vrienden"
+    "friends_catches": "Vangsten van Vrienden",
+    "achievements": "Prestaties",
+    "achievement_1": "5 Soorten",
+    "achievement_2": "10 Soorten",
+    "achievement_3": "20 Soorten",
+    "achievement_4": "Alle Soorten",
+    "achievement_5": "5 Vangsten",
+    "achievement_6": "10 Vangsten",
+    "achievement_7": "50 Vangsten",
+    "achievement_8": "100 Vangsten"
   },
   "settings_page": {
     "title": "Instellingen",
