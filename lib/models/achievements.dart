@@ -10,3 +10,4 @@ class AchievementsModel {
     return [this.achievement, this.achieved];
   }
 }
+

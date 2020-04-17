@@ -1,9 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fishfinder_app/models/friends.dart';
 
 // TODO get all recent catches from the database and all of the species
 
 // @author Ian Ronk
 // @class DatabaseService
+class Streams {
+
+  final String uid;
+  Streams({ this.uid});
+
+  // collection reference
+  final CollectionReference fishCatchesCollection = Firestore.instance.collection('fish_catches');
+
+
+  Stream<DocumentSnapshot> get fishCatches {
+    return fishCatchesCollection.document(uid).snapshots();
+  }
+}
 
 class DatabaseService {
 
@@ -12,6 +26,15 @@ class DatabaseService {
 
   // collection reference
   final CollectionReference fishCatchesCollection = Firestore.instance.collection('fish_catches');
+
+
+  Future addSpeciesToFriends(friends, data) async {
+    for (int i = 0; i < friends.length; i++) {
+      await fishCatchesCollection.document(friends[i]).updateData({
+        'friends_catches': {DateTime.now().millisecondsSinceEpoch: [data[0], data[1]]}
+      });
+    }
+  }
 
   Future addNameUser(String name) async {
     return await fishCatchesCollection.document(uid).setData({
@@ -23,7 +46,19 @@ class DatabaseService {
     return await fishCatchesCollection.document(uid).setData({
       'email': email,
       'uid': uid,
-      'species': species
+      'species': species,
+      'friends_catches': {},
+      'friends_id': [],
+      'language': "en",
+      'achievements': {
+        "achievement_1": false,
+        "achievement_2": false,
+        "achievement_3": false,
+        "achievement_4": false,
+        "achievement_5": false,
+        "achievement_6": false,
+        "achievement_7": false,
+        "achievement_8": false}
     });
   }
 
@@ -40,69 +75,15 @@ class DatabaseService {
       'species': FieldValue.arrayUnion([newSpecies])
     });
   }
-
-
-
-//  // list of brews from snapshot
-//  List<> _brewListFromSnapshot(QuerySnapshot snapshot) {
-//    return snapshot.documents.map((doc) {
-//      return Brew(
-//          name: doc.data['name'] ?? '',
-//          strength: doc.data['strength'] ?? 0,
-//          sugars: doc.data['sugars'] ?? '0'
-//      );
-//    }).toList();
+//
+//  Stream<QuerySnapshot> get friendsList {
+//    return fishCatchesCollection.snapshots();
 //  }
-
-  // get brews stream
-  Stream<QuerySnapshot> get fishCatches {
-    return fishCatchesCollection.snapshots();
-  }
-
-
+//
+//  List<Friends> friendsFromSnapshot(DocumentSnapshot snapshot) {
+//    var snap = Streams().fishCatches;
+//    return snap['friends_id'];
+//  }
 }
 
-//Column(
-//children: <Widget>[
-//Container(
-//margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-//width: 100,
-//height: 100,
-//decoration: new BoxDecoration(
-//borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-//),
-//
-//child: Stack(
-//children: <Widget>[
-//AspectRatio(
-//
-//aspectRatio: 1.0 / 1.0,
-//child: Image(
-//
-//image: AssetImage('assets/images/fish9.jpg'),
-//fit: BoxFit.fill
-//)
-//),
-//Positioned(
-//bottom: -3,
-//right: -23,
-//child: new RawMaterialButton(
-//child: new Icon(
-//Icons.person,
-//color: Colors.blue,
-//size: 15.0,
-//),
-//shape: new CircleBorder(),
-//elevation: 2.0,
-//fillColor: Colors.white,
-//padding: const EdgeInsets.all(0.0),
-//)),
-//]),
-//),
-//Container(
-//alignment: Alignment.centerLeft,
-//margin: const EdgeInsets.only(right: 0),
-//child: Text("Northern Pike", textAlign: TextAlign.left)
-//),
-//],
-//),
+

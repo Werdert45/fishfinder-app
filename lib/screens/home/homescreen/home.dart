@@ -1,17 +1,12 @@
 import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/screens/home/homescreen/achievements.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentfriendsscroll.dart';
-import 'package:fishfinder_app/services/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'settings.dart';
 import 'package:fishfinder_app/shared/constants.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentscroll.dart';
 
@@ -22,8 +17,6 @@ import 'package:fishfinder_app/screens/home/homescreen/recentscroll.dart';
 class MainMenu extends StatefulWidget {
   final List<CameraDescription> cameras;
   MainMenu(this.cameras);
-
-
 
   @override
   _MainMenuState createState() => _MainMenuState();
@@ -68,6 +61,8 @@ class _MainMenuState extends State<MainMenu> {
     Future<void> userId() async {
       uid = await getUser();
     };
+
+    print(uid);
 
     return new FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
