@@ -1,6 +1,6 @@
 import 'package:fishfinder_app/services/database.dart';
 
-checkAchievements(List list) {
+checkAchievements(List list, String puid) {
 
   List species = [];
 
@@ -12,41 +12,41 @@ checkAchievements(List list) {
 
   if (species.length >= 5) {
     // ac 1
-    DatabaseService().updateAchievment("achievement_1");
+    DatabaseService().updateAchievement("achievement_1", puid);
   }
 
   if (species.length >= 10) {
     // ac 2
-    DatabaseService().updateAchievment("achievement_2");
+    DatabaseService().updateAchievement("achievement_2", puid);
   }
 
   if (species.length >= 20) {
     // ac 3
-    DatabaseService().updateAchievment("achievement_3");
+    DatabaseService().updateAchievement("achievement_3", puid);
   }
 
   if (species.length == 64) {
     // ac 4
-    DatabaseService().updateAchievment("achievement_4");
+    DatabaseService().updateAchievement("achievement_4", puid);
   }
 
   if (list.length >=  5) {
    // ac 5
-    DatabaseService().updateAchievment("achievement_5");
+    DatabaseService().updateAchievement("achievement_5", puid);
  }
 
   if (list.length >=  10) {
     // ac 6
-    DatabaseService().updateAchievment("achievement_6");
+    DatabaseService().updateAchievement("achievement_6", puid);
   }
 
   if (list.length >=  50) {
     // ac 7
-    DatabaseService().updateAchievment("achievement_7");
+    DatabaseService().updateAchievement("achievement_7", puid);
   }
 
   if (list.length >=  100) {
     // ac 8
-    DatabaseService().updateAchievment("achievement_8");
+    DatabaseService().updateAchievement("achievement_8", puid);
   }
 }

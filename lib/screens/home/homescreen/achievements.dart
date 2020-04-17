@@ -29,9 +29,15 @@ class Achievements extends StatelessWidget {
                 var achievements_output = snap.data.documents[0]['achievements'];
                 var species_list = snap.data.documents[0]['species'];
 
-                checkAchievements(species_list);
+                for (int i = 0; i < achievements_output.length; i++) {
+                  achievements_output[i].forEach((k, v) => achievements.add(AchievementsModel(k, v)));
+                }
 
-                achievements_output.forEach((k, v) => achievements.add(AchievementsModel(k, v)));
+                checkAchievements(species_list, uid);
+
+
+
+                print(achievements);
 
                 if (!snapshot.hasData) {
                   return Center(child: new Text('Loading'));

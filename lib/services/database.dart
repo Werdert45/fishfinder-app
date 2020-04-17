@@ -36,9 +36,11 @@ class DatabaseService {
     }
   }
 
-  Future updateAchievment(achievement) async {
-    await fishCatchesCollection.document(uid).updateData({
-      'achievements': {achievement: true}
+  Future updateAchievement(achievement, puid) async {
+    await fishCatchesCollection.document(puid).updateData({
+      'achievements': FieldValue.arrayRemove([achievement]),
+      'achievements': FieldValue.arrayUnion([{achievement: true}])
+
     });
   }
 
