@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fishfinder_app/services/achievement_calc.dart';
 import 'package:fishfinder_app/services/translations.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/shared/constants.dart';
@@ -26,6 +27,10 @@ class Achievements extends StatelessWidget {
               builder: (BuildContext context, snap) {
                 var achievements = [];
                 var achievements_output = snap.data.documents[0]['achievements'];
+                var species_list = snap.data.documents[0]['species'];
+
+                checkAchievements(species_list);
+
                 achievements_output.forEach((k, v) => achievements.add(AchievementsModel(k, v)));
 
                 if (!snapshot.hasData) {

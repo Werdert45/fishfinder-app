@@ -36,6 +36,12 @@ class DatabaseService {
     }
   }
 
+  Future updateAchievment(achievement) async {
+    await fishCatchesCollection.document(uid).updateData({
+      'achievements': {achievement: true}
+    });
+  }
+
   Future addNameUser(String name) async {
     return await fishCatchesCollection.document(uid).setData({
       'name': name
