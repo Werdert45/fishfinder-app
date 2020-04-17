@@ -31,7 +31,7 @@ class DatabaseService {
   Future addSpeciesToFriends(friends, data) async {
     for (int i = 0; i < friends.length; i++) {
       await fishCatchesCollection.document(friends[i]).updateData({
-        'friends_catches': {DateTime.now().millisecondsSinceEpoch: [data[0], data[1]]}
+        'friends_catches': {DateTime.now().millisecondsSinceEpoch.toString(): [data[0], data[1]]}
       });
     }
   }
@@ -75,15 +75,7 @@ class DatabaseService {
       'species': FieldValue.arrayUnion([newSpecies])
     });
   }
-//
-//  Stream<QuerySnapshot> get friendsList {
-//    return fishCatchesCollection.snapshots();
-//  }
-//
-//  List<Friends> friendsFromSnapshot(DocumentSnapshot snapshot) {
-//    var snap = Streams().fishCatches;
-//    return snap['friends_id'];
-//  }
+
 }
 
 

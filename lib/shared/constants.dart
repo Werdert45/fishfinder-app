@@ -110,9 +110,3 @@ formatString(String str) {
   return splitStr.join(' ');
 }
 
-//
-//Image.asset(
-//'assets/images/preview/' +
-//species[index].name.toLowerCase() +
-//'.jpg',
-//)

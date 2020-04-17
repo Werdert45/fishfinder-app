@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:fishfinder_app/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/models/species.dart';
 import 'dart:convert';
@@ -17,9 +18,14 @@ class FishDex extends StatefulWidget {
 }
 
 class _FishDexState extends State<FishDex> {
+  @override
+
 
   List data;
   @override
+
+  String uid;
+
   Widget build(BuildContext context) {
     return StreamProvider<QuerySnapshot>.value(
     child: Scaffold(
@@ -31,9 +37,15 @@ class _FishDexState extends State<FishDex> {
                 child: new FutureBuilder(
                     future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
                     builder: (context, snapshot) {
+
+                        Future userId() async {
+                          uid = await getUser();
+                        }
+                        userId();
+
                       List<Species> species = parseJSON(snapshot.data.toString());
                       return species.isNotEmpty
-                          ? new SpeciesList(species: species)
+                          ? new SpeciesList(species: species, uid: uid)
                           : new Center(child: new CircularProgressIndicator());
                     }
                 )

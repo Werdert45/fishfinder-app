@@ -24,8 +24,13 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   @override
-  void initState() {
+  void initState() async {
     super.initState();
+    Future userId() async {
+      uid = await getUser();
+    }
+
+    await userId();
   }
 
   @override
@@ -58,13 +63,7 @@ class _MainMenuState extends State<MainMenu> {
 
 
   Widget build(BuildContext context) {
-    Future<void> userId() async {
-      uid = await getUser();
-    };
-
-    print(uid);
-
-    return new FutureBuilder(
+    return FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
         builder: (context,snapshot) {
           var lang = snapshot.data;
@@ -208,7 +207,7 @@ class _MainMenuState extends State<MainMenu> {
                                                   builder: (context, snapshot) {
                                                     List<Species> species = parseJSON(snapshot.data.toString());
                                                     return species.isNotEmpty
-                                                        ? new RecentScroll(species: species)
+                                                        ? new RecentScroll(species: species, uid: uid)
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
@@ -235,7 +234,7 @@ class _MainMenuState extends State<MainMenu> {
                                                   builder: (context, snapshot) {
                                                     List<Species> species = parseJSON(snapshot.data.toString());
                                                     return species.isNotEmpty
-                                                        ? new RecentFriendsScroll(species: species)
+                                                        ? new RecentFriendsScroll(species: species, uid: uid)
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
@@ -261,7 +260,7 @@ class _MainMenuState extends State<MainMenu> {
                                                   builder: (context, snapshot) {
                                                     List<Species> species = parseJSON(snapshot.data.toString());
                                                     return species.isNotEmpty
-                                                        ? new Achievements(species: species)
+                                                        ? new Achievements(species: species, uid: uid)
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
@@ -272,11 +271,6 @@ class _MainMenuState extends State<MainMenu> {
                                   SizedBox(height: 85),
                                 ],
                               ),
-
-                              // Achievements:
-
-
-
                             ]
                         )
                     ),

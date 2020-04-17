@@ -7,7 +7,7 @@ import 'package:fishfinder_app/models/friends_catch.dart';
 
 class RecentFriendsScroll extends StatelessWidget {
   final List<Species> species;
-  RecentFriendsScroll({Key key, this.species}) : super(key: key);
+  RecentFriendsScroll({Key key, this.species, this.uid}) : super(key: key);
 
   String uid;
 

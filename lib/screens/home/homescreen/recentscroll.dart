@@ -7,9 +7,9 @@ import 'package:fishfinder_app/models/species.dart';
 
 class RecentScroll extends StatelessWidget {
   final List<Species> species;
-  RecentScroll({Key key, this.species}) : super(key: key);
+  final String uid;
+  RecentScroll({Key key, this.species, this.uid}) : super(key: key);
 
-  String uid;
 
   @override
   Widget build(BuildContext context) {

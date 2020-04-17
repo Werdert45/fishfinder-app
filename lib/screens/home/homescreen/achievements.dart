@@ -10,7 +10,7 @@ import 'dart:convert';
 
 class Achievements extends StatelessWidget {
   final List<Species> species;
-  Achievements({Key key, this.species}) : super(key: key);
+  Achievements({Key key, this.species, this.uid}) : super(key: key);
 
   String uid;
 
@@ -27,7 +27,6 @@ class Achievements extends StatelessWidget {
                 var achievements = [];
                 var achievements_output = snap.data.documents[0]['achievements'];
                 achievements_output.forEach((k, v) => achievements.add(AchievementsModel(k, v)));
-
 
                 if (!snapshot.hasData) {
                   return Center(child: new Text('Loading'));

@@ -18,6 +18,16 @@ class SpeciesScreen extends StatefulWidget {
 }
 
 class _SpeciesScreenState extends State<SpeciesScreen> {
+//  @override
+//  void initState() async {
+//    super.initState();
+//    Future userId() async {
+//      uid = await getUser();
+//    }
+//
+//    await userId();
+//  }
+
   @override
   Widget build(BuildContext context) {
 

@@ -13,7 +13,7 @@ import 'package:fishfinder_app/models/species_list.dart';
 
 class SpeciesList extends StatelessWidget {
   final List<Species> species;
-  SpeciesList({Key key, this.species}) : super(key: key);
+  SpeciesList({Key key, this.species, this.uid}) : super(key: key);
 
   String uid;
 
@@ -24,15 +24,11 @@ class SpeciesList extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: new StreamBuilder(
             stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
-//                      .reference()
-//                      .child('fish_catches')
-//                      .child(getUser().toString())
-//                      .child('species')
-//                      .onValue,
             builder: (BuildContext context, snapshot) {
               if (!snapshot.hasData) {
                 return new Center(child: new Text('Loading...'));
               }
+
               return Column(
                 children: <Widget>[
                   SizedBox(height: 50),

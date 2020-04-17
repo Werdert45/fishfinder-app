@@ -95,9 +95,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       // convert the index from the list to a species object
       Species speciesType = Species.fromJSON(speciesName);
       Navigator.push(context, MaterialPageRoute(
-          builder: (context) => PreviewSpeciesScreen(),
+          builder: (context) => PreviewSpeciesScreen(index: _recognitions[0]['index']),
           settings: RouteSettings(
               arguments: speciesType
+
           )
       )
       );

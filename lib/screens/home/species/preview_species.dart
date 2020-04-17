@@ -11,35 +11,44 @@ import 'package:fishfinder_app/shared/constants.dart';
 
 class PreviewSpeciesScreen extends StatefulWidget {
   final String single_species;
-  PreviewSpeciesScreen({Key key, @required this.single_species}) : super(key: key);
+//  int index;
+
+  PreviewSpeciesScreen({Key key, @required this.single_species, this.index}) : super(key: key);
+
+  int index;
 
   @override
   _PreviewSpeciesScreenState createState() => _PreviewSpeciesScreenState();
 }
 
 class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
+  @override
+
+
+  void initState() {
+  }
+
+
+  @override
 
   String uid;
 
-  @override
   Widget build(BuildContext context) {
 
     final Species species = ModalRoute.of(context).settings.arguments;
+    final int index = widget.index;
 
+    Future userId() async {
+      uid = await getUser();
+    }
+
+    userId();
 
     Future currentUser() async {
       var database = DatabaseService();
       FirebaseUser user = await FirebaseAuth.instance.currentUser();
       database.updateSpeciesList(user.uid, int.parse(species.number));
     }
-
-
-    Future userId() async {
-      uid = await getUser();
-    }
-
-    print(uid);
-
 
     return StreamBuilder(
         stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
@@ -72,7 +81,7 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
                         ),
                         onPressed: ()  async {
                           await currentUser();
-                          await DatabaseService().addSpeciesToFriends(friends_id, [userId(), species.number]);
+                          await DatabaseService().addSpeciesToFriends(friends_id, [uid, index + 1]);
                           Navigator.pop(context);
                           Navigator.pop(context);
                           Navigator.pop(context);
