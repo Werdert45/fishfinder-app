@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fishfinder_app/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'customClipper.dart';
@@ -18,11 +19,7 @@ class BezierContainer extends StatelessWidget {
               height: MediaQuery.of(context).size.height *.5,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color(0xfffbb448),Color(0xffe46b10)]
-                  )
+                  gradient: linearGradient
               ),
             ),
           ),

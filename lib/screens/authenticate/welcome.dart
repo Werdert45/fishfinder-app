@@ -35,7 +35,7 @@ class _WelcomeState extends State<Welcome> {
             borderRadius: BorderRadius.all(Radius.circular(5)),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                  color: Color(0xffdf8e33).withAlpha(100),
+                  color: Color(0xff63d5fb).withAlpha(100),
                   offset: Offset(2, 4),
                   blurRadius: 8,
                   spreadRadius: 2)
@@ -43,7 +43,7 @@ class _WelcomeState extends State<Welcome> {
             color: Colors.white),
         child: Text(
           'Login',
-          style: TextStyle(fontSize: 20, color: Color(0xfff7892b)),
+          style: TextStyle(fontSize: 20, color: Color(0xff63d5fb)),
         ),
       ),
     );
@@ -104,21 +104,25 @@ class _WelcomeState extends State<Welcome> {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-          text: 'd',
+          text: 'fi',
           style: GoogleFonts.portLligatSans(
             textStyle: Theme.of(context).textTheme.display1,
             fontSize: 30,
             fontWeight: FontWeight.w700,
-            color: Colors.white,
+            color: Color(0xff046c8e),
           ),
           children: [
             TextSpan(
-              text: 'ev',
+              text: 'sh',
               style: TextStyle(color: Colors.black, fontSize: 30),
             ),
             TextSpan(
-              text: 'rnz',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              text: 'Fin',
+              style: TextStyle(color: Color(0xff046c8e), fontSize: 30),
+            ),
+            TextSpan(
+              text: 'der',
+              style: TextStyle(color: Colors.black, fontSize: 30),
             ),
           ]),
     );
@@ -140,10 +144,8 @@ class _WelcomeState extends State<Welcome> {
                     blurRadius: 5,
                     spreadRadius: 2)
               ],
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xfffbb448), Color(0xffe46b10)])),
+              gradient: linearGradient
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
