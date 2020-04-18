@@ -27,17 +27,16 @@ class Achievements extends StatelessWidget {
               builder: (BuildContext context, snap) {
                 var achievements = [];
                 var achievements_output = snap.data.documents[0]['achievements'];
+
+                print(achievements_output);
                 var species_list = snap.data.documents[0]['species'];
 
-                for (int i = 0; i < achievements_output.length; i++) {
-                  achievements_output[i].forEach((k, v) => achievements.add(AchievementsModel(k, v)));
-                }
+//                for (int i = 1; i <= achievements_output.length; i++) {
+//                  print(achievements_output["achievement_1"]);
+//                  achievements["achievement_" + i.toString()]
+//                }
 
                 checkAchievements(species_list, uid);
-
-
-
-                print(achievements);
 
                 if (!snapshot.hasData) {
                   return Center(child: new Text('Loading'));
@@ -47,10 +46,10 @@ class Achievements extends StatelessWidget {
                   padding: EdgeInsets.only(right: 20),
                   width: MediaQuery.of(context).size.width,
                   child: GridView.builder(
-                      itemCount: achievements.length,
+                      itemCount: achievements_output.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                       itemBuilder: (BuildContext context, int index) {
-                        if (achievements[index].list()[1]) {
+                        if (achievements_output["achievement_" + (index + 1).toString()]) {
                           return new GradientCard(
                               gradient: goldLinearGradient,
                               elevation: 0,
@@ -61,27 +60,30 @@ class Achievements extends StatelessWidget {
                                   children: <Widget>[
                                     Icon(Icons.account_balance, size: 40),
                                     SizedBox(height: 10),
-                                    Text(language[(achievements[achievements.length - index - 1].list()[0])])
+                                    Text(language["achievement_" + index.toString()])
                                   ],
                                 ),
                               )
                           );
                         }
-                        return new GradientCard(
-                            gradient: linearGradient,
-                            elevation: 0,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 5),
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                children: <Widget>[
-                                  Icon(Icons.account_balance, size: 40),
-                                  SizedBox(height: 10),
-                                  Text(language[(achievements[achievements.length - index - 1].list()[0])])
-                                ],
-                              ),
-                            )
-                        );
+                        else {
+                          return new GradientCard(
+                              gradient: linearGradient,
+                              elevation: 0,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                width: MediaQuery.of(context).size.width,
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(Icons.account_balance, size: 40),
+                                    SizedBox(height: 10),
+                                    Text(language["achievement_" + (index + 1).toString()])
+                                  ],
+                                ),
+                              )
+                          );
+                        }
+
 
 
                       }

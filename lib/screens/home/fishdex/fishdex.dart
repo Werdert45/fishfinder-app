@@ -10,7 +10,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FishDex extends StatefulWidget {
   final List<CameraDescription> cameras;
-  FishDex(this.cameras);
+  final String uid;
+  FishDex(this.cameras, this.uid);
 
   @override
   _FishDexState createState() => _FishDexState();
@@ -19,13 +20,11 @@ class FishDex extends StatefulWidget {
 class _FishDexState extends State<FishDex> {
   @override
 
-
   List data;
   @override
 
-  String uid;
-
   Widget build(BuildContext context) {
+
     return StreamProvider<QuerySnapshot>.value(
     child: Scaffold(
         backgroundColor: Colors.white,
@@ -41,14 +40,9 @@ class _FishDexState extends State<FishDex> {
                         return new Center(child: new Text('Loading...'));
                       }
 
-                        Future userId() async {
-                          uid = await getUser();
-                        }
-                        userId();
-
                       List<Species> species = parseJSON(snapshot.data.toString());
                       return species.isNotEmpty
-                          ? new SpeciesList(species: species, uid: uid)
+                          ? new SpeciesList(species: species, uid: widget.uid)
                           : new Center(child: new CircularProgressIndicator());
                     }
                 )

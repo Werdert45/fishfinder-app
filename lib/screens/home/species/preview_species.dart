@@ -1,3 +1,4 @@
+import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:fishfinder_app/models/species.dart';
@@ -85,7 +86,7 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
                           Navigator.pop(context);
                           Navigator.pop(context);
                           Navigator.pop(context);
-                          Navigator.pushNamed(context, '/fishdex');
+//                          Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid)));
                         },
                         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                         color: Colors.orange,

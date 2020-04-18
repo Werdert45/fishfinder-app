@@ -14,5 +14,4 @@ Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   '/': (BuildContext context) => Wrapper(cameras:cameras),
   '/home': (BuildContext context) => MainMenu(cameras),
   '/camera': (BuildContext context) => CameraScreen(cameras),
-  '/fishdex': (BuildContext context) => FishDex(cameras),
 };

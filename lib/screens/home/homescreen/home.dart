@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/friends_catch.dart';
+import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 import 'package:fishfinder_app/screens/home/homescreen/achievements.dart';
 import 'package:fishfinder_app/screens/home/homescreen/friends.dart';
 import 'package:fishfinder_app/screens/home/homescreen/history_search.dart';
@@ -38,7 +39,7 @@ class _MainMenuState extends State<MainMenu> {
   Widget _fishdexButton(text) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/fishdex');
+        Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid)));
       },
       child: Container(
         width: 85,
@@ -63,6 +64,9 @@ class _MainMenuState extends State<MainMenu> {
     }
 
     userId();
+
+
+    print(uid);
 
     return FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
@@ -133,46 +137,56 @@ class _MainMenuState extends State<MainMenu> {
                                           new StreamBuilder(
                                               stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
                                               builder: (BuildContext context, snapshot) {
-                                                var output = snapshot.data.documents[0]['catches'];
-                                                print(output);
-                                                var userCatches = [];
-                                                var catchesTime = [];
-                                                output.forEach((k, v) => userCatches.add(userCatch(k, v).catchIndex()));
-                                                output.forEach((k, v) => catchesTime.add(userCatch(k, v).catchTime()));
-
 
                                                 if (!snapshot.hasData) {
                                                   return new Center(child: new Text('Loading'));
                                                 }
 
-                                                return new FutureBuilder(
-                                                    future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
-                                                    builder: (context, snapshot) {
-                                                      List<Species> species = parseJSON(snapshot.data.toString());
-                                                      List<Species> userSpecies = [];
+                                                else if (snapshot.data.documents[0]['catches'] != null) {
+                                                  var output = snapshot.data.documents[0]['catches'];
+                                                  print("Output" + output.toString());
+                                                  var userCatches = [];
+                                                  var catchesTime = [];
+                                                  output.forEach((k, v) => userCatches.add(userCatch(k, v).catchIndex()));
+                                                  output.forEach((k, v) => catchesTime.add(userCatch(k, v).catchTime()));
 
-                                                      for (int i = 0; i < userCatches.length; i++) {
-                                                        userSpecies.add(species[userCatches[i]]);
+
+                                                  return new FutureBuilder(
+                                                      future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
+                                                      builder: (context, snapshot) {
+                                                        List<Species> species = parseJSON(snapshot.data.toString());
+                                                        List<Species> userSpecies = [];
+
+                                                        for (int i = 0; i < userCatches.length; i++) {
+                                                          userSpecies.add(species[userCatches[i]]);
+                                                        }
+
+                                                        return new OutlineButton(
+                                                            child: Row(
+                                                              children: <Widget>[
+                                                                IconButton(icon: Icon(Icons.history)),
+                                                                Text("My History"),
+                                                                SizedBox(width: 8)
+                                                              ],
+                                                            ),
+                                                            onPressed: () {
+                                                              showSearch(
+                                                                  context: context,
+                                                                  delegate: HistorySearch([userSpecies, catchesTime])
+                                                              );
+                                                            },
+                                                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                                                        );
                                                       }
+                                                  );
+                                                }
 
-                                                      return new OutlineButton(
-                                                          child: Row(
-                                                            children: <Widget>[
-                                                              IconButton(icon: Icon(Icons.history)),
-                                                              Text("My History"),
-                                                              SizedBox(width: 8)
-                                                            ],
-                                                          ),
-                                                          onPressed: () {
-                                                            showSearch(
-                                                                context: context,
-                                                                delegate: HistorySearch([userSpecies, catchesTime])
-                                                            );
-                                                          },
-                                                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-                                                      );
-                                                    }
-                                                );
+                                                else {
+                                                    return new Center(child: new Text("No Info"));
+                                                }
+
+
+
                                               }
 
                                           )
@@ -354,7 +368,7 @@ class _MainMenuState extends State<MainMenu> {
                                           margin: const EdgeInsets.only(right: 20, bottom: 5),
                                           child:IconButton(icon: Icon(Icons.book, color: Colors.grey, size: 35, semanticLabel: 'FishDex',), onPressed: () {
                                             // Put the fishdex  screen on top of homescreen
-                                            Navigator.pushNamed(context, '/fishdex');
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid)));
                                           }
                                           )
                                       )
