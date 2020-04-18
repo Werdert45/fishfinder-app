@@ -9,10 +9,6 @@ import 'dart:core';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fishfinder_app/models/species_list.dart';
-
 
 class SpeciesList extends StatefulWidget {
   final List<Species> species;
@@ -23,9 +19,8 @@ class SpeciesList extends StatefulWidget {
   _SpeciesListState createState() => _SpeciesListState();
 }
 
+
 class _SpeciesListState extends State<SpeciesList> {
-
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -39,7 +34,6 @@ class _SpeciesListState extends State<SpeciesList> {
                     if (!snapshot.hasData) {
                       return new Center(child: new Text('Loading...'));
                     }
-
                     return Column(
                       children: <Widget>[
                         SizedBox(height: 50),

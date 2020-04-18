@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fishfinder_app/models/friends.dart';
 
 // TODO get all recent catches from the database and all of the species
 
@@ -27,6 +26,13 @@ class DatabaseService {
   // collection reference
   final CollectionReference fishCatchesCollection = Firestore.instance.collection('fish_catches');
 
+
+  Future addFriends(friend_name, friend_id, uid) async {
+    await fishCatchesCollection.document(uid).updateData({
+      'friends_id': FieldValue.arrayUnion([friend_id]),
+      'friends_name': FieldValue.arrayUnion([friend_name])
+    });
+  }
 
   Future addSpeciesToFriends(friends, data) async {
     for (int i = 0; i < friends.length; i++) {

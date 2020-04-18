@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:fishfinder_app/screens/home/homescreen/achievements.dart';
+import 'package:fishfinder_app/screens/home/homescreen/friends.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentfriendsscroll.dart';
+import 'package:fishfinder_app/screens/home/homescreen/search.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
@@ -108,32 +110,47 @@ class _MainMenuState extends State<MainMenu> {
                                       )
                                   ),
 
+                                  SizedBox(height: 20),
+
                                   Container(
-                                    margin: const EdgeInsets.only(top: 0.0, bottom: 0, left: 20.0, right: 20.0),
-                                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                                    child: Theme(
-                                        data: Theme.of(context).copyWith(
-                                          // override textfield's icon color when selected
-                                          primaryColor: Colors.orange,
-                                        ),
-                                        child: TextField(
-                                            controller: null,
-                                            style: TextStyle(fontSize: 14),
-                                            decoration: InputDecoration(
-                                                contentPadding: EdgeInsets.symmetric(vertical: 0),
-                                                isDense: true,
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(25)
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: Colors.orange, width: 2.0),
-                                                    borderRadius: BorderRadius.circular(25)
-                                                ),
-                                                focusColor: Colors.orange,
-                                                prefixIcon: Icon(Icons.search, size: 20)
-                                            )
-                                        )
-                                    ),
+                                   child: Row(
+                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                     children: <Widget>[
+                                       new OutlineButton(
+                                         child: Row(
+                                           children: <Widget>[
+                                             IconButton(icon: Icon(Icons.accessibility)),
+                                             Text("My Friends"),
+                                             SizedBox(width: 8)
+                                           ],
+                                         ),
+                                           onPressed: () {
+                                             Navigator.push(context, MaterialPageRoute(
+                                                 builder: (context) => FriendsPage(uid: uid)
+                                             ));
+                                           },
+                                           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                                       ),
+                                       new OutlineButton(
+                                           child: Row(
+                                             children: <Widget>[
+                                               IconButton(icon: Icon(Icons.history)),
+                                               Text("My History"),
+                                               SizedBox(width: 8)
+                                             ],
+                                           ),
+                                           onPressed: () {
+                                             showSearch(
+                                                 context: context,
+                                                 delegate: SpeciesSearch(["Hi"])
+                                             );
+                                           },
+                                           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                                       )
+
+                                     ],
+
+                                   )
                                   ),
 
                                   SizedBox(height: 20),
@@ -156,27 +173,39 @@ class _MainMenuState extends State<MainMenu> {
                                               begin: Alignment.centerLeft,
                                               end: Alignment.centerRight,
                                               colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-                                      child: Column(
+                                      child: Row(
                                         children: <Widget>[
-                                          Row(
+                                          Column(
                                             children: <Widget>[
-                                              Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Container(
-                                                    width: 200,
-                                                    child: Text(language["fishdex_title"], textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
-                                                  )
-                                              ),
-                                              SizedBox(width: 100),
+                                              Row(
+                                                children: <Widget>[
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Container(
+                                                        width: 200,
+                                                        child: Text(language["fishdex_title"], textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
+                                                      )
+                                                  ),
 
+                                                ],
+                                              ),
+                                              SizedBox(height: 20),
+                                              Row(
+                                                children: <Widget>[
+                                                  Container(
+                                                    width: 200,
+                                                    child: Align(
+                                                       alignment: Alignment.centerLeft,
+                                                       child: _fishdexButton(language["fishdex_button"])
+                                                   )
+                                                  )
+
+
+                                                ],
+                                              )
                                             ],
                                           ),
-                                          SizedBox(height: 20),
-                                          Row(
-                                            children: <Widget>[
-                                              _fishdexButton(language["fishdex_button"])
-                                            ],
-                                          )
+                                          Image(image: AssetImage('assets/images/animation.png'), width: 120, height: 250)
                                         ],
                                       )
                                   ),

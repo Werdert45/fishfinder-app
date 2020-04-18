@@ -59,6 +59,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/animation.png
     - assets/images/preview/
     - assets/tflite/fishfinder.tflite
     - assets/tflite/labels.txt
