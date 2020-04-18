@@ -24,16 +24,6 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   @override
-  void initState() async {
-    super.initState();
-    Future userId() async {
-      uid = await getUser();
-    }
-
-    await userId();
-  }
-
-  @override
   final AuthService _auth = AuthService();
   Widget _options() {
   }
@@ -63,6 +53,12 @@ class _MainMenuState extends State<MainMenu> {
 
 
   Widget build(BuildContext context) {
+    Future userId() async {
+      uid = await getUser();
+    }
+
+    userId();
+
     return FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
         builder: (context,snapshot) {
