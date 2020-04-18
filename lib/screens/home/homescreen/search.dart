@@ -1,3 +1,4 @@
+import 'package:fishfinder_app/screens/home/species/species.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -56,6 +57,15 @@ class SpeciesSearch extends SearchDelegate<String> {
       itemCount: speciesList.length,
         itemBuilder: (context, index) {
       return ListTile(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) => SpeciesScreen(),
+          settings: RouteSettings(
+          arguments: speciesList[index]
+          )
+          )
+          );
+        },
         leading: Image(image: AssetImage('assets/images/preview/' + speciesList[index].name.toLowerCase() + '.jpg'), width: 60, height: 40),
         title: Text("#" + speciesList[index].number + " " + formatString(speciesList[index].name))
       );
