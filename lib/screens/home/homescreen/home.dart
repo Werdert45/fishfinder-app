@@ -91,20 +91,15 @@ class _MainMenuState extends State<MainMenu> {
                                                   text: TextSpan(
                                                       text: language["welcome"],
                                                       style: TextStyle(
-                                                          color: Colors.black, fontSize: 35),
-                                                      children: <TextSpan>[
-                                                        TextSpan(text: ' Ian',
-                                                            style: TextStyle(
-                                                                color: Colors.black, fontSize: 35, fontWeight: FontWeight.w500)
-                                                        )]
+                                                          color: Colors.black, fontSize: 35)
                                                   ),
                                                 ),
-                                                SizedBox(width: (MediaQuery.of(context).size.width - 190)),
+                                                SizedBox(width: (MediaQuery.of(context).size.width - 215)),
                                                 IconButton(
                                                     icon: Icon(Icons.settings),
                                                     onPressed: () {
                                                       Navigator.push(
-                                                          context, MaterialPageRoute(builder: (context) => SettingsPage())
+                                                          context, MaterialPageRoute(builder: (context) => SettingsPage(uid))
                                                       );
                                                     }
                                                 )

@@ -27,6 +27,24 @@ class DatabaseService {
   final CollectionReference fishCatchesCollection = Firestore.instance.collection('fish_catches');
 
 
+  Future updateName(name, puid) async {
+    await fishCatchesCollection.document(puid).updateData({
+      'name': name
+    });
+  }
+
+  Future updateEmail(email, puid) async {
+    await fishCatchesCollection.document(puid).updateData({
+      'email': email
+    });
+  }
+
+  Future updateLanguage(language, puid) async {
+    await fishCatchesCollection.document(puid).updateData({
+      'language': language
+    });
+  }
+
   Future addFriends(friend_name, friend_id, uid) async {
     await fishCatchesCollection.document(uid).updateData({
       'friends_id': FieldValue.arrayUnion([friend_id]),

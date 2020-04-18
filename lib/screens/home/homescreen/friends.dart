@@ -35,38 +35,45 @@ class _FriendsPageState extends State<FriendsPage> {
                   children: <Widget>[
                     SizedBox(height: 50),
                     Container(
-                      width: (MediaQuery.of(context).size.width - 40),
+                      width: (MediaQuery.of(context).size.width),
                       padding: EdgeInsets.only(bottom: 20),
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
+                          IconButton(
+                              icon: Icon(Icons.close),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              }
+                          ),
                           Text("Friends", style: TextStyle(fontSize: 25)),
-                          SizedBox(width: MediaQuery.of(context).size.width - 175),
+//                          SizedBox(width: MediaQuery.of(context).size.width - 175),
                           StreamBuilder(
-                            stream: Firestore.instance.collection('general_information').document('IOpIw5GzEBdFtx7jHUqz').snapshots(),
-                            builder: (context, snapshot) {
-                              // Make an if statement if data is not present (also check the friends again)
+                              stream: Firestore.instance.collection('general_information').document('IOpIw5GzEBdFtx7jHUqz').snapshots(),
+                              builder: (context, snapshot) {
+                                // Make an if statement if data is not present (also check the friends again)
 
-                              var map = snapshot.data['users'];
-                              var users = [];
+                                var map = snapshot.data['users'];
+                                var users = [];
 
 
 
-                              map.forEach((k, v) => users.add(usersDB(k, v).list()));
+                                map.forEach((k, v) => users.add(usersDB(k, v).list()));
 
-                              return Align(
-                                alignment: Alignment.topRight,
-                                child: IconButton(
-                                    icon: Icon(Icons.add, size: 25),
-                                    onPressed: () {
-                                      showSearch(
-                                          context: context,
-                                          delegate: FriendsSearch([users, widget.uid, friends_added])
-                                      );
-                                    }
-                                ),
-                              );
-                            }
+                                return Align(
+                                  alignment: Alignment.topRight,
+                                  child: IconButton(
+                                      icon: Icon(Icons.add, size: 25),
+                                      onPressed: () {
+                                        showSearch(
+                                            context: context,
+                                            delegate: FriendsSearch([users, widget.uid, friends_added])
+                                        );
+                                      }
+                                  ),
+                                );
+                              }
                           )
                         ],
                       ),
