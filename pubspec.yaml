@@ -24,6 +24,7 @@ dependencies:
   flappy_search_bar: 1.4.1
   percent_indicator: ^2.1.1
   gradient_widgets: ^0.5.1
+  intl:
 
 
   firebase_core: ^0.4.0+9

@@ -10,3 +10,20 @@ class friendsCatch {
     return [this.timestamp, this.info];
   }
 }
+
+class userCatch {
+  String timestamp;
+  int index;
+
+  userCatch(this.timestamp, this.index);
+
+  @override
+
+  int catchIndex() {
+    return this.index;
+  }
+
+  String catchTime() {
+    return this.timestamp;
+  }
+}

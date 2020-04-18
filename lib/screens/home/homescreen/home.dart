@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fishfinder_app/models/friends_catch.dart';
 import 'package:fishfinder_app/screens/home/homescreen/achievements.dart';
 import 'package:fishfinder_app/screens/home/homescreen/friends.dart';
+import 'package:fishfinder_app/screens/home/homescreen/history_search.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentfriendsscroll.dart';
 import 'package:fishfinder_app/screens/home/homescreen/search.dart';
 import 'package:flutter/material.dart';
@@ -113,44 +116,79 @@ class _MainMenuState extends State<MainMenu> {
                                   SizedBox(height: 20),
 
                                   Container(
-                                   child: Row(
-                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                     children: <Widget>[
-                                       new OutlineButton(
-                                         child: Row(
-                                           children: <Widget>[
-                                             IconButton(icon: Icon(Icons.accessibility)),
-                                             Text("My Friends"),
-                                             SizedBox(width: 8)
-                                           ],
-                                         ),
-                                           onPressed: () {
-                                             Navigator.push(context, MaterialPageRoute(
-                                                 builder: (context) => FriendsPage(uid: uid)
-                                             ));
-                                           },
-                                           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-                                       ),
-                                       new OutlineButton(
-                                           child: Row(
-                                             children: <Widget>[
-                                               IconButton(icon: Icon(Icons.history)),
-                                               Text("My History"),
-                                               SizedBox(width: 8)
-                                             ],
-                                           ),
-                                           onPressed: () {
-                                             showSearch(
-                                                 context: context,
-                                                 delegate: SpeciesSearch(["Hi"])
-                                             );
-                                           },
-                                           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
-                                       )
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          new OutlineButton(
+                                              child: Row(
+                                                children: <Widget>[
+                                                  IconButton(icon: Icon(Icons.accessibility)),
+                                                  Text("My Friends"),
+                                                  SizedBox(width: 8)
+                                                ],
+                                              ),
+                                              onPressed: () {
+                                                Navigator.push(context, MaterialPageRoute(
+                                                    builder: (context) => FriendsPage(uid: uid)
+                                                ));
+                                              },
+                                              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                                          ),
 
-                                     ],
+                                          new StreamBuilder(
+                                              stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
+                                              builder: (BuildContext context, snapshot) {
+                                                var output = snapshot.data.documents[0]['catches'];
+                                                print(output);
+                                                var userCatches = [];
+                                                var catchesTime = [];
+                                                output.forEach((k, v) => userCatches.add(userCatch(k, v).catchIndex()));
+                                                output.forEach((k, v) => catchesTime.add(userCatch(k, v).catchTime()));
 
-                                   )
+
+                                                if (!snapshot.hasData) {
+                                                  return new Center(child: new Text('Loading'));
+                                                }
+
+                                                return new FutureBuilder(
+                                                    future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
+                                                    builder: (context, snapshot) {
+                                                      List<Species> species = parseJSON(snapshot.data.toString());
+                                                      List<Species> userSpecies = [];
+
+                                                      for (int i = 0; i < userCatches.length; i++) {
+                                                        userSpecies.add(species[userCatches[i]]);
+                                                      }
+
+                                                      return new OutlineButton(
+                                                          child: Row(
+                                                            children: <Widget>[
+                                                              IconButton(icon: Icon(Icons.history)),
+                                                              Text("My History"),
+                                                              SizedBox(width: 8)
+                                                            ],
+                                                          ),
+                                                          onPressed: () {
+                                                            showSearch(
+                                                                context: context,
+                                                                delegate: HistorySearch([userSpecies, catchesTime])
+                                                            );
+                                                          },
+                                                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                                                      );
+                                                    }
+                                                );
+                                              }
+
+                                          )
+
+
+
+
+
+                                        ],
+
+                                      )
                                   ),
 
                                   SizedBox(height: 20),
@@ -193,11 +231,11 @@ class _MainMenuState extends State<MainMenu> {
                                               Row(
                                                 children: <Widget>[
                                                   Container(
-                                                    width: 200,
-                                                    child: Align(
-                                                       alignment: Alignment.centerLeft,
-                                                       child: _fishdexButton(language["fishdex_button"])
-                                                   )
+                                                      width: 200,
+                                                      child: Align(
+                                                          alignment: Alignment.centerLeft,
+                                                          child: _fishdexButton(language["fishdex_button"])
+                                                      )
                                                   )
 
 

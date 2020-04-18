@@ -37,6 +37,10 @@ class _FishDexState extends State<FishDex> {
                     future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
                     builder: (context, snapshot) {
 
+                      if (!snapshot.hasData) {
+                        return new Center(child: new Text('Loading...'));
+                      }
+
                         Future userId() async {
                           uid = await getUser();
                         }
