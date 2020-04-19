@@ -56,7 +56,6 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
         builder: (BuildContext context, snapshot) {
           var friends_id = snapshot.data.documents[0]['friends_id'];
 
-          print(friends_id);
 
 
           if (!snapshot.hasData) {

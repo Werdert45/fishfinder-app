@@ -51,11 +51,9 @@ class HistorySearch extends SearchDelegate<String> {
       }
     }
 
-    print(readTimestamp(int.parse(species[1][1])));
 
     checkQuery(species, query.toLowerCase());
 
-    print(speciesList);
 
 //    final speciesList = query.isEmpty ? species : species.where((p)=>p.name.contains(query)).toList();
 

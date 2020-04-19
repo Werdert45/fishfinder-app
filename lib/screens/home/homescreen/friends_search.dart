@@ -36,7 +36,6 @@ class FriendsSearch extends SearchDelegate<String> {
     var userList = [];
     var userIDs = [];
 
-    print(users[0]);
 
 
     checkQuery(user, query) {
@@ -59,7 +58,6 @@ class FriendsSearch extends SearchDelegate<String> {
 
     checkQuery(users[0], query.toLowerCase());
 
-    print(userIDs);
 
 //    final userList = query.isEmpty ? user : user.where((p)=>p.name.contains(query)).toList();
 
@@ -81,7 +79,6 @@ class FriendsSearch extends SearchDelegate<String> {
               trailing: IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () {
-                  print(userIDs[index]);
                   DatabaseService().addFriends(userList[index], userIDs[index], users[1]);
                 },
               ),

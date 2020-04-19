@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // TODO get all recent catches from the database and all of the species
@@ -21,10 +23,12 @@ class Streams {
 class DatabaseService {
 
   final String uid;
+
   DatabaseService({ this.uid});
 
   // collection reference
-  final CollectionReference fishCatchesCollection = Firestore.instance.collection('fish_catches');
+  final CollectionReference fishCatchesCollection = Firestore.instance
+      .collection('fish_catches');
 
 
   Future updateName(name, puid) async {
@@ -55,7 +59,10 @@ class DatabaseService {
   Future addSpeciesToFriends(friends, data) async {
     for (int i = 0; i < friends.length; i++) {
       await fishCatchesCollection.document(friends[i]).updateData({
-        'friends_catches': {DateTime.now().millisecondsSinceEpoch.toString(): [data[0], data[1]]}
+        'friends_catches': {DateTime
+            .now()
+            .millisecondsSinceEpoch
+            .toString(): [data[0], data[1]]}
       });
     }
   }
@@ -64,7 +71,6 @@ class DatabaseService {
     await fishCatchesCollection.document(puid).updateData({
       'achievements': FieldValue.arrayRemove([achievement]),
       'achievements': FieldValue.arrayUnion([{achievement: true}])
-
     });
   }
 
@@ -78,7 +84,7 @@ class DatabaseService {
     return await fishCatchesCollection.document(uid).setData({
       'email': email,
       'uid': uid,
-      'species': species,
+      'species': {},
       'friends_catches': {},
       'friends_id': [],
       'language': "en",
@@ -90,11 +96,13 @@ class DatabaseService {
         "achievement_5": false,
         "achievement_6": false,
         "achievement_7": false,
-        "achievement_8": false}
+        "achievement_8": false
+      }
     });
   }
 
-  Future registerOthers(String firstName, String lastName, bool premiumUser) async {
+  Future registerOthers(String firstName, String lastName,
+      bool premiumUser) async {
     return await fishCatchesCollection.document(uid).setData({
       'firstname': firstName,
       'surname': lastName,
@@ -104,10 +112,7 @@ class DatabaseService {
 
   Future updateSpeciesList(currentUser, newSpecies) async {
     return await fishCatchesCollection.document(currentUser).updateData({
-      'species': FieldValue.arrayUnion([newSpecies])
+      'species': 
     });
   }
-
 }
-
-

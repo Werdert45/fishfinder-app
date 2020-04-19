@@ -25,18 +25,16 @@ class Achievements extends StatelessWidget {
           return new StreamBuilder(
               stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
               builder: (BuildContext context, snap) {
-                var achievements = [];
+//                var achievements = [];
                 var achievements_output = snap.data.documents[0]['achievements'];
 
-                print(achievements_output);
                 var species_list = snap.data.documents[0]['species'];
-
-//                for (int i = 1; i <= achievements_output.length; i++) {
-//                  print(achievements_output["achievement_1"]);
-//                  achievements["achievement_" + i.toString()]
-//                }
+//                species_list = {"2138128399": 18, "2138125398": 18, "2136128398": 18, "2138528398": 18, "2128128398": 18, "2138128398": 18, "2138129398": 18, "2138168398": 18, "2138127398": 18, "2138121398": 18, "2138128398": 18};
 
                 checkAchievements(species_list, uid);
+
+//                achievements_output = {"achievement_1": true};
+                print(achievements_output);
 
                 if (!snapshot.hasData) {
                   return Center(child: new Text('Loading'));
@@ -60,7 +58,7 @@ class Achievements extends StatelessWidget {
                                   children: <Widget>[
                                     Icon(Icons.account_balance, size: 40),
                                     SizedBox(height: 10),
-                                    Text(language["achievement_" + index.toString()])
+                                    Text(language["achievement_" + (index + 1).toString()])
                                   ],
                                 ),
                               )

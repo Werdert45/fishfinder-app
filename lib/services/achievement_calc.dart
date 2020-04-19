@@ -1,14 +1,21 @@
 import 'package:fishfinder_app/services/database.dart';
 
-checkAchievements(List list, String puid) {
+checkAchievements(Map map, String puid) {
 
+  List list = [];
   List species = [];
 
-  for (int i = 0; i < list.length; i++) {
-    if (!species.contains(list[i])) {
-      species.add(list[i]);
-    }
-  }
+  map.forEach((k, v) {
+    list.add(v);
+    species.add(v);
+  });
+
+
+//  for (int i = 0; i < list.length; i++) {
+//    if (!species.contains(list[i])) {
+//      species.add(list[i]);
+//    }
+//  }
 
   if (species.length >= 5) {
     // ac 1

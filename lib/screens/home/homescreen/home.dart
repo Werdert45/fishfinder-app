@@ -30,6 +30,23 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   @override
+
+  void initState() {
+    super.initState();
+    @override
+    void initState() {
+      super.initState();
+      Future userId() async {
+        uid = await getUser();
+      }
+
+      setState(() {
+        userId();
+      });
+    }
+  }
+
+
   final AuthService _auth = AuthService();
   Widget _options() {
   }
@@ -59,14 +76,16 @@ class _MainMenuState extends State<MainMenu> {
 
 
   Widget build(BuildContext context) {
+
     Future userId() async {
       uid = await getUser();
     }
 
     userId();
 
-
     print(uid);
+
+
 
     return FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
@@ -138,13 +157,14 @@ class _MainMenuState extends State<MainMenu> {
                                               stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
                                               builder: (BuildContext context, snapshot) {
 
+
                                                 if (!snapshot.hasData) {
                                                   return new Center(child: new Text('Loading'));
                                                 }
 
                                                 else if (snapshot.data.documents[0]['catches'] != null) {
+
                                                   var output = snapshot.data.documents[0]['catches'];
-                                                  print("Output" + output.toString());
                                                   var userCatches = [];
                                                   var catchesTime = [];
                                                   output.forEach((k, v) => userCatches.add(userCatch(k, v).catchIndex()));
@@ -182,7 +202,28 @@ class _MainMenuState extends State<MainMenu> {
                                                 }
 
                                                 else {
-                                                    return new Center(child: new Text("No Info"));
+
+                                                  return new FutureBuilder(
+                                                      future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
+                                                      builder: (context, snapshot) {
+
+                                                        List<Species> species = parseJSON(snapshot.data.toString());
+                                                        List<Species> userSpecies = [];
+                                                        return new OutlineButton(
+                                                            child: Row(
+                                                              children: <Widget>[
+                                                                IconButton(icon: Icon(Icons.history)),
+                                                                Text("My History"),
+                                                                SizedBox(width: 8)
+                                                              ],
+                                                            ),
+                                                            onPressed: () {
+                                                              // Give an info box that there is no history
+                                                            },
+                                                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
+                                                        );
+                                                      }
+                                                  );
                                                 }
 
 

@@ -19,6 +19,18 @@ class RecentScroll extends StatelessWidget {
           if (!snapshot.hasData) {
             return new Center(child: new Text('Loading'));
           }
+
+          var output_species = snapshot.data.documents[0]['species'];
+
+          print(output_species);
+          var speciez = [];
+
+          output_species.forEach((k, v) {
+            speciez.add(v);
+          });
+
+          print(speciez);
+
           return Container(
               height: 130,
               width: MediaQuery.of(context).size.width,
@@ -41,7 +53,7 @@ class RecentScroll extends StatelessWidget {
                                 aspectRatio: 1.0 / 1.0,
                                 child: Image(
 
-                                    image: AssetImage('assets/images/preview/' + species[(snapshot.data.documents[0]['species'][snapshot.data.documents[0]['species'].length - index - 1] - 1)].name.toLowerCase() + '.jpg'),
+                                    image: AssetImage('assets/images/preview/' + species[speciez[index]].name.toLowerCase() + '.jpg'),
                                     fit: BoxFit.fill
                                 )
                             )
@@ -50,7 +62,7 @@ class RecentScroll extends StatelessWidget {
                             width: 100,
                             alignment: Alignment.center,
                             margin: const EdgeInsets.only(right: 0),
-                            child: Text(formatString(showPreviewString(species[(snapshot.data.documents[0]['species'][snapshot.data.documents[0]['species'].length - index - 1] - 1)].name, 10)), textAlign: TextAlign.left)
+                            child: Text(formatString(showPreviewString(species[speciez[index]].name, 10)), textAlign: TextAlign.left)
                         ),
                       ],
                     );
