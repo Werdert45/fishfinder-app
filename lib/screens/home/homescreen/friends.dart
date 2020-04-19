@@ -31,80 +31,148 @@ class _FriendsPageState extends State<FriendsPage> {
                   return new Center(child: new Text('Loading ...'));
                 }
 
-                return Column(
-                  children: <Widget>[
-                    SizedBox(height: 50),
-                    Container(
-                      width: (MediaQuery.of(context).size.width),
-                      padding: EdgeInsets.only(bottom: 20),
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          IconButton(
-                              icon: Icon(Icons.close),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              }
-                          ),
-                          Text("Friends", style: TextStyle(fontSize: 25)),
+                if (snapshot.data.documents[0]['friends_name'] == null) {
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(height: 50),
+                      Container(
+                        width: (MediaQuery.of(context).size.width),
+                        padding: EdgeInsets.only(bottom: 20),
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            IconButton(
+                                icon: Icon(Icons.close),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }
+                            ),
+                            Text("Friends", style: TextStyle(fontSize: 25)),
 //                          SizedBox(width: MediaQuery.of(context).size.width - 175),
-                          StreamBuilder(
-                              stream: Firestore.instance.collection('general_information').document('IOpIw5GzEBdFtx7jHUqz').snapshots(),
-                              builder: (context, snapshot) {
-                                // Make an if statement if data is not present (also check the friends again)
+                            StreamBuilder(
+                                stream: Firestore.instance.collection('general_information').document('IOpIw5GzEBdFtx7jHUqz').snapshots(),
+                                builder: (context, snapshot) {
+                                  // Make an if statement if data is not present (also check the friends again)
 
-                                var map = snapshot.data['users'];
-                                var users = [];
+                                  var map = snapshot.data['users'];
+                                  var users = [];
+
+                                  map.forEach((k, v) => users.add(usersDB(k, v).list()));
+
+
+                                  friends_added = [];
+
+                                  return Align(
+                                    alignment: Alignment.topRight,
+                                    child: IconButton(
+                                        icon: Icon(Icons.add, size: 25),
+                                        onPressed: () {
+                                          showSearch(
+                                              context: context,
+                                              delegate: FriendsSearch([users, widget.uid, friends_added])
+                                          );
+                                        }
+                                    ),
+                                  );
+                                }
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                Center(child: Text("No friends"))
+                    ],
+                  );
+
+
+                }
+
+                else {
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(height: 50),
+                      Container(
+                        width: (MediaQuery.of(context).size.width),
+                        padding: EdgeInsets.only(bottom: 20),
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            IconButton(
+                                icon: Icon(Icons.close),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }
+                            ),
+                            Text("Friends", style: TextStyle(fontSize: 25)),
+//                          SizedBox(width: MediaQuery.of(context).size.width - 175),
+                            StreamBuilder(
+                                stream: Firestore.instance.collection('general_information').document('IOpIw5GzEBdFtx7jHUqz').snapshots(),
+                                builder: (context, snapshot) {
+                                  // Make an if statement if data is not present (also check the friends again)
+
+                                  var map = snapshot.data['users'];
+                                  var users = [];
 
 
 
-                                map.forEach((k, v) => users.add(usersDB(k, v).list()));
+                                  map.forEach((k, v) => users.add(usersDB(k, v).list()));
 
-                                return Align(
-                                  alignment: Alignment.topRight,
-                                  child: IconButton(
-                                      icon: Icon(Icons.add, size: 25),
-                                      onPressed: () {
-                                        showSearch(
-                                            context: context,
-                                            delegate: FriendsSearch([users, widget.uid, friends_added])
-                                        );
-                                      }
-                                  ),
-                                );
+                                  return Align(
+                                    alignment: Alignment.topRight,
+                                    child: IconButton(
+                                        icon: Icon(Icons.add, size: 25),
+                                        onPressed: () {
+                                          showSearch(
+                                              context: context,
+                                              delegate: FriendsSearch([users, widget.uid, friends_added])
+                                          );
+                                        }
+                                    ),
+                                  );
+                                }
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20),
+
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("All Friends", style: TextStyle(fontSize: 16),)
+                        ),
+                      ),
+                      Container(
+                          height: MediaQuery.of(context).size.width - 120,
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          child: ListView.builder(
+                              itemCount: snapshot.data.documents[0]['friends_name'].length,
+                              itemBuilder: (context, int index) {
+                                if (snapshot.data.documents[0]['friends_name'].length == 0) {
+                                  return Center(
+                                    child: Text("No Friends yet, try to add them"),
+                                  );
+                                }
+                                else {
+                                  return ListTile(
+                                      title: Text(snapshot.data.documents[0]['friends_name'][index]),
+                                      leading: Icon(Icons.account_box)
+                                  );
+                                }
+
                               }
                           )
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20),
-
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("All Friends", style: TextStyle(fontSize: 16),)
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.width - 120,
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      child: ListView.builder(
-                          itemCount: snapshot.data.documents[0]['friends_name'].length,
-                          itemBuilder: (context, int index) {
-                            return ListTile(
-                              title: Text(snapshot.data.documents[0]['friends_name'][index]),
-                              leading: Icon(Icons.account_box)
-                            );
-                          }
                       )
-                    )
 
 
 
-                  ],
-                );
+                    ],
+                  );
+                }
+
               }
           )
         )

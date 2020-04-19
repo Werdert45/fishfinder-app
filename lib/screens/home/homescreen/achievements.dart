@@ -25,16 +25,11 @@ class Achievements extends StatelessWidget {
           return new StreamBuilder(
               stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
               builder: (BuildContext context, snap) {
-//                var achievements = [];
                 var achievements_output = snap.data.documents[0]['achievements'];
 
                 var species_list = snap.data.documents[0]['species'];
-//                species_list = {"2138128399": 18, "2138125398": 18, "2136128398": 18, "2138528398": 18, "2128128398": 18, "2138128398": 18, "2138129398": 18, "2138168398": 18, "2138127398": 18, "2138121398": 18, "2138128398": 18};
 
                 checkAchievements(species_list, uid);
-
-//                achievements_output = {"achievement_1": true};
-                print(achievements_output);
 
                 if (!snapshot.hasData) {
                   return Center(child: new Text('Loading'));
@@ -47,7 +42,7 @@ class Achievements extends StatelessWidget {
                       itemCount: achievements_output.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                       itemBuilder: (BuildContext context, int index) {
-                        if (achievements_output["achievement_" + (index + 1).toString()]) {
+                        if (achievements_output[index]["achievement_" + (index + 1).toString()]) {
                           return new GradientCard(
                               gradient: goldLinearGradient,
                               elevation: 0,

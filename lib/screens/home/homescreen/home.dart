@@ -85,8 +85,6 @@ class _MainMenuState extends State<MainMenu> {
 
     print(uid);
 
-
-
     return FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
         builder: (context,snapshot) {

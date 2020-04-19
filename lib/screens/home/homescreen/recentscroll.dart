@@ -22,14 +22,10 @@ class RecentScroll extends StatelessWidget {
 
           var output_species = snapshot.data.documents[0]['species'];
 
-          print(output_species);
           var speciez = [];
 
-          output_species.forEach((k, v) {
-            speciez.add(v);
-          });
-
           print(speciez);
+          print(output_species);
 
           return Container(
               height: 130,
@@ -38,34 +34,46 @@ class RecentScroll extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data.documents[0]['species'].length,
                   itemBuilder: (BuildContext context, int index) {
-                    return new Column(
-                      children: <Widget>[
-                        Container(
-                            margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                            width: 100,
-                            height: 100,
-                            decoration: new BoxDecoration(
-                                borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                            ),
+                    if (snapshot.data.documents[0]['species'].length == 0) {
+                      return Center(child: Text("New"));
+                    }
 
-                            child: AspectRatio(
+                    else {
+                      for (int i = 0; i < output_species.length; i++) {
+                        output_species[i].forEach((k, v) {
+                          speciez.add(v);
+                        });
+                      }
 
-                                aspectRatio: 1.0 / 1.0,
-                                child: Image(
+                      return new Column(
+                        children: <Widget>[
+                          Container(
+                              margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
+                              width: 100,
+                              height: 100,
+                              decoration: new BoxDecoration(
+                                  borderRadius: new BorderRadius.all(const Radius.circular(30.0))
+                              ),
 
-                                    image: AssetImage('assets/images/preview/' + species[speciez[index]].name.toLowerCase() + '.jpg'),
-                                    fit: BoxFit.fill
-                                )
-                            )
-                        ),
-                        Container(
-                            width: 100,
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.only(right: 0),
-                            child: Text(formatString(showPreviewString(species[speciez[index]].name, 10)), textAlign: TextAlign.left)
-                        ),
-                      ],
-                    );
+                              child: AspectRatio(
+
+                                  aspectRatio: 1.0 / 1.0,
+                                  child: Image(
+
+                                      image: AssetImage('assets/images/preview/' + species[speciez[index]].name.toLowerCase() + '.jpg'),
+                                      fit: BoxFit.fill
+                                  )
+                              )
+                          ),
+                          Container(
+                              width: 100,
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(right: 0),
+                              child: Text(formatString(showPreviewString(species[speciez[index]].name, 10)), textAlign: TextAlign.left)
+                          ),
+                        ],
+                      );
+                    }
                   }
               )
           );

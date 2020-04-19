@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -84,20 +84,21 @@ class DatabaseService {
     return await fishCatchesCollection.document(uid).setData({
       'email': email,
       'uid': uid,
-      'species': {},
+      'species': [],
       'friends_catches': {},
       'friends_id': [],
+      'friends_name': [],
       'language': "en",
-      'achievements': {
-        "achievement_1": false,
-        "achievement_2": false,
-        "achievement_3": false,
-        "achievement_4": false,
-        "achievement_5": false,
-        "achievement_6": false,
-        "achievement_7": false,
-        "achievement_8": false
-      }
+      'achievements': [
+        {"achievement_1": false},
+        {"achievement_2": false},
+        {"achievement_3": false},
+        {"achievement_4": false},
+        {"achievement_5": false},
+        {"achievement_6": false},
+        {"achievement_7": false},
+        {"achievement_8": false}
+        ]
     });
   }
 
@@ -112,7 +113,7 @@ class DatabaseService {
 
   Future updateSpeciesList(currentUser, newSpecies) async {
     return await fishCatchesCollection.document(currentUser).updateData({
-      'species': 
+      'species': FieldValue.arrayUnion([{DateTime.now().millisecondsSinceEpoch.toString(): newSpecies}])
     });
   }
 }

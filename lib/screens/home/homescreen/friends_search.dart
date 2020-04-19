@@ -56,6 +56,7 @@ class FriendsSearch extends SearchDelegate<String> {
       }
     }
 
+
     checkQuery(users[0], query.toLowerCase());
 
 
@@ -64,7 +65,12 @@ class FriendsSearch extends SearchDelegate<String> {
     return ListView.builder(
         itemCount: userList.length,
         itemBuilder: (context, index) {
-          if (users[2].contains(userList[index])) {
+          if (users[2] == null) {
+            return SizedBox(height: 0);
+          }
+
+
+          else if (users[2].contains(userList[index])) {
             return ListTile(
               title: Text(userList[index]),
               trailing: IconButton(
