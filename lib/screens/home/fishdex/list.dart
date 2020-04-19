@@ -31,6 +31,19 @@ class _SpeciesListState extends State<SpeciesList> {
                   stream: Firestore.instance.collection('fish_catches').where(
                       'uid', isEqualTo: widget.uid).snapshots(),
                   builder: (BuildContext context, snapshot) {
+
+
+                    var speciesFromDB = snapshot.data.documents[0]['species'];
+                    var speciesList = [];
+
+                    for (int i = 0; i < speciesFromDB.length; i++) {
+                      speciesFromDB[i].forEach((k, v) {
+                        speciesList.add(v);
+                      });
+                    }
+
+                    print(speciesList);
+
                     if (!snapshot.hasData) {
                       return new Center(child: new Text('Loading...'));
                     }
@@ -127,17 +140,11 @@ class _SpeciesListState extends State<SpeciesList> {
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Text('#' + index_show(snapshot.data
-                                                .documents[0]['species'].last)
+                                            Text('#' + index_show(speciesList.last)
                                                 .toString() + " " +
-                                                formatString(
-                                                    widget.species[(snapshot
-                                                        .data
-                                                        .documents[0]['species'])
-                                                        .last - 1].name),
+                                                formatString(widget.species[speciesList.last - 1].name),
                                                 textAlign: TextAlign.left,
-                                                textDirection: TextDirection
-                                                    .ltr,
+                                                textDirection: TextDirection.ltr,
                                                 style: TextStyle(
                                                     color: Colors.blueGrey))
                                           ],
@@ -147,37 +154,27 @@ class _SpeciesListState extends State<SpeciesList> {
                                           children: <Widget>[
                                             Text('Most Frequent Catch:',
                                                 textAlign: TextAlign.left,
-                                                textDirection: TextDirection
-                                                    .ltr,
+                                                textDirection: TextDirection.ltr,
                                                 style: TextStyle(fontSize: 16,
                                                     color: Colors.white))
                                           ],
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Text('#' + index_show(most_frequent(
-                                                snapshot.data
-                                                    .documents[0]['species'])[0]) +
-                                                " " + formatString(
-                                                widget.species[most_frequent(
-                                                    snapshot.data
-                                                        .documents[0]['species'])[0] -
-                                                    1].name),
+                                            Text('#' + index_show(most_frequent(speciesList)[0]) +
+                                                " " + formatString(widget.species[most_frequent(speciesList)[0] - 1].name),
                                                 textAlign: TextAlign.left,
-                                                textDirection: TextDirection
-                                                    .ltr,
+                                                textDirection: TextDirection.ltr,
                                                 style: TextStyle(
                                                     color: Colors.blueGrey))
                                           ],
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Text(most_frequent(snapshot.data
-                                                .documents[0]['species'])[1]
+                                            Text(most_frequent(speciesList)[1]
                                                 .toString() + ' time(s)',
                                                 textAlign: TextAlign.left,
-                                                textDirection: TextDirection
-                                                    .ltr,
+                                                textDirection: TextDirection.ltr,
                                                 style: TextStyle(
                                                     color: Colors.blueGrey))
                                           ],
@@ -191,16 +188,10 @@ class _SpeciesListState extends State<SpeciesList> {
                                     )
                                 ),
                                 CircularPercentIndicator(
-                                  radius: (MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width - 300),
+                                  radius: (MediaQuery.of(context).size.width - 300),
                                   lineWidth: 20,
-                                  percent: (snapshot.data
-                                      .documents[0]['species']).length / 64,
-                                  center: new Text(((((snapshot.data
-                                      .documents[0]['species']).length) / 64) *
-                                      100).toString().substring(0, 4) + "%",
+                                  percent: (speciesList).length / 64,
+                                  center: new Text(((((speciesList).length) / 64) * 100).toString().substring(0, 4) + "%",
                                       style: TextStyle(fontSize: 15)),
                                   progressColor: Colors.green,
                                 )
@@ -216,8 +207,7 @@ class _SpeciesListState extends State<SpeciesList> {
                             gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2),
                             itemBuilder: (BuildContext context, int index) {
-                              if (snapshot.data.documents[0]['species']
-                                  .contains(index + 1)) {
+                              if (speciesList.contains(index + 1)) {
                                 return new GestureDetector(
                                     child: new Container(
                                       padding: const EdgeInsets.all(10.0),

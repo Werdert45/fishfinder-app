@@ -155,18 +155,23 @@ class _MainMenuState extends State<MainMenu> {
                                               stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
                                               builder: (BuildContext context, snapshot) {
 
-
                                                 if (!snapshot.hasData) {
                                                   return new Center(child: new Text('Loading'));
                                                 }
 
-                                                else if (snapshot.data.documents[0]['catches'] != null) {
+                                                else if (snapshot.data.documents[0]['species'] != null) {
 
-                                                  var output = snapshot.data.documents[0]['catches'];
+                                                  var output = snapshot.data.documents[0]['species'];
+                                                  print(output);
                                                   var userCatches = [];
                                                   var catchesTime = [];
-                                                  output.forEach((k, v) => userCatches.add(userCatch(k, v).catchIndex()));
-                                                  output.forEach((k, v) => catchesTime.add(userCatch(k, v).catchTime()));
+
+                                                  for (int i = 0; i < output.length; i++) {
+                                                    output[i].forEach((k, v) => userCatches.add(userCatch(k, v).catchIndex()));
+                                                    output[i].forEach((k, v) => catchesTime.add(userCatch(k, v).catchTime()));
+                                                  }
+
+
 
 
                                                   return new FutureBuilder(
