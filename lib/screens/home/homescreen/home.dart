@@ -154,6 +154,8 @@ class _MainMenuState extends State<MainMenu> {
                                           new StreamBuilder(
                                               stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
                                               builder: (BuildContext context, snapshot) {
+                                                print(snapshot.data.documents[0]);
+
 
                                                 if (!snapshot.hasData) {
                                                   return new Center(child: new Text('Loading'));
@@ -181,7 +183,7 @@ class _MainMenuState extends State<MainMenu> {
                                                         List<Species> userSpecies = [];
 
                                                         for (int i = 0; i < userCatches.length; i++) {
-                                                          userSpecies.add(species[userCatches[i]]);
+                                                          userSpecies.add(species[userCatches[i] - 1]);
                                                         }
 
                                                         return new OutlineButton(

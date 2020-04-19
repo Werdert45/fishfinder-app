@@ -60,7 +60,7 @@ class RecentScroll extends StatelessWidget {
                                   aspectRatio: 1.0 / 1.0,
                                   child: Image(
 
-                                      image: AssetImage('assets/images/preview/' + species[speciez[index]].name.toLowerCase() + '.jpg'),
+                                      image: AssetImage('assets/images/preview/' + species[speciez[index] - 1].name.toLowerCase() + '.jpg'),
                                       fit: BoxFit.fill
                                   )
                               )
@@ -69,7 +69,7 @@ class RecentScroll extends StatelessWidget {
                               width: 100,
                               alignment: Alignment.center,
                               margin: const EdgeInsets.only(right: 0),
-                              child: Text(formatString(showPreviewString(species[speciez[index]].name, 10)), textAlign: TextAlign.left)
+                              child: Text(formatString(showPreviewString(species[speciez[index] - 1].name, 10)), textAlign: TextAlign.left)
                           ),
                         ],
                       );
