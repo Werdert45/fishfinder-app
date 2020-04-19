@@ -30,6 +30,8 @@ class DatabaseService {
   final CollectionReference fishCatchesCollection = Firestore.instance
       .collection('fish_catches');
 
+  final CollectionReference generalInformationCollection = Firestore.instance.collection('general_information');
+
 
   Future updateName(name, puid) async {
     await fishCatchesCollection.document(puid).updateData({
@@ -80,7 +82,11 @@ class DatabaseService {
     });
   }
 
-  Future updateUserData(String email, List species) async {
+  Future updateUserData(String email, List species, String name) async {
+    await generalInformationCollection.document('IOpIw5GzEBdFtx7jHUqz').setData({
+      'users': FieldValue.arrayUnion([{uid: name}])
+    });
+
     return await fishCatchesCollection.document(uid).setData({
       'email': email,
       'uid': uid,

@@ -52,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
         onTap: () async {
           // onPressed, check if the form is submitted and register email in Firebase and user != null
           if (_formKey.currentState.validate()) {
-            dynamic result = await _auth.registerWithEmail(email, password);
+            dynamic result = await _auth.registerWithEmail(email, password, name);
             Navigator.pop(context);
             if (result == null) {
               setState(() => error = 'please supply a valid email');

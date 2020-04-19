@@ -260,10 +260,7 @@ class _MainMenuState extends State<MainMenu> {
                                                 blurRadius: 5,
                                                 spreadRadius: 2)
                                           ],
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+                                          gradient: linearGradient),
                                       child: Row(
                                         children: <Widget>[
                                           Column(
