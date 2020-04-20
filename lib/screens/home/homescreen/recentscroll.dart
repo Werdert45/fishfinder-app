@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/shared/constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/species.dart';
 
 
@@ -59,7 +58,6 @@ class RecentScroll extends StatelessWidget {
 
                                   aspectRatio: 1.0 / 1.0,
                                   child: Image(
-
                                       image: AssetImage('assets/images/preview/' + species[speciez[index] - 1].name.toLowerCase() + '.jpg'),
                                       fit: BoxFit.fill
                                   )
