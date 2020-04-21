@@ -1,16 +1,33 @@
-
 class syncDB {
-    final List achievements;
-    final String email;
-    final List friends_id;
-    final List friends_name;
-    final String language;
-    final List species;
-    final String uid;
+    List achievements;
+    String email;
+    Map friends_catches;
+    List friends_id;
+    String language;
+    List species;
+    String uid;
 
 
+    syncDB(
+        this.achievements,
+        this.email,
+        this.friends_catches,
+        this.friends_id,
+        this.language,
+        this.species,
+        this.uid
+        );
 
-    syncDB({this.achievements, this.email, this.friends_id, this.friends_name, this.language, this.species, this.uid});
-
-//    factory syncDB.fromJSON(Map<dynamic, dynamic> json) =>
+    @override
+    Map<dynamic, dynamic> toJSON() {
+        return {
+            'achievements': this.achievements,
+            'email': this.email,
+            'friends_catches': this.friends_catches,
+            'friends_id': this.friends_id,
+            'language': this.language,
+            'species': this.species,
+            'uid': this.uid
+        };
+    }
 }

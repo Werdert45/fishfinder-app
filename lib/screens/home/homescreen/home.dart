@@ -1,16 +1,20 @@
 import 'dart:convert';
+//import 'dart:html';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/friends_catch.dart';
+import 'package:fishfinder_app/models/users_db.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 import 'package:fishfinder_app/screens/home/homescreen/achievements.dart';
 import 'package:fishfinder_app/screens/home/homescreen/friends.dart';
 import 'package:fishfinder_app/screens/home/homescreen/history_search.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentfriendsscroll.dart';
-import 'package:fishfinder_app/screens/home/homescreen/search.dart';
+import 'package:fishfinder_app/services/backup.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
+import 'package:path_provider/path_provider.dart';
 import 'settings.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:fishfinder_app/models/species.dart';
@@ -48,10 +52,11 @@ class _MainMenuState extends State<MainMenu> {
 
 
   final AuthService _auth = AuthService();
-  Widget _options() {
-  }
 
   String uid;
+  String root_folder = '/data/user/0/machinelearningsolutions.fishfinder_app/app_flutter';
+  Map backup;
+
 
   Widget _fishdexButton(text) {
     return InkWell(
@@ -83,7 +88,8 @@ class _MainMenuState extends State<MainMenu> {
 
     userId();
 
-    print(uid);
+    localBackup();
+
 
     return FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
@@ -154,8 +160,9 @@ class _MainMenuState extends State<MainMenu> {
                                           new StreamBuilder(
                                               stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
                                               builder: (BuildContext context, snapshot) {
-                                                print(snapshot.data.documents[0]);
+                                                var jsonObject = jsonEncode(SyncBackup().backupLocally(snapshot.data.documents[0]));
 
+                                                jsonSave(jsonObject);
 
                                                 if (!snapshot.hasData) {
                                                   return new Center(child: new Text('Loading'));
@@ -164,7 +171,6 @@ class _MainMenuState extends State<MainMenu> {
                                                 else if (snapshot.data.documents[0]['species'] != null) {
 
                                                   var output = snapshot.data.documents[0]['species'];
-                                                  print(output);
                                                   var userCatches = [];
                                                   var catchesTime = [];
 
@@ -172,8 +178,6 @@ class _MainMenuState extends State<MainMenu> {
                                                     output[i].forEach((k, v) => userCatches.add(userCatch(k, v).catchIndex()));
                                                     output[i].forEach((k, v) => catchesTime.add(userCatch(k, v).catchTime()));
                                                   }
-
-
 
 
                                                   return new FutureBuilder(

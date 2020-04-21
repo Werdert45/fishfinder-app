@@ -35,10 +35,14 @@ class _SpeciesListState extends State<SpeciesList> {
 
                     var speciesFromDB = snapshot.data.documents[0]['species'];
                     var speciesList = [];
+                    var uniqueSpecies = [];
 
                     for (int i = 0; i < speciesFromDB.length; i++) {
                       speciesFromDB[i].forEach((k, v) {
                         speciesList.add(v);
+                        if (!uniqueSpecies.contains(v)) {
+                          uniqueSpecies.add(v);
+                        }
                       });
                     }
 
@@ -190,8 +194,8 @@ class _SpeciesListState extends State<SpeciesList> {
                                 CircularPercentIndicator(
                                   radius: (MediaQuery.of(context).size.width - 300),
                                   lineWidth: 20,
-                                  percent: (speciesList).length / 64,
-                                  center: new Text(((((speciesList).length) / 64) * 100).toString().substring(0, 4) + "%",
+                                  percent: (uniqueSpecies).length / 64,
+                                  center: new Text(((((uniqueSpecies).length) / 64) * 100).toString().substring(0, 4) + "%",
                                       style: TextStyle(fontSize: 15)),
                                   progressColor: Colors.green,
                                 )
