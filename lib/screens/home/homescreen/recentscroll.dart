@@ -23,9 +23,6 @@ class RecentScroll extends StatelessWidget {
 
           var speciez = [];
 
-          print(speciez);
-          print(output_species);
-
           return Container(
               height: 130,
               width: MediaQuery.of(context).size.width,

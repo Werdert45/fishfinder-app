@@ -38,16 +38,13 @@ class _MainMenuState extends State<MainMenu> {
   void initState() {
     super.initState();
     @override
-    void initState() {
-      super.initState();
-      Future userId() async {
-        uid = await getUser();
-      }
-
-      setState(() {
-        userId();
-      });
+    Future userId() async {
+      uid = await getUser();
     }
+
+    setState(() {
+        userId();
+    });
   }
 
 
@@ -88,8 +85,12 @@ class _MainMenuState extends State<MainMenu> {
 
     userId();
 
-    localBackup();
+    localStore() async {
+      var loaded = await jsonLoad();
+      backup = jsonDecode(loaded);
+    }
 
+    localStore();
 
     return FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),

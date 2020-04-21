@@ -21,7 +21,6 @@ class SyncBackup {
 Future jsonSave(jsonObject) async {
   final directory = await getApplicationDocumentsDirectory();
   final path = await directory.path;
-  print(path);
   final file = File('$path/local_sync.json');
   return file.writeAsString(jsonObject.toString());
 }
@@ -31,18 +30,9 @@ Future jsonSave(jsonObject) async {
 Future jsonLoad() async {
   final directory = await getApplicationDocumentsDirectory();
   final path = await directory.path;
-  print(path);
   final file = File('$path/local_sync.json');
 
   String sync = await file.readAsString();
   return sync;
 }
 
-
-
-
-localBackup() {
-  jsonLoad().then((s) {
-    return jsonDecode(s);
-  });
-}

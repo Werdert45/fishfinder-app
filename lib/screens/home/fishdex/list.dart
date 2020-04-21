@@ -46,8 +46,6 @@ class _SpeciesListState extends State<SpeciesList> {
                       });
                     }
 
-                    print(speciesList);
-
                     if (!snapshot.hasData) {
                       return new Center(child: new Text('Loading...'));
                     }
