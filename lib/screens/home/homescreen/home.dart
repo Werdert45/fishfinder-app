@@ -87,8 +87,9 @@ class _MainMenuState extends State<MainMenu> {
 
     localStore() async {
       var loaded = await jsonLoad();
-      backup = jsonDecode(loaded);
+//      backup = jsonDecode(loaded);
     }
+
 
     localStore();
 
