@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fishfinder_app/screens/home/species/species.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:fishfinder_app/models/species.dart';
@@ -41,33 +42,46 @@ class RecentScroll extends StatelessWidget {
                         });
                       }
 
-                      return new Column(
-                        children: <Widget>[
-                          Container(
-                              margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
-                              width: 100,
-                              height: 100,
-                              decoration: new BoxDecoration(
-                                  borderRadius: new BorderRadius.all(const Radius.circular(30.0))
-                              ),
+                      return new GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => SpeciesScreen(),
+                                settings: RouteSettings(
+                                    arguments: species[speciez[index] - 1]
+                                )
+                            )
+                            );
+                          },
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                                margin: const EdgeInsets.only(left: 10.0, top: 0.0, right: 0.0, bottom: 0.0),
+                                width: 100,
+                                height: 100,
+                                decoration: new BoxDecoration(
+                                    borderRadius: new BorderRadius.all(const Radius.circular(30.0))
+                                ),
 
-                              child: AspectRatio(
+                                child: AspectRatio(
 
-                                  aspectRatio: 1.0 / 1.0,
-                                  child: Image(
-                                      image: AssetImage('assets/images/preview/' + species[speciez[index] - 1].name.toLowerCase() + '.jpg'),
-                                      fit: BoxFit.fill
-                                  )
-                              )
-                          ),
-                          Container(
-                              width: 100,
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(right: 0),
-                              child: Text(formatString(showPreviewString(species[speciez[index] - 1].name, 10)), textAlign: TextAlign.left)
-                          ),
-                        ],
+                                    aspectRatio: 1.0 / 1.0,
+                                    child: Image(
+                                        image: AssetImage('assets/images/preview/' + species[speciez[index] - 1].name.toLowerCase() + '.jpg'),
+                                        fit: BoxFit.fill
+                                    )
+                                )
+                            ),
+                            Container(
+                                width: 100,
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(right: 0),
+                                child: Text(formatString(showPreviewString(species[speciez[index] - 1].name, 10)), textAlign: TextAlign.left)
+                            ),
+                          ],
+                        )
                       );
+
+
                     }
                   }
               )

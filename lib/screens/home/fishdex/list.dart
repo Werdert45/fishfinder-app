@@ -108,7 +108,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                     width: (MediaQuery
                                         .of(context)
                                         .size
-                                        .width - 220),
+                                        .width - 200),
                                     child: Column(
                                       children: <Widget>[
                                         Row(
@@ -334,7 +334,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                                                             widget
                                                                                 .species[index]
                                                                                 .name),
-                                                                        17)),
+                                                                        16)),
 
                                                               ]
                                                           )

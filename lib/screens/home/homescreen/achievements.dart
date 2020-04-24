@@ -35,11 +35,11 @@ class Achievements extends StatelessWidget {
                   return Center(child: new Text('Loading'));
                 }
                 return Container(
-                  height: 220,
+                  height: 240,
                   padding: EdgeInsets.only(right: 20),
                   width: MediaQuery.of(context).size.width,
                   child: GridView.builder(
-                      itemCount: achievements_output.length,
+                      itemCount: 8,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                       itemBuilder: (BuildContext context, int index) {
                         if (achievements_output[index]["achievement_" + (index + 1).toString()]) {

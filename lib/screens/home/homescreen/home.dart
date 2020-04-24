@@ -241,18 +241,11 @@ class _MainMenuState extends State<MainMenu> {
                                               }
 
                                           )
-
-
-
-
-
                                         ],
 
                                       )
                                   ),
-
                                   SizedBox(height: 20),
-
                                   Container(
                                       width: (MediaQuery.of(context).size.width - 20),
                                       height: 180,
@@ -281,7 +274,6 @@ class _MainMenuState extends State<MainMenu> {
                                                         child: Text(language["fishdex_title"], textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
                                                       )
                                                   ),
-
                                                 ],
                                               ),
                                               SizedBox(height: 20),
@@ -294,8 +286,6 @@ class _MainMenuState extends State<MainMenu> {
                                                           child: _fishdexButton(language["fishdex_button"])
                                                       )
                                                   )
-
-
                                                 ],
                                               )
                                             ],
@@ -305,8 +295,6 @@ class _MainMenuState extends State<MainMenu> {
                                       )
                                   ),
                                   SizedBox(height: 20),
-
-
                                   Align(
                                       alignment: Alignment.centerLeft,
                                       child: Container(
@@ -331,10 +319,7 @@ class _MainMenuState extends State<MainMenu> {
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
-
-
                                           ))),
-
                                   Align(
                                       alignment: Alignment.centerLeft,
                                       child: Container(
