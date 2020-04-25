@@ -58,6 +58,8 @@ class _MainMenuState extends State<MainMenu> {
 
 
   Widget _fishdexButton(text, link) {
+    print(uid);
+
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, link)));
@@ -284,7 +286,7 @@ class _MainMenuState extends State<MainMenu> {
                                                       width: 200,
                                                       child: Align(
                                                           alignment: Alignment.centerLeft,
-                                                          child: _fishdexButton(language["fishdex_button"], language)
+                                                          child: _fishdexButton(language["fishdex_button"], otherLanguage)
                                                       )
                                                   )
                                                 ],

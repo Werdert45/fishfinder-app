@@ -14,9 +14,6 @@ class RecentScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    print(language);
-
     return new StreamBuilder(
         stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
         builder: (BuildContext context, snapshot) {
@@ -24,9 +21,11 @@ class RecentScroll extends StatelessWidget {
             return new Center(child: new Text('Loading'));
           }
 
-          if (snapshot.data.documents[0]['species'] == {}) {
-            var output_species = snapshot.data.documents[0]['species'];
+          var output_species = snapshot.data.documents[0]['species'];
 
+
+          if (output_species.isNotEmpty) {
+            var output_species = snapshot.data.documents[0]['species'];
             var speciez = [];
 
             return Container(

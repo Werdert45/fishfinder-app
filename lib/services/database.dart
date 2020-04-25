@@ -85,13 +85,14 @@ class DatabaseService {
   }
 
   Future updateUserData(String email, List species, String name) async {
-    await generalInformationCollection.document('IOpIw5GzEBdFtx7jHUqz').setData({
+    await generalInformationCollection.document('IOpIw5GzEBdFtx7jHUqz').updateData({
       'users': FieldValue.arrayUnion([{uid: name}])
     });
 
     return await fishCatchesCollection.document(uid).setData({
       'email': email,
       'uid': uid,
+      'name': name,
       'species': [],
       'friends_catches': {},
       'friends_id': [],

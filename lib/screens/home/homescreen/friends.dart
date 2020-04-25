@@ -56,7 +56,6 @@ class _FriendsPageState extends State<FriendsPage> {
                                   // Make an if statement if data is not present (also check the friends again)
 
                                   var map = snapshot.data['users'];
-                                  print(map);
                                   var users = [];
 
 //                                  map.forEach((k, v) => users.add(usersDB(k, v).list()));

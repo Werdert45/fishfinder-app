@@ -127,6 +127,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.uid);
+
     return Scaffold(
       // The image is extracted from either gallery or made picture
       body: Stack(

@@ -35,6 +35,7 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
 
 
   Widget build(BuildContext context) {
+    print(widget.uid);
 
     final Species species = ModalRoute.of(context).settings.arguments;
     final int index = widget.index;
@@ -42,7 +43,6 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
     Future currentUser(puid) async {
       var database = DatabaseService();
       FirebaseUser user = await FirebaseAuth.instance.currentUser();
-      print(int.parse(species.number));
       database.updateSpeciesList(puid, int.parse(species.number));
     }
 
@@ -74,8 +74,9 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
                         ),
                         onPressed: ()  async {
                           print(widget.uid);
-                          print(friends_id);
-                          if (friends_id != []) {
+                          print("=============");
+                          print(friends_id[0]);
+                          if (friends_id.isNotEmpty) {
                             await DatabaseService().addSpeciesToFriends(friends_id, [widget.uid, index + 1]);
                           }
                           Navigator.pop(context);

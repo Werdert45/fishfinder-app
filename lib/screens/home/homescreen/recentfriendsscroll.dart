@@ -21,8 +21,10 @@ class RecentFriendsScroll extends StatelessWidget {
             return Center(child: new Text(language["home_page"]["no_catches_friends"]));
           }
 
-          if (snapshot.data.documents[0]['friends_catches'] == {}) {
-            var output = snapshot.data.documents[0]['friends_catches'];
+          var output = snapshot.data.documents[0]['friends_catches'];
+
+          if (output.isNotEmpty) {
+
             var friends_catches = [];
             output.forEach((k, v) => friends_catches.add(friendsCatch(k, v)));
 
