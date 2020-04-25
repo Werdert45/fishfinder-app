@@ -56,10 +56,13 @@ class _FriendsPageState extends State<FriendsPage> {
                                   // Make an if statement if data is not present (also check the friends again)
 
                                   var map = snapshot.data['users'];
+                                  print(map);
                                   var users = [];
 
-                                  map.forEach((k, v) => users.add(usersDB(k, v).list()));
-
+//                                  map.forEach((k, v) => users.add(usersDB(k, v).list()));
+                                  for (int i = 0; i < map.length; i++) {
+                                    map[i].forEach((k, v) => users.add(usersDB(k, v).list()));
+                                  }
 
                                   friends_added = [];
 
@@ -115,9 +118,10 @@ class _FriendsPageState extends State<FriendsPage> {
                                   var map = snapshot.data['users'];
                                   var users = [];
 
+                                  for (int i = 0; i < map.length; i++) {
+                                    map[i].forEach((k, v) => users.add(usersDB(k, v).list()));
+                                  }
 
-
-                                  map.forEach((k, v) => users.add(usersDB(k, v).list()));
 
                                   return Align(
                                     alignment: Alignment.topRight,
@@ -159,7 +163,11 @@ class _FriendsPageState extends State<FriendsPage> {
                                 else {
                                   return ListTile(
                                       title: Text(snapshot.data.documents[0]['friends_name'][index]),
-                                      leading: Icon(Icons.account_box)
+                                      leading: Icon(Icons.account_box),
+                                    trailing: IconButton(
+                                        icon: Icon(Icons.close),
+                                      onPressed: () {},
+                                    ),
                                   );
                                 }
 

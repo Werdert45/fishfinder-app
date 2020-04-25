@@ -35,6 +35,10 @@ class DatabaseService {
     await fishCatchesCollection.document(puid).updateData({
       'name': name
     });
+
+    await generalInformationCollection.document('IOpIw5GzEBdFtx7jHUqz').updateData({
+      'users': FieldValue.arrayUnion([{puid: name}])
+    });
   }
 
   Future updateEmail(email, puid) async {

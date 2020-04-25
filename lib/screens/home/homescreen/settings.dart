@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fishfinder_app/services/database.dart';
+import 'package:fishfinder_app/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'payment.dart';
@@ -8,8 +10,9 @@ import 'dart:convert';
 import 'dart:async';
 
 class Item {
-  const Item(this.name);
+  const Item(this.name, this.id);
   final String name;
+  final String id;
 }
 
 class SettingsPage extends StatefulWidget {
@@ -74,9 +77,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Item selectedUser;
   List<Item> users = <Item>[
-    const Item('English'),
-    const Item('Nederlands (Dutch)'),
-    const Item('Italiano (Italian)'),
+    const Item('English', 'en'),
+    const Item('Nederlands (Dutch)', 'nl'),
+    const Item('Italiano (Italian)', 'it'),
   ];
 
 
@@ -120,7 +123,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                     }
                                     if (emailController.text != "") {
                                       DatabaseService().updateEmail(emailController.text, widget.uid);
-
                                     }
 
                                     if (nameController.text != "") {
@@ -141,176 +143,184 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
 
                         SizedBox(height: 20),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 12),
-                          width: MediaQuery.of(context).size.width,
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Text('ACCOUNT')
-                              ),
-                              Container(
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(width: 0.2, color: Colors.lightBlue.shade900),
-                                    ),
-                                  ),
-                                  child: ListTile(
-                                    title: TextField(
-                                      controller: emailController,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'ian.ronk0@gmail.com'
-                                        )
+                        new StreamBuilder(
+                          stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: widget.uid).snapshots(),
+                          builder: (BuildContext context, snapshot) {
 
-                                    ),
-                                    leading: Icon(Icons.email),
-                                  )
-                              ),
-                              Container(
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(width: 0.2, color: Colors.lightBlue.shade900),
-                                    ),
-                                  ),
-                                  child: ListTile(
-                                      title: TextField(
-                                        controller: nameController,
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: 'Ian Ronk'
-                                          )
+                            var output = snapshot.data.documents[0];
+                            print(selectedUser);
 
-                                      ),
-                                      leading: Icon(Icons.account_box)
-                                  )
-                              ),
-                              Container(
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(width: 0.2, color: Colors.lightBlue.shade900),
-                                    ),
+                            return Container(
+                              margin: EdgeInsets.symmetric(horizontal: 12),
+                              width: MediaQuery.of(context).size.width,
+
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Text('ACCOUNT')
                                   ),
-                                  child: ListTile(
-                                      title: TextField(
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: '********'
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(width: 0.2, color: Colors.lightBlue.shade900),
                                         ),
                                       ),
-                                      leading: Icon(Icons.lock)
-                                  )
-                              ),
+                                      child: ListTile(
+                                        title: TextField(
+                                            controller: emailController,
+                                            decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                hintText: output['email']
+                                            )
 
-                              SizedBox(height: 25),
-
-                              Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Text('LANGUAGE')
-                              ),
-                              Container(
-                                  decoration: BoxDecoration(
+                                        ),
+                                        leading: Icon(Icons.email),
+                                      )
                                   ),
-                                  child: ListTile(
-                                    title: DropdownButton<Item>(
-                                      hint:  Text("Please select a language"),
-                                      value: selectedUser,
-                                      onChanged: (Item Value) {
-                                        setState(() {
-                                          selectedUser = Value;
-                                        });
-                                      },
-                                      items: users.map((Item user) {
-                                        return  DropdownMenuItem<Item>(
-                                          value: user,
-                                          child: Row(
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(width: 0.2, color: Colors.lightBlue.shade900),
+                                        ),
+                                      ),
+                                      child: ListTile(
+                                          title: TextField(
+                                              controller: nameController,
+                                              decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  hintText: output['name']
+                                              )
+
+                                          ),
+                                          leading: Icon(Icons.account_box)
+                                      )
+                                  ),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(width: 0.2, color: Colors.lightBlue.shade900),
+                                        ),
+                                      ),
+                                      child: ListTile(
+                                          title: TextField(
+                                            obscureText: true,
+                                            decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                hintText: '********'
+                                            ),
+                                          ),
+                                          leading: Icon(Icons.lock)
+                                      )
+                                  ),
+
+                                  SizedBox(height: 25),
+
+                                  Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Text('LANGUAGE')
+                                  ),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                      ),
+                                      child: ListTile(
+                                        title: DropdownButton<Item>(
+                                          hint:  Text("Please select a language"),
+                                          value: selectedUser,
+                                          onChanged: (Item Value) {
+                                            setState(() {
+                                              selectedUser = Value;
+                                            });
+                                          },
+                                          items: users.map((Item user) {
+                                            return  DropdownMenuItem<Item>(
+                                              value: user,
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    user.name,
+                                                    style:  TextStyle(color: Colors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                        leading: Icon(Icons.flag),
+                                      )
+                                  ),
+                                  SizedBox(height: 50),
+                                  Container(
+                                      width: (MediaQuery.of(context).size.width - 20),
+                                      height: 185,
+                                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                                          boxShadow: <BoxShadow>[
+                                            BoxShadow(
+                                                color: Colors.grey.shade200,
+                                                offset: Offset(2, 4),
+                                                blurRadius: 5,
+                                                spreadRadius: 2)
+                                          ],
+                                          gradient: linearGradient),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Row(
                                             children: <Widget>[
-                                              Text(
-                                                user.name,
-                                                style:  TextStyle(color: Colors.black),
+                                              Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Container(
+                                                    width: 200,
+                                                    child: Text("Upgrade to Premium Membership", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
+                                                  )
                                               ),
                                             ],
                                           ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                    leading: Icon(Icons.flag),
-                                  )
-                              ),
-                              SizedBox(height: 50),
-                              Container(
-                                  width: (MediaQuery.of(context).size.width - 20),
-                                  height: 185,
-                                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                                      boxShadow: <BoxShadow>[
-                                        BoxShadow(
-                                            color: Colors.grey.shade200,
-                                            offset: Offset(2, 4),
-                                            blurRadius: 5,
-                                            spreadRadius: 2)
-                                      ],
-                                      gradient: LinearGradient(
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                          colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        children: <Widget>[
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Container(
-                                                width: 200,
-                                                child: Text("Upgrade to Premium Membership", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
-                                              )
+                                          SizedBox(height: 5),
+                                          Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            child: Text("- Sync with server", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 15, color: Colors.white)),
                                           ),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        child: Text("- Sync with server", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 15, color: Colors.white)),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        child: Text("- See friends' catches", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 15, color: Colors.white)),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Row(
-                                        children: <Widget>[
-                                          OutlineButton(
-                                            child: Container(
-                                                child: SizedBox(
-                                                    width: 125,
-                                                    child: Row(
-                                                      children: <Widget>[
-                                                        Text('Upgrade Now \$0.99', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.white)),
-                                                      ],
+                                          SizedBox(height: 5),
+                                          Container(
+                                            width: MediaQuery.of(context).size.width,
+                                            child: Text("- See friends' catches", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 15, color: Colors.white)),
+                                          ),
+                                          SizedBox(height: 5),
+                                          Row(
+                                            children: <Widget>[
+                                              OutlineButton(
+                                                child: Container(
+                                                    child: SizedBox(
+                                                        width: 125,
+                                                        child: Row(
+                                                          children: <Widget>[
+                                                            Text('Upgrade Now \$0.99', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.white)),
+                                                          ],
+                                                        )
                                                     )
-                                                )
-                                            ),
-                                            onPressed: () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumPaymentScreen()));
-                                            },
-                                            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                                            color: Colors.orange,
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumPaymentScreen()));
+                                                },
+                                                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                                                color: Colors.orange,
+                                              ),
+
+                                            ],
                                           ),
-
                                         ],
-                                      ),
-                                    ],
-                                  )
-                              ),
-                              SizedBox(height: 20),
-                              _logoutButton(),
+                                      )
+                                  ),
+                                  SizedBox(height: 20),
+                                  _logoutButton(),
 
-                            ],
-                          ),
+                                ],
+                              ),
+                            );
+                          }
+
                         )
 
                       ],
