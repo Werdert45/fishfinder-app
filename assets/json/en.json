@@ -12,6 +12,8 @@
   },
   "home_page": {
     "welcome": "Welcome",
+    "friends": "My Friends",
+    "history": "My History",
     "fishdex_title": "Check out catches in your FishDex",
     "fishdex_button": "Check now",
     "recent_catches": "Recent Catches",
@@ -24,23 +26,30 @@
     "achievement_5": "5 Catches",
     "achievement_6": "10 Catches",
     "achievement_7": "50 Catches",
-    "achievement_8": "100 Catches"
-
+    "achievement_8": "100 Catches",
+    "loading": "Loading ...",
+    "see_all": "See All",
+    "no_catches_friends": "No catches of Friends found, add friends here",
+    "no_catches": "No catches yet, scan to add one"
   },
   "settings_page": {
     "title": "Settings",
     "account": "ACCOUNT",
     "language": "LANGUAGE",
     "upgrade_title": "Upgrade to Premium Membership",
-    "upgrade_hint_1": "Sync with server",
-    "upgrade_hint_2": "See friends' catches",
-    "upgrade_button": "Upgrade Now ",
-    "logout": "Logout from the App"
+    "upgrade_hint_1": "- Sync with server",
+    "upgrade_hint_2": "- See friends' catches",
+    "upgrade_button": "Upgrade Now $2.99 ",
+    "logout": "Logout from the App",
+    "language_select": "Please select a language"
   },
   "fishdex": {
     "title": "Fishdex",
     "stats": "Stats",
     "latest_catch": "Latest Catch:",
-    "most_frequent": "Most Frequent Catch:"
+    "most_frequent": "Most Frequent Catch:",
+    "times": " time(s)",
+    "loading": "Loading ...",
+    "no_catches": "No catches yet"
   }
 }

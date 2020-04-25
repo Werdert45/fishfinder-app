@@ -12,9 +12,10 @@ import 'package:fishfinder_app/shared/constants.dart';
 
 class PreviewSpeciesScreen extends StatefulWidget {
   final String single_species;
+  final String uid;
 //  int index;
 
-  PreviewSpeciesScreen({Key key, @required this.single_species, this.index}) : super(key: key);
+  PreviewSpeciesScreen({Key key, @required this.single_species, this.index, this.uid}) : super(key: key);
 
   int index;
 
@@ -32,31 +33,23 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
 
   @override
 
-  String uid;
 
   Widget build(BuildContext context) {
 
     final Species species = ModalRoute.of(context).settings.arguments;
     final int index = widget.index;
 
-    Future userId() async {
-      uid = await getUser();
-    }
-
-    userId();
-
-    Future currentUser() async {
+    Future currentUser(puid) async {
       var database = DatabaseService();
       FirebaseUser user = await FirebaseAuth.instance.currentUser();
-      database.updateSpeciesList(user.uid, int.parse(species.number));
+      print(int.parse(species.number));
+      database.updateSpeciesList(puid, int.parse(species.number));
     }
 
     return StreamBuilder(
-        stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
+        stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: widget.uid).snapshots(),
         builder: (BuildContext context, snapshot) {
           var friends_id = snapshot.data.documents[0]['friends_id'];
-
-
 
           if (!snapshot.hasData) {
             return new Center(child: new Text('Loading'));
@@ -80,8 +73,11 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
                           ],
                         ),
                         onPressed: ()  async {
-                          await currentUser();
-                          await DatabaseService().addSpeciesToFriends(friends_id, [uid, index + 1]);
+                          print(widget.uid);
+                          print(friends_id);
+                          if (friends_id != []) {
+                            await DatabaseService().addSpeciesToFriends(friends_id, [widget.uid, index + 1]);
+                          }
                           Navigator.pop(context);
                           Navigator.pop(context);
                           Navigator.pop(context);

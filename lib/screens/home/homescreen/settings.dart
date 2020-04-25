@@ -17,8 +17,9 @@ class Item {
 
 class SettingsPage extends StatefulWidget {
   final String uid;
+  final Map language;
 
-  SettingsPage(this.uid);
+  SettingsPage(this.uid, this.language);
 
 
   @override
@@ -52,7 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
 
-  _logoutButton() {
+  _logoutButton(text) {
     return Container(
         decoration: BoxDecoration(
           border: Border(
@@ -64,7 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
               await _auth.signOut();
               Navigator.pop(context);
             },
-            title: Text('Logout from the App'),
+            title: Text(text),
             leading: Icon(Icons.exit_to_app)
         )
     );
@@ -103,6 +104,8 @@ class _SettingsPageState extends State<SettingsPage> {
     }
     changePassword('test');
 
+    var language = widget.language["settings_page"];
+
     return Scaffold(
         body: Stack(
           children: <Widget>[
@@ -137,7 +140,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               margin: EdgeInsets.only(top: 15),
                               width: MediaQuery.of(context).size.width,
                               alignment: Alignment.center,
-                              child: Text('Settings', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
+                              child: Text(language["title"], style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
                             )
                           ],
                         ),
@@ -146,9 +149,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         new StreamBuilder(
                           stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: widget.uid).snapshots(),
                           builder: (BuildContext context, snapshot) {
-
                             var output = snapshot.data.documents[0];
-                            print(selectedUser);
 
                             return Container(
                               margin: EdgeInsets.symmetric(horizontal: 12),
@@ -158,7 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 children: <Widget>[
                                   Container(
                                       width: MediaQuery.of(context).size.width,
-                                      child: Text('ACCOUNT')
+                                      child: Text(language["account"])
                                   ),
                                   Container(
                                       decoration: BoxDecoration(
@@ -173,7 +174,6 @@ class _SettingsPageState extends State<SettingsPage> {
                                                 border: InputBorder.none,
                                                 hintText: output['email']
                                             )
-
                                         ),
                                         leading: Icon(Icons.email),
                                       )
@@ -213,19 +213,17 @@ class _SettingsPageState extends State<SettingsPage> {
                                           leading: Icon(Icons.lock)
                                       )
                                   ),
-
                                   SizedBox(height: 25),
-
                                   Container(
                                       width: MediaQuery.of(context).size.width,
-                                      child: Text('LANGUAGE')
+                                      child: Text(language["language"])
                                   ),
                                   Container(
                                       decoration: BoxDecoration(
                                       ),
                                       child: ListTile(
                                         title: DropdownButton<Item>(
-                                          hint:  Text("Please select a language"),
+                                          hint:  Text(language["language_select"]),
                                           value: selectedUser,
                                           onChanged: (Item Value) {
                                             setState(() {
@@ -272,7 +270,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                   alignment: Alignment.centerLeft,
                                                   child: Container(
                                                     width: 200,
-                                                    child: Text("Upgrade to Premium Membership", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
+                                                    child: Text(language["upgrade_title"], textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
                                                   )
                                               ),
                                             ],
@@ -280,12 +278,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                           SizedBox(height: 5),
                                           Container(
                                             width: MediaQuery.of(context).size.width,
-                                            child: Text("- Sync with server", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 15, color: Colors.white)),
+                                            child: Text(language["upgrade_hint_1"], textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 15, color: Colors.white)),
                                           ),
                                           SizedBox(height: 5),
                                           Container(
                                             width: MediaQuery.of(context).size.width,
-                                            child: Text("- See friends' catches", textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 15, color: Colors.white)),
+                                            child: Text(language["upgrade_hint_2"], textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 15, color: Colors.white)),
                                           ),
                                           SizedBox(height: 5),
                                           Row(
@@ -296,7 +294,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                                         width: 125,
                                                         child: Row(
                                                           children: <Widget>[
-                                                            Text('Upgrade Now \$0.99', textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.white)),
+                                                            Text(language["upgrade_button"], textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(color: Colors.white)),
                                                           ],
                                                         )
                                                     )
@@ -314,8 +312,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       )
                                   ),
                                   SizedBox(height: 20),
-                                  _logoutButton(),
-
+                                  _logoutButton(language["logout"]),
                                 ],
                               ),
                             );

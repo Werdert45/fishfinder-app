@@ -7,7 +7,8 @@ import 'package:fishfinder_app/models/friends_catch.dart';
 
 class RecentFriendsScroll extends StatelessWidget {
   final List<Species> species;
-  RecentFriendsScroll({Key key, this.species, this.uid}) : super(key: key);
+  final Map language;
+  RecentFriendsScroll({Key key, this.species, this.uid, this.language}) : super(key: key);
 
   String uid;
 
@@ -17,9 +18,8 @@ class RecentFriendsScroll extends StatelessWidget {
         stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
         builder: (BuildContext context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: new Text('Loading'));
+            return Center(child: new Text(language["home_page"]["no_catches_friends"]));
           }
-
 
           if (snapshot.data.documents[0]['friends_catches'] == {}) {
             var output = snapshot.data.documents[0]['friends_catches'];
@@ -87,9 +87,9 @@ class RecentFriendsScroll extends StatelessWidget {
 
           else {
             return Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.symmetric(horizontal: 10),
               child: Center(
-                  child: Text("No catches of Friends found, add friends here")
+                  child: Text(language["home_page"]["no_catches_friends"])
               )
             );
           }

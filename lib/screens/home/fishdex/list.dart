@@ -13,7 +13,9 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 class SpeciesList extends StatefulWidget {
   final List<Species> species;
   final String uid;
-  SpeciesList({Key key, this.species, this.uid}) : super(key: key);
+  final Map language;
+
+  SpeciesList({Key key, this.species, this.uid, this.language}) : super(key: key);
 
   @override
   _SpeciesListState createState() => _SpeciesListState();
@@ -22,7 +24,10 @@ class SpeciesList extends StatefulWidget {
 
 class _SpeciesListState extends State<SpeciesList> {
   @override
+
   Widget build(BuildContext context) {
+    var language = widget.language;
+
     return Stack(
         children: <Widget>[
           new SingleChildScrollView(
@@ -47,7 +52,7 @@ class _SpeciesListState extends State<SpeciesList> {
                     }
 
                     if (!snapshot.hasData) {
-                      return new Center(child: new Text('Loading...'));
+                      return new Center(child: new Text(language["loading"]));
                     }
                     return Column(
                       children: <Widget>[
@@ -60,7 +65,7 @@ class _SpeciesListState extends State<SpeciesList> {
                           padding: EdgeInsets.only(bottom: 20),
                           child: Row(
                             children: <Widget>[
-                              Text("Fishdex", style: TextStyle(fontSize: 25)),
+                              Text(language["title"], style: TextStyle(fontSize: 25)),
                               SizedBox(width: MediaQuery
                                   .of(context)
                                   .size
@@ -116,7 +121,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                             Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Container(
-                                                  child: Text("Stats",
+                                                  child: Text(language["stats"],
                                                       textAlign: TextAlign.left,
                                                       textDirection: TextDirection
                                                           .ltr,
@@ -132,7 +137,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                         SizedBox(height: 10),
                                         Row(
                                           children: <Widget>[
-                                            Text('Latest Catch:',
+                                            Text(language["latest_catch"],
                                                 textAlign: TextAlign.left,
                                                 textDirection: TextDirection
                                                     .ltr,
@@ -142,9 +147,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Text('#' + index_show(speciesList.last)
-                                                .toString() + " " +
-                                                formatString(widget.species[speciesList.last - 1].name),
+                                            Text((speciesList.isNotEmpty ? '#' + index_show(speciesList.last).toString() + " " + formatString(widget.species[speciesList.last - 1].name) : language["no_catches"]),
                                                 textAlign: TextAlign.left,
                                                 textDirection: TextDirection.ltr,
                                                 style: TextStyle(
@@ -154,7 +157,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                         SizedBox(height: 10),
                                         Row(
                                           children: <Widget>[
-                                            Text('Most Frequent Catch:',
+                                            Text(language["most_frequent"],
                                                 textAlign: TextAlign.left,
                                                 textDirection: TextDirection.ltr,
                                                 style: TextStyle(fontSize: 16,
@@ -163,8 +166,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Text('#' + index_show(most_frequent(speciesList)[0]) +
-                                                " " + formatString(widget.species[most_frequent(speciesList)[0] - 1].name),
+                                            Text((speciesList.isNotEmpty ? '#' + index_show(most_frequent(speciesList)[0]) + " " + formatString(widget.species[most_frequent(speciesList)[0] - 1].name) : language["no_catches"]),
                                                 textAlign: TextAlign.left,
                                                 textDirection: TextDirection.ltr,
                                                 style: TextStyle(
@@ -173,8 +175,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                         ),
                                         Row(
                                           children: <Widget>[
-                                            Text(most_frequent(speciesList)[1]
-                                                .toString() + ' time(s)',
+                                            Text(speciesList.isNotEmpty ? most_frequent(speciesList)[1].toString() + language["times"] : "",
                                                 textAlign: TextAlign.left,
                                                 textDirection: TextDirection.ltr,
                                                 style: TextStyle(
@@ -193,7 +194,7 @@ class _SpeciesListState extends State<SpeciesList> {
                                   radius: (MediaQuery.of(context).size.width - 300),
                                   lineWidth: 20,
                                   percent: (uniqueSpecies).length / 64,
-                                  center: new Text(((((uniqueSpecies).length) / 64) * 100).toString().substring(0, 4) + "%",
+                                  center: new Text(uniqueSpecies.isNotEmpty ? (uniqueSpecies.length / 64 * 100).toString().substring(0, 4) + "%" : "0%",
                                       style: TextStyle(fontSize: 15)),
                                   progressColor: Colors.green,
                                 )

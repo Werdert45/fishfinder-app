@@ -12,7 +12,9 @@ import 'package:image_picker/image_picker.dart';
 // A screen that allows users to take a picture using a given camera.
 class CameraScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
-  CameraScreen(this.cameras);
+  final String uid;
+
+  CameraScreen(this.cameras, this.uid);
 
   @override
   CameraScreenState createState() => CameraScreenState();
@@ -148,7 +150,7 @@ class CameraScreenState extends State<CameraScreen> {
               // TODO add route to DisplayPictureScreen
               MaterialPageRoute(
                 builder: (context) =>
-                    DisplayPictureScreen(imagePath: path),
+                    DisplayPictureScreen(imagePath: path, uid: widget.uid),
               ),
             );
           } catch (e) {

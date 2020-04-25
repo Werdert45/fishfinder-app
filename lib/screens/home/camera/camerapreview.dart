@@ -19,7 +19,8 @@ class DisplayPictureScreen extends StatefulWidget {
 
   // Get path to image
   final String imagePath;
-  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
+  final String uid;
+  const DisplayPictureScreen({Key key, this.imagePath, this.uid}) : super(key: key);
 
   @override
   _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
@@ -95,17 +96,14 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       // convert the index from the list to a species object
       Species speciesType = Species.fromJSON(speciesName);
       Navigator.push(context, MaterialPageRoute(
-          builder: (context) => PreviewSpeciesScreen(index: _recognitions[0]['index']),
+          builder: (context) => PreviewSpeciesScreen(index: _recognitions[0]['index'], uid: widget.uid),
           settings: RouteSettings(
               arguments: speciesType
-
           )
       )
       );
     }
-
   }
-
     Future loadModel() async {
       Tflite.close();
       await Tflite.loadModel(

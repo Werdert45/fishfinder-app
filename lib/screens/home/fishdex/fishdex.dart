@@ -11,7 +11,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FishDex extends StatefulWidget {
   final List<CameraDescription> cameras;
   final String uid;
-  FishDex(this.cameras, this.uid);
+  final Map language;
+  FishDex(this.cameras, this.uid, this.language);
 
   @override
   _FishDexState createState() => _FishDexState();
@@ -25,6 +26,8 @@ class _FishDexState extends State<FishDex> {
 
   Widget build(BuildContext context) {
 
+    var language = widget.language["fishdex"];
+
     return StreamProvider<QuerySnapshot>.value(
     child: Scaffold(
         backgroundColor: Colors.white,
@@ -37,12 +40,12 @@ class _FishDexState extends State<FishDex> {
                     builder: (context, snapshot) {
 
                       if (!snapshot.hasData) {
-                        return new Center(child: new Text('Loading...'));
+                        return new Center(child: new Text(language["loading"]));
                       }
 
                       List<Species> species = parseJSON(snapshot.data.toString());
                       return species.isNotEmpty
-                          ? new SpeciesList(species: species, uid: widget.uid)
+                          ? new SpeciesList(species: species, uid: widget.uid, language: language)
                           : new Center(child: new CircularProgressIndicator());
                     }
                 )
@@ -63,7 +66,7 @@ class _FishDexState extends State<FishDex> {
                             children: <Widget>[
                               new Container(
                                   margin: const EdgeInsets.only(left: 20, bottom: 5),
-                                  child: IconButton(icon: Icon(Icons.home, color: Colors.grey, size: 35, semanticLabel: 'Hello'), onPressed: () {
+                                  child: IconButton(icon: Icon(Icons.home, color: Colors.grey, size: 35), onPressed: () {
                                     Navigator.pop(context);
                                   }
                                   )
@@ -88,7 +91,7 @@ class _FishDexState extends State<FishDex> {
             backgroundColor: Colors.lightBlueAccent,
             child: const Icon(Icons.camera_alt, size:30, color: Colors.white),
             onPressed:() {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras, widget.uid)));
             },
           ),
         )

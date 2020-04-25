@@ -10,6 +10,8 @@ import 'package:fishfinder_app/screens/home/homescreen/friends.dart';
 import 'package:fishfinder_app/screens/home/homescreen/history_search.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentfriendsscroll.dart';
 import 'package:fishfinder_app/services/backup.dart';
+import 'package:fishfinder_app/services/translations.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
@@ -55,10 +57,10 @@ class _MainMenuState extends State<MainMenu> {
   Map backup;
 
 
-  Widget _fishdexButton(text) {
+  Widget _fishdexButton(text, link) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, link)));
       },
       child: Container(
         width: 85,
@@ -98,6 +100,7 @@ class _MainMenuState extends State<MainMenu> {
         builder: (context,snapshot) {
           var lang = snapshot.data;
           Map<String, dynamic> language = jsonDecode(snapshot.data)["home_page"];
+          Map<String, dynamic> otherLanguage = jsonDecode(snapshot.data);
           return Scaffold(
               backgroundColor: Colors.white,
               body: Stack(
@@ -128,7 +131,7 @@ class _MainMenuState extends State<MainMenu> {
                                                     icon: Icon(Icons.settings),
                                                     onPressed: () {
                                                       Navigator.push(
-                                                          context, MaterialPageRoute(builder: (context) => SettingsPage(uid))
+                                                          context, MaterialPageRoute(builder: (context) => SettingsPage(uid, otherLanguage))
                                                       );
                                                     }
                                                 )
@@ -147,7 +150,7 @@ class _MainMenuState extends State<MainMenu> {
                                               child: Row(
                                                 children: <Widget>[
                                                   IconButton(icon: Icon(Icons.accessibility)),
-                                                  Text("My Friends"),
+                                                  Text(language["friends"]),
                                                   SizedBox(width: 8)
                                                 ],
                                               ),
@@ -167,7 +170,7 @@ class _MainMenuState extends State<MainMenu> {
                                                 jsonSave(jsonObject);
 
                                                 if (!snapshot.hasData) {
-                                                  return new Center(child: new Text('Loading'));
+                                                  return new Center(child: new Text(language["loading"]));
                                                 }
 
                                                 else if (snapshot.data.documents[0]['species'] != null) {
@@ -196,7 +199,7 @@ class _MainMenuState extends State<MainMenu> {
                                                             child: Row(
                                                               children: <Widget>[
                                                                 IconButton(icon: Icon(Icons.history)),
-                                                                Text("My History"),
+                                                                Text(language["history"]),
                                                                 SizedBox(width: 8)
                                                               ],
                                                             ),
@@ -224,7 +227,7 @@ class _MainMenuState extends State<MainMenu> {
                                                             child: Row(
                                                               children: <Widget>[
                                                                 IconButton(icon: Icon(Icons.history)),
-                                                                Text("My History"),
+                                                                Text(language["history"]),
                                                                 SizedBox(width: 8)
                                                               ],
                                                             ),
@@ -236,9 +239,6 @@ class _MainMenuState extends State<MainMenu> {
                                                       }
                                                   );
                                                 }
-
-
-
                                               }
 
                                           )
@@ -284,7 +284,7 @@ class _MainMenuState extends State<MainMenu> {
                                                       width: 200,
                                                       child: Align(
                                                           alignment: Alignment.centerLeft,
-                                                          child: _fishdexButton(language["fishdex_button"])
+                                                          child: _fishdexButton(language["fishdex_button"], language)
                                                       )
                                                   )
                                                 ],
@@ -300,7 +300,18 @@ class _MainMenuState extends State<MainMenu> {
                                       alignment: Alignment.centerLeft,
                                       child: Container(
                                           margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20.0),
-                                          child: Text(language["recent_catches"], style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, color: Colors.black))
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(language["recent_catches"], style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.w600, color: Colors.black)),
+                                              GestureDetector(
+                                                child: Text(language["see_all"]),
+                                                onTap: () {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, otherLanguage)));
+                                                }
+                                              )
+                                            ],
+                                          )
                                       )),
                                   SizedBox(height: 15),
                                   // The row of recent catches
@@ -316,7 +327,7 @@ class _MainMenuState extends State<MainMenu> {
                                                   builder: (context, snapshot) {
                                                     List<Species> species = parseJSON(snapshot.data.toString());
                                                     return species.isNotEmpty
-                                                        ? new RecentScroll(species: species, uid: uid)
+                                                        ? new RecentScroll(species: species, uid: uid, language: language)
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
@@ -340,7 +351,7 @@ class _MainMenuState extends State<MainMenu> {
                                                   builder: (context, snapshot) {
                                                     List<Species> species = parseJSON(snapshot.data.toString());
                                                     return species.isNotEmpty
-                                                        ? new RecentFriendsScroll(species: species, uid: uid)
+                                                        ? new RecentFriendsScroll(species: species, uid: uid, language: otherLanguage)
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
@@ -402,7 +413,7 @@ class _MainMenuState extends State<MainMenu> {
                                           margin: const EdgeInsets.only(right: 20, bottom: 5),
                                           child:IconButton(icon: Icon(Icons.book, color: Colors.grey, size: 35, semanticLabel: 'FishDex',), onPressed: () {
                                             // Put the fishdex  screen on top of homescreen
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid)));
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, otherLanguage)));
                                           }
                                           )
                                       )
@@ -421,7 +432,7 @@ class _MainMenuState extends State<MainMenu> {
                   child: const Icon(Icons.camera_alt, size:30, color: Colors.white),
                   onPressed:() {
                     // Put camera screen on top of home screen and pass camera down
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras, uid)));
                   },
                 ),
               )
