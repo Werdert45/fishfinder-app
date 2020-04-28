@@ -1,13 +1,18 @@
+import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fishfinder_app/services/backup.dart';
 import 'package:fishfinder_app/services/database.dart';
+import 'package:fishfinder_app/services/refresh.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'payment.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'package:fishfinder_app/screens/home/homescreen/home.dart';
 
 class Item {
   const Item(this.name, this.id);
@@ -18,8 +23,9 @@ class Item {
 class SettingsPage extends StatefulWidget {
   final String uid;
   final Map language;
+  final List<CameraDescription> cameras;
 
-  SettingsPage(this.uid, this.language);
+  SettingsPage(this.uid, this.language, this.cameras);
 
 
   @override
@@ -28,30 +34,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final AuthService _auth = AuthService();
-
-
-
-  Future<Null> changePassword(String newPassword) async {
-    const String API_KEY = 'AIzaSyBGpzlpJPWgKvDf76Rdqmu4FrD-B7Kefvo';
-    final String changePasswordUrl =
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=$API_KEY';
-
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
-
-    final String idToken = await user.getIdToken().toString(); // where user is FirebaseUser user
-
-    final Map<String, dynamic> payload = {
-      'email': idToken,
-      'password': newPassword,
-      'returnSecureToken': true
-    };
-
-    await http.post(changePasswordUrl,
-      body: json.encode(payload),
-      headers: {'Content-Type': 'application/json'},
-    );
-  }
-
 
   _logoutButton(text) {
     return Container(
@@ -102,7 +84,6 @@ class _SettingsPageState extends State<SettingsPage> {
     if (selectedUser != null) {
       languageID = languagePairs[selectedUser.name];
     }
-    changePassword('test');
 
     var language = widget.language["settings_page"];
 
@@ -120,9 +101,13 @@ class _SettingsPageState extends State<SettingsPage> {
                               children: <Widget>[
                                 IconButton(
                                   icon: Icon(Icons.close, size: 30, color: Colors.black),
-                                  onPressed: () {
+                                  onPressed: () async {
                                     if (selectedUser != null) {
                                       DatabaseService().updateLanguage(languageID, widget.uid);
+                                      Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+                                      final prefs = await _prefs;
+                                      await prefs.setString("language", languageID);
+                                      languageApp = languageID;
                                     }
                                     if (emailController.text != "") {
                                       DatabaseService().updateEmail(emailController.text, widget.uid);
@@ -131,7 +116,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                     if (nameController.text != "") {
                                       DatabaseService().updateName(nameController.text, widget.uid);
                                     }
-                                    Navigator.pop(context);
+
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainMenu(widget.cameras)));
                                   },
                                 ),
                               ],

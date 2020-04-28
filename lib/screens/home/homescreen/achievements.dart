@@ -11,14 +11,15 @@ import 'dart:convert';
 
 class Achievements extends StatelessWidget {
   final List<Species> species;
-  Achievements({Key key, this.species, this.uid}) : super(key: key);
+  final String language;
+  Achievements({Key key, this.species, this.uid, this.language}) : super(key: key);
 
   String uid;
 
   @override
   Widget build(BuildContext context) {
     return new FutureBuilder(
-        future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
+        future: DefaultAssetBundle.of(context).loadString('assets/json/' + language + '.json'),
         builder: (context,snapshot) {
           var lang = snapshot.data;
           Map<String, dynamic> language = jsonDecode(snapshot.data)["home_page"];

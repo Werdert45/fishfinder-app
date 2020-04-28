@@ -73,12 +73,11 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
                           ],
                         ),
                         onPressed: ()  async {
-                          print(widget.uid);
-                          print("=============");
-                          print(friends_id[0]);
                           if (friends_id.isNotEmpty) {
                             await DatabaseService().addSpeciesToFriends(friends_id, [widget.uid, index + 1]);
                           }
+                          await DatabaseService().updateSpeciesList(widget.uid, index + 1);
+
                           Navigator.pop(context);
                           Navigator.pop(context);
                           Navigator.pop(context);

@@ -21,7 +21,10 @@ import 'settings.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentscroll.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+
+var languageApp;
 
 // @author Ian Ronk
 // @class MainMenu
@@ -49,16 +52,33 @@ class _MainMenuState extends State<MainMenu> {
     });
   }
 
-
   final AuthService _auth = AuthService();
+
+  String languageFromSettings;
 
   String uid;
   String root_folder = '/data/user/0/machinelearningsolutions.fishfinder_app/app_flutter';
-  Map backup;
 
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future getLanguage() async {
+    final prefs = await _prefs;
+
+
+
+    if (prefs.getString("language") == null) {
+      await prefs.setString("language", "nl");
+    }
+
+    languageApp = prefs.getString("language");
+
+
+    return DefaultAssetBundle.of(context).loadString('assets/json/' + languageApp.toString() + '.json');
+  }
 
   Widget _fishdexButton(text, link) {
     print(uid);
+
 
     return InkWell(
       onTap: () {
@@ -80,8 +100,8 @@ class _MainMenuState extends State<MainMenu> {
     );
   }
 
-
   Widget build(BuildContext context) {
+    rebuildAllChildren(context);
 
     Future userId() async {
       uid = await getUser();
@@ -89,18 +109,11 @@ class _MainMenuState extends State<MainMenu> {
 
     userId();
 
-    localStore() async {
-      var loaded = await jsonLoad();
-//      backup = jsonDecode(loaded);
-    }
-
-
-    localStore();
-
     return FutureBuilder(
-        future: DefaultAssetBundle.of(context).loadString('assets/json/nl.json'),
+        future: getLanguage(),
         builder: (context,snapshot) {
           var lang = snapshot.data;
+          print(lang);
           Map<String, dynamic> language = jsonDecode(snapshot.data)["home_page"];
           Map<String, dynamic> otherLanguage = jsonDecode(snapshot.data);
           return Scaffold(
@@ -128,16 +141,17 @@ class _MainMenuState extends State<MainMenu> {
                                                           color: Colors.black, fontSize: 35)
                                                   ),
                                                 ),
-                                                SizedBox(width: (MediaQuery.of(context).size.width - 215)),
+//                                                SizedBox(width: (MediaQuery.of(context).size.width - 215)),
                                                 IconButton(
                                                     icon: Icon(Icons.settings),
-                                                    onPressed: () {
-                                                      Navigator.push(
-                                                          context, MaterialPageRoute(builder: (context) => SettingsPage(uid, otherLanguage))
+                                                    onPressed: () async {
+                                                      Navigator.pushReplacement(
+                                                          context, MaterialPageRoute(builder: (context) => SettingsPage(uid, otherLanguage, widget.cameras))
                                                       );
                                                     }
                                                 )
-                                              ]
+                                              ],
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           )
                                       )
                                   ),
@@ -379,7 +393,7 @@ class _MainMenuState extends State<MainMenu> {
                                                   builder: (context, snapshot) {
                                                     List<Species> species = parseJSON(snapshot.data.toString());
                                                     return species.isNotEmpty
-                                                        ? new Achievements(species: species, uid: uid)
+                                                        ? new Achievements(species: species, uid: uid, language: "en")
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
@@ -451,4 +465,13 @@ class _MainMenuState extends State<MainMenu> {
     return parsed.map<Species>((json) => new Species.fromJSON(json)).toList();
   }
 }
+
+void rebuildAllChildren(BuildContext context) {
+  void rebuild(Element el) {
+    el.markNeedsBuild();
+    el.visitChildren(rebuild);
+  }
+  (context as Element).visitChildren(rebuild);
+}
+
 

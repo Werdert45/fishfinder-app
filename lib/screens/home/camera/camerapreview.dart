@@ -158,8 +158,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
           children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
         ),
         icon: Container(),
-        backgroundColor: Colors.deepOrange,
-        splashColor: Colors.deepOrangeAccent,
+        backgroundColor: Color(0xff63d5fb),
+        splashColor: Color(0xff6bf2eb),
       ),
     );
   }

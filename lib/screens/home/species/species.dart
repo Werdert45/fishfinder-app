@@ -19,16 +19,6 @@ class SpeciesScreen extends StatefulWidget {
 }
 
 class _SpeciesScreenState extends State<SpeciesScreen> {
-//  @override
-//  void initState() async {
-//    super.initState();
-//    Future userId() async {
-//      uid = await getUser();
-//    }
-//
-//    await userId();
-//  }
-
   @override
   Widget build(BuildContext context) {
 
@@ -74,34 +64,17 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.only(left: 20),
+                          padding: EdgeInsets.only(left: 40),
                           width: MediaQuery.of(context).size.width,
-                          height: 120,
+                          height: 100,
                           child: GridView.count(
-                            primary: false,
+                            primary: true,
                             crossAxisSpacing: 10,
-                            crossAxisCount: 3,
-                            childAspectRatio: 3,
+                            crossAxisCount: 2,
+                            childAspectRatio: 5,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             children: <Widget>[
-                              Container(
-                                height: 50,
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(Icons.adb),
-                                    SizedBox(width: 5),
-                                    Text(species.latin_name, style: TextStyle(fontSize: 14))
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(Icons.assignment_turned_in),
-                                    SizedBox(width: 5),
-                                    Text(species.catch_state, style: TextStyle(fontSize: 14))
-                                  ],
-                                ),
-                              ),
                               Container(
                                 child: Row(
                                   children: <Widget>[

@@ -54,7 +54,6 @@ class RecentFriendsScroll extends StatelessWidget {
 
                                     aspectRatio: 1.0 / 1.0,
                                     child: Image(
-
                                         image: AssetImage('assets/images/preview/' + species[friends_catches[index].list()[1][1]].name.toLowerCase() + '.jpg'),
                                         fit: BoxFit.fill
                                     )
