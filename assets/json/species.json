@@ -2,92 +2,92 @@
   {
     "number": "001",
     "name": "aal",
-    "latin_name": "Esox Lucius",
-    "length": "1.50m/3'2ft",
-    "edible": "Not Edible",
-    "conservation_state": "Least Concern",
-    "catch_state": "Caught",
-    "catch_time": "Apr - Sept",
-    "general_information": "Lorem Ipsum"
+    "latin_name": "Anguilla anguilla",
+    "length": "60 cm - 80 cm",
+    "edible": "Edible",
+    "conservation_state": "Critically Endangered",
+    "catch_state": "Not caught",
+    "catch_time": "Dec - Aug",
+    "general_information": "Doordat de aal met uitsterven bedreigd wordt, is het verboden om de aal te verhandelen en te exporteren naar een ander land. Dit geldt ook voor de glasaal. De minimummaat voor de paling is 28 cm. Indien de aal kleiner is dan 28 cm, moet deze onmiddelijk teruggezet worden. Het is verboden om de paling ook maar tijdelijk in bezit te hebben. Dit geldt ook voor webstrijden"
   },
 
   {
     "number": "002",
     "name": "afrikaanse meerval",
-    "latin_name": "Esox Lucius",
-    "length": "1.50m/3'2ft",
-    "edible": "Not Edible",
+    "latin_name": "Clarias gariepinus",
+    "length": "35 cm - 170 cm",
+    "edible": "Edible",
     "conservation_state": "Least Concern",
     "catch_state": "Caught",
     "catch_time": "Apr - Sept",
-    "general_information": "Lorem Ipsum"
+    "general_information": "De afrikaanse meerval komt oorsponkelijk uit Afrika en het Midden Oosten, waar het voorkomt in meren, rivieren en moerassen. Deze meerval is een nachtvis, zoals veel meervallen en leeft van dode dierlijke overschotten. Door zijn grote mond kan hij relatief grote prooi opslokken, zoals kleine vogeltjes. Verspreiding: Is een inheemse soort en wordt op enkele plaatsen gekweekt. De vis is door omstandigheden in de Nederlandse wateren terecht gekomen en daardoor te vangen."
   },
 
   {
     "number": "003",
     "name": "alver",
-    "latin_name": "Esox Lucius",
-    "length": "1.50m/3'2ft",
+    "latin_name": "Alburnus alburnus",
+    "length": "5 cm - 25 cm",
     "edible": "Not Edible",
     "conservation_state": "Least Concern",
     "catch_state": "Caught",
     "catch_time": "Apr - Sept",
-    "general_information": "Lorem Ipsum"
+    "general_information": "The body of the bleak is elongated and flat. The head is pointed and the relatively small mouth is turned upwards. The anal fin is long and has 18 to 23 fin rays. The lateral line is complete. The bleak has a shiny silvery colour; and the fins are pointed and colourless. The maximum length is approximately 25 cm. In Europe the bleak can easily be confused with many other species. In England, young common bream and silver bream can be confused with young bleak, though the pointed upward turned mouth of the bleak is already distinctive at young stages. Young roach and ruffe have a wider body and a short anal fin. The bleak spawns near the shore in shallow waters. Some are found in deep water. The substrate is not important."
   },
 
   {
     "number": "004",
     "name": "amerikaanse hondsvis",
-    "latin_name": "Esox Lucius",
-    "length": "1.50m/3'2ft",
+    "latin_name": "Umbra pygmaea",
+    "length": "3 cm - 15 cm",
     "edible": "Not Edible",
     "conservation_state": "Least Concern",
     "catch_state": "Caught",
     "catch_time": "Apr - Sept",
-    "general_information": "Lorem Ipsum"
+    "general_information": "The eastern mudminnow are bottom-feeders and feed on insect larvae, worms, molluscs, and crustaceans. Eastern mudminnows have been known to exhibit more complex reproductive behaviors. Males participate in courtship and the fish build nests. Nests can be found in cavities of algae, under loose rocks, and in depressions in the sand. Females guard nests, and males may as well. Invasive"
   },
 
   {
     "number": "005",
     "name": "atlantische steur",
-    "latin_name": "Esox Lucius",
-    "length": "1.50m/3'2ft",
+    "latin_name": "Acipenser sturio",
+    "length": "125 cm - 600 cm",
     "edible": "Not Edible",
-    "conservation_state": "Least Concern",
+    "conservation_state": "Critically Endangered",
     "catch_state": "Caught",
     "catch_time": "Apr - Sept",
-    "general_information": "Lorem Ipsum"
+    "general_information": "They can reach an age of 100 years,[5] and have a late sexual maturity (12 to 14 years for the males and 16 to 18 years for the females). Like many other sturgeons, they spawn in the rivers inland from the coast. "
   },
 
   {
     "number": "006",
     "name": "baars",
-    "latin_name": "Esox Lucius",
-    "length": "1.50m/3'2ft",
+    "latin_name": "Perca fluviatilis",
+    "length": "5 cm - 60 cm",
     "edible": "Not Edible",
     "conservation_state": "Least Concern",
     "catch_state": "Caught",
     "catch_time": "Apr - Sept",
-    "general_information": "Lorem Ipsum"
+    "general_information": "The range of the European perch covers fresh water basins all over Europe, excluding the Iberian peninsula. Their range is known to reach the Kolyma River in Siberia to the east. It is also common in some of the brackish waters of the Baltic Sea. European perch has been widely introduced, with reported adverse ecological impact after introduction. The European perch lives in slow-flowing rivers, deep lakes and ponds. It tends to avoid cold or fast-flowing waters but some specimens penetrate waters of these type, although they do not breed in this habitat. The perch is a predatory species. Juveniles feed on zooplankton, bottom invertebrate fauna and other perch fry, while adults feed on both invertebrates and fish, mainly sticklebacks, perch, roach and minnows. Perch start eating other fish when they reach a size of around 120 mm. Male perch become sexually mature at between one and two years of age, females between two and four. In the northern hemisphere they spawn between February and July, depositing their eggs on water plants or the branches of trees or shrubs immersed in the water. There has been speculation, but only anecdotal evidence, that eggs stick to the legs of wading birds and are then transferred to other waters."
   },
 
   {
     "number": "007",
     "name": "barbeel",
-    "latin_name": "Esox Lucius",
+    "latin_name": "Barbus barbus",
     "length": "1.50m/3'2ft",
-    "edible": "Not Edible",
+    "edible": "Edible, but dangerous",
     "conservation_state": "Least Concern",
     "catch_state": "Caught",
     "catch_time": "Apr - Sept",
-    "general_information": "Lorem Ipsum"
+    "general_information": "Many authors have noted the highly toxic nature of barbel roe when eaten by humans, including Dame Juliana Berners and Charles David Badham.[20][21] Badham relates the experience of Italian physician Antonio Gazius, who, he says, took two boluses, and thus describes his sensations: 'At first I felt no inconvenience, but some hours having elapsed, I began to be disagreeably affected, and as my stomach swelled, and could not be brought down again by anise or carminatives, I was soon in a state of great depression and distress.' His countenance was pallid, like a man in a swoon, deadly coldness ensued, violent cholera and vomiting came after until the roe was passed, and then he became all right.\n\nDespite the risks associated with eating barbel and its roe during the spawning season, several notable cookery authors have included recipes for barbel in their books. Mrs Beeton, for example, writes that they are in season in the winter months, and suggests simmering them with port and herbs."
   },
 
   {
     "number": "008",
     "name": "beekforel",
     "latin_name": "Esox Lucius",
-    "length": "1.50m/3'2ft",
+    "length": "40 cm - 120 cm",
     "edible": "Not Edible",
     "conservation_state": "Least Concern",
     "catch_state": "Caught",

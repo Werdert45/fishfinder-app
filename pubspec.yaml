@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  shared_preferences: ^0.5.7
   image_picker:
   flutter:
     sdk: flutter
@@ -37,7 +38,7 @@ dependencies:
 
   provider: ^4.0.1
 
-  camera:
+  camera: ^0.5.7+4
   path_provider:
   path:
 
@@ -49,6 +50,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.7.5"
+
+flutter_icons:
+  image_path_android: "assets/images/icon/icon.png"
+  image_path_ios: "assets/images/icon/icon.png"
+  android: true
+  ios: true
 
 
 # For information on the generic Dart part of this file, see the
@@ -68,6 +76,7 @@ flutter:
     - assets/json/preview_species.json
     - assets/json/en.json
     - assets/json/nl.json
+    - assets/images/icon/icon.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
