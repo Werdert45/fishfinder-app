@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/shared/constants.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/models/friends_catch.dart';
 
