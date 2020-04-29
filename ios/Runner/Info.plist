@@ -2,6 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSCameraUsageDescription</key>
+    <string>Can I use the camera please?</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Can I use the mic please?</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+	    <dict>
+		    <key>CFBundleTypeRole</key>
+		    <string>Editor</string>
+		    <key>CFBundleURLSchemes</key>
+		    <array>
+			    <!-- TODO Replace this value: -->
+			    <!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			    <string>com.googleusercontent.apps.1092134505291-op36enbh8kmrnl9q37ckdsmbg25qi4n2</string>
+		    </array>
+	    </dict>
+    </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
