@@ -1,3 +1,5 @@
+import 'package:camera/camera.dart';
+import 'package:fishfinder_app/screens/authenticate/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'Widget/bezierContainer.dart';
@@ -5,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({Key key, this.title}) : super(key: key);
+  final List<CameraDescription> cameras;
+
+  SignUpPage({Key key, this.title, this.cameras}) : super(key: key);
 
   final String title;
 
@@ -96,13 +100,22 @@ class _SignUpPageState extends State<SignUpPage> {
             width: 10,
           ),
           InkWell(
-            child: Text(
-              'Login',
-              style: TextStyle(
-                  color: Color(0xff63d5fb),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
-            ),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => LoginPage())
+                );
+              },
+              child: Text(
+                'Login',
+                style: TextStyle(
+                    color: Color(0xff63d5fb),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600),
+              )
+            )
+
           )
         ],
       ),

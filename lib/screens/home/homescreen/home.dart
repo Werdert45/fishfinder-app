@@ -1,22 +1,17 @@
 import 'dart:convert';
-//import 'dart:html';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/friends_catch.dart';
-import 'package:fishfinder_app/models/users_db.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 import 'package:fishfinder_app/screens/home/homescreen/achievements.dart';
 import 'package:fishfinder_app/screens/home/homescreen/friends.dart';
 import 'package:fishfinder_app/screens/home/homescreen/history_search.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentfriendsscroll.dart';
 import 'package:fishfinder_app/services/backup.dart';
-import 'package:fishfinder_app/services/translations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
-import 'package:path_provider/path_provider.dart';
 import 'settings.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:fishfinder_app/models/species.dart';
@@ -77,9 +72,6 @@ class _MainMenuState extends State<MainMenu> {
   }
 
   Widget _fishdexButton(text, link) {
-    print(uid);
-
-
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, link)));
@@ -113,7 +105,6 @@ class _MainMenuState extends State<MainMenu> {
         future: getLanguage(),
         builder: (context,snapshot) {
           var lang = snapshot.data;
-          print(lang);
           Map<String, dynamic> language = jsonDecode(snapshot.data)["home_page"];
           Map<String, dynamic> otherLanguage = jsonDecode(snapshot.data);
           return Scaffold(

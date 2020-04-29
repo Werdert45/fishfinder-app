@@ -1,3 +1,5 @@
+import 'package:camera/camera.dart';
+import 'package:fishfinder_app/screens/authenticate/register.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fishfinder_app/shared/constants.dart';
@@ -5,7 +7,9 @@ import 'Widget/bezierContainer.dart';
 import 'package:fishfinder_app/services/auth.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.title}) : super(key: key);
+  final List<CameraDescription> cameras;
+
+  LoginPage({Key key, this.title, this.cameras}) : super(key: key);
 
   final String title;
 
@@ -50,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
             // Check if user exists and then login (user != null)
             if (_formKey.currentState.validate()) {
               dynamic result = await _auth.signInWithEmail(email, password);
-              Navigator.pop(context);
+              Navigator.pop(context, widget.cameras);
 
               if (result == null) {
                 setState(() => error = 'No user found with this email');
@@ -97,13 +101,22 @@ class _LoginPageState extends State<LoginPage> {
             onTap: () {
 
             },
-            child: Text(
-              'Register',
-              style: TextStyle(
-                  color: Color(0xff63d5fb),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
-            ),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignUpPage(cameras: widget.cameras))
+                );
+              },
+              child: Text(
+                'Register',
+                style: TextStyle(
+                    color: Color(0xff63d5fb),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600),
+              ),
+            )
+
           )
         ],
       ),

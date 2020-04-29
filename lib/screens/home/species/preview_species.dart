@@ -35,8 +35,6 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
 
 
   Widget build(BuildContext context) {
-    print(widget.uid);
-
     final Species species = ModalRoute.of(context).settings.arguments;
     final int index = widget.index;
 

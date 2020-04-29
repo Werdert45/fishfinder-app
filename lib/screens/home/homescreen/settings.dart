@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fishfinder_app/screens/authenticate/sign_in.dart';
+import 'package:fishfinder_app/screens/wrapper.dart';
 import 'package:fishfinder_app/services/backup.dart';
 import 'package:fishfinder_app/services/database.dart';
 import 'package:fishfinder_app/services/refresh.dart';
@@ -45,7 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: ListTile(
             onTap: () async {
               await _auth.signOut();
-              Navigator.pop(context);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Wrapper(cameras: widget.cameras)));
             },
             title: Text(text),
             leading: Icon(Icons.exit_to_app)

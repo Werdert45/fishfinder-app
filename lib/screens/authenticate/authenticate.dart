@@ -1,4 +1,4 @@
-import 'package:fishfinder_app/screens/authenticate/register.dart';
+import 'package:camera/camera.dart';
 import 'package:fishfinder_app/screens/authenticate/welcome.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 // @class Authenticate
 
 class Authenticate extends StatefulWidget {
+  final List<CameraDescription> cameras;
+  Authenticate(this.cameras);
+
   @override
   _AuthenticateState createState() => _AuthenticateState();
 }
@@ -21,6 +24,6 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
-    return Welcome();
+    return Welcome(cameras: widget.cameras);
   }
 }

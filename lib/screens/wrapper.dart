@@ -10,12 +10,15 @@ class Wrapper extends StatefulWidget {
   final List<CameraDescription> cameras;
   Wrapper({this.cameras});
 
+
+
   @override
   _WrapperState createState() => _WrapperState();
 }
 
 
 class _WrapperState extends State<Wrapper> {
+
   @override
   void initState() {
     super.initState();
@@ -23,14 +26,17 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
+    print("Cameras: " + widget.cameras.toString());
     // if the user is instantiated by either register or login, user != null
     final user = Provider.of<User>(context);
 
     if (user == null) {
       // return authenticate screen
-      return Authenticate();
+      return Authenticate(widget.cameras);
     } else {
       // pass camera element to main menu
+
+      print(widget.cameras);
       return MainMenu(widget.cameras);
     }
   }

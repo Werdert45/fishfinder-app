@@ -24,12 +24,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of the application
   @override
   Widget build(BuildContext context) {
+    print("Camera (Main): " + cameras.toString());
     // Get stream of information and pass down user
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
         initialRoute: '/',
-        routes: routes
+        routes: routes,
+
       ),
     );
   }
