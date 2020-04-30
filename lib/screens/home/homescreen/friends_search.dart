@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 class FriendsSearch extends SearchDelegate<String> {
 
   final users;
+  final uid;
+  final others;
+  final added;
 
-  FriendsSearch(this.users);
+  FriendsSearch(this.users, this.uid, this.others, this.added);
 
   @override
 
@@ -32,10 +35,8 @@ class FriendsSearch extends SearchDelegate<String> {
   }
 
   Widget buildSuggestions(BuildContext context) {
-
     var userList = [];
     var userIDs = [];
-
 
 
     checkQuery(user, query) {
@@ -56,36 +57,30 @@ class FriendsSearch extends SearchDelegate<String> {
       }
     }
 
-
     checkQuery(users[0], query.toLowerCase());
-
 
 //    final userList = query.isEmpty ? user : user.where((p)=>p.name.contains(query)).toList();
 
     return ListView.builder(
-        itemCount: userList.length,
+        itemCount: users.length,
         itemBuilder: (context, index) {
-          if (users[2] == null) {
+          if (users[index][0] == uid) {
             return SizedBox(height: 0);
           }
 
-
-          else if (users[2].contains(userList[index])) {
+          else if (others.contains(users[index][0])) {
             return ListTile(
-              title: Text(userList[index]),
-              trailing: IconButton(
-               icon: Icon(Icons.done),
-              )
-
+              title: Text(users[index][1]),
+              trailing: Text("Pending")
             );
           }
           else {
             return ListTile(
-              title: Text(userList[index]),
+              title: Text(users[index][1]),
               trailing: IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () {
-                  DatabaseService().addFriends(userList[index], userIDs[index], users[1]);
+                  DatabaseService().sendFriendsRequest(users[index][1], users[index][0], uid);
                 },
               ),
             );
