@@ -53,6 +53,35 @@ class DatabaseService {
     });
   }
 
+  Future sendFriendsRequest(friend_name, friend_id, puid, username) async {
+    await fishCatchesCollection.document(puid).updateData({
+      'friends_pending': FieldValue.arrayUnion([friend_id]),
+    });
+
+    await fishCatchesCollection.document(friend_id).updateData({
+      'friends_requests': FieldValue.arrayUnion([puid])
+    });
+  }
+
+  Future acceptFriendsRequest(friend_name, friend_id, puid, username) async {
+    await fishCatchesCollection.document(puid).updateData({
+      'friends_requests': FieldValue.arrayRemove([friend_id]),
+      'friends_id': FieldValue.arrayUnion([friend_id]),
+      'friends_name': FieldValue.arrayUnion([friend_name])
+    });
+
+    await fishCatchesCollection.document(friend_id).updateData({
+      'friends_pending': FieldValue.arrayRemove([puid]),
+      'friends_id': FieldValue.arrayUnion([puid]),
+      'friends_name': FieldValue.arrayUnion([username])
+    });
+  }
+
+
+
+  
+
+
   Future addFriends(friend_name, friend_id, uid) async {
     await fishCatchesCollection.document(uid).updateData({
       'friends_id': FieldValue.arrayUnion([friend_id]),
@@ -95,6 +124,8 @@ class DatabaseService {
       'name': name,
       'species': [],
       'friends_catches': {},
+      'friends_pending': [],
+      'friends_requests': [],
       'friends_id': [],
       'friends_name': [],
       'language': "en",
