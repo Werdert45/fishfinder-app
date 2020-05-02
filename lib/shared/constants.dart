@@ -116,12 +116,13 @@ formatString(String str) {
 
 String readTimestamp(int timestamp) {
   var now = new DateTime.now();
+  print(now);
   var format = new DateFormat('HH:mm a');
   var date = new DateTime.fromMicrosecondsSinceEpoch(timestamp * 1000);
-  var diff = date.difference(now);
+  var diff = date.difference(now).abs();
   var time = '';
 
-  if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+  if (diff.inDays < 1) {
     time = format.format(date);
   } else {
     if (diff.inDays == 1) {
