@@ -30,7 +30,7 @@ class _FriendsPageState extends State<FriendsPage> {
                   return new Center(child: new Text('Loading ...'));
                 }
 
-                if (snapshot.data.documents[0]['friends_name'] == null && snapshot.data.documents[0]['friends_requests'] == null) {
+                if (snapshot.data.documents[0]['friends_name'] == null && snapshot.data.documents[0]['friends_requests_name'] == null) {
                   var snapper = snapshot.data.documents[0];
                   var friends_added = snapshot.data.documents[0]['friends_name'];
                   var friends_id = snapshot.data.documents[0]['friends_id'];
@@ -72,7 +72,7 @@ class _FriendsPageState extends State<FriendsPage> {
 
                                   }
 
-                                  var others = snapper['friends_pending'];
+                                  var others = (snapper['friends_pending_id'] != null) ? snapper['friends_pending_id'] : [];
 
                                   return Align(
                                     alignment: Alignment.topRight,
@@ -81,7 +81,7 @@ class _FriendsPageState extends State<FriendsPage> {
                                         onPressed: () {
                                           showSearch(
                                               context: context,
-                                              delegate: FriendsSearch(users, widget.uid, others, snapper['friends_id'])
+                                              delegate: FriendsSearch(users, widget.uid, others, snapper['friends_id'], snapper['name'])
                                           );
                                         }
                                     ),
@@ -135,7 +135,7 @@ class _FriendsPageState extends State<FriendsPage> {
                                     map[i].forEach((k, v) => users.add(usersDB(k, v).list()));
                                   }
 
-                                  var others = snapper['friends_pending'];
+                                  var others = (snapper['friends_pending_id'] != null) ? snapper['friends_pending_id'] : [];
 
                                   return Align(
                                     alignment: Alignment.topRight,
@@ -144,7 +144,7 @@ class _FriendsPageState extends State<FriendsPage> {
                                         onPressed: () {
                                           showSearch(
                                               context: context,
-                                              delegate: FriendsSearch(users, widget.uid, others, snapper['friends_id'])
+                                              delegate: FriendsSearch(users, widget.uid, others, snapper['friends_id'], snapper['name'])
                                           );
                                         }
                                     ),
@@ -180,7 +180,9 @@ class _FriendsPageState extends State<FriendsPage> {
                                       leading: Icon(Icons.account_box),
                                     trailing: IconButton(
                                         icon: Icon(Icons.close),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                          DatabaseService().removeFriend(snapshot.data.documents[0]['friends_name'][index], snapshot.data.documents[0]['friends_id'][index], widget.uid, snapshot.data.documents[0]['name']);
+                                      },
                                     ),
                                   );
                                 }
@@ -200,31 +202,31 @@ class _FriendsPageState extends State<FriendsPage> {
                           height: 180,
                           margin: EdgeInsets.symmetric(horizontal: 20),
                           child: ListView.builder(
-                              itemCount: snapshot.data.documents[0]['friends_requests'].length,
+                              itemCount: (snapshot.data.documents[0]['friends_requests_name'] != null) ? snapshot.data.documents[0]['friends_requests_name'].length : 0,
                               itemBuilder: (context, int index) {
-                                if (snapshot.data.documents[0]['friends_requests'].length == 0) {
+                                if (snapshot.data.documents[0]['friends_requests_name'].length == 0) {
                                   return Center(
                                     child: Text("No Friends yet, try to add them"),
                                   );
                                 }
                                 else {
                                   return ListTile(
-                                    title: Text(snapshot.data.documents[0]['friends_requests'][index]),
+                                    title: Text(snapshot.data.documents[0]['friends_requests_name'][index]),
                                     leading: Icon(Icons.account_box),
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                          icon: Icon(Icons.add),
+                                          icon: Icon(Icons.done),
                                           onPressed: () {
-                                            DatabaseService().acceptFriendsRequest("Ian Ronk", snapshot.data.documents[0]['friends_requests'][index], widget.uid, snapshot.data.documents[0]['name']);
+                                            DatabaseService().acceptFriendsRequest(snapshot.data.documents[0]['friends_requests_name'][index], snapshot.data.documents[0]['friends_requests_id'][index], widget.uid, snapshot.data.documents[0]['name']);
                                           },
                                         ),
                                         SizedBox(width: 0),
                                         IconButton(
                                           icon: Icon(Icons.close),
                                           onPressed: () {
-                                            DatabaseService().denyFriendsRequest("Ian Ronk", snapshot.data.documents[0]['friends_requests'][index], widget.uid, snapshot.data.documents[0]['name']);
+                                            DatabaseService().denyFriendsRequest(snapshot.data.documents[0]['friends_requests_name'][index], snapshot.data.documents[0]['friends_requests_id'][index], widget.uid, snapshot.data.documents[0]['name']);
                                           },
                                         ),
                                       ],
@@ -247,16 +249,16 @@ class _FriendsPageState extends State<FriendsPage> {
                           height: 180,
                           margin: EdgeInsets.symmetric(horizontal: 20),
                           child: ListView.builder(
-                              itemCount: snapshot.data.documents[0]['friends_pending'].length,
+                              itemCount: (snapshot.data.documents[0]['friends_pending_name'] != null) ? snapshot.data.documents[0]['friends_pending_name'].length : 0,
                               itemBuilder: (context, int index) {
-                                if (snapshot.data.documents[0]['friends_pending'].length == 0) {
+                                if (snapshot.data.documents[0]['friends_pending_name'].length == 0) {
                                   return Center(
                                     child: Text("No Friends yet, try to add them"),
                                   );
                                 }
                                 else {
                                   return ListTile(
-                                    title: Text(snapshot.data.documents[0]['friends_pending'][index]),
+                                    title: Text(snapshot.data.documents[0]['friends_pending_name'][index]),
                                     leading: Icon(Icons.account_box),
                                     trailing: IconButton(
                                       icon: Icon(Icons.close),

@@ -53,25 +53,29 @@ class DatabaseService {
     });
   }
 
-  Future sendFriendsRequest(friend_name, friend_id, puid) async {
+  Future sendFriendsRequest(friend_name, friend_id, puid, username) async {
     await fishCatchesCollection.document(puid).updateData({
-      'friends_pending': FieldValue.arrayUnion([friend_id]),
+      'friends_pending_id': FieldValue.arrayUnion([friend_id]),
+      'friends_pending_name': FieldValue.arrayUnion([friend_name])
     });
 
     await fishCatchesCollection.document(friend_id).updateData({
-      'friends_requests': FieldValue.arrayUnion([{puid: "Friend Name"}])
+      'friends_requests_id': FieldValue.arrayUnion([puid]),
+      'friends_requests_name': FieldValue.arrayUnion([username])
     });
   }
 
   Future acceptFriendsRequest(friend_name, friend_id, puid, username) async {
     await fishCatchesCollection.document(puid).updateData({
-      'friends_requests': FieldValue.arrayRemove([{friend_id: "Friend Name"}]),
+      'friends_requests_id': FieldValue.arrayRemove([friend_id]),
+      'friends_requests_name': FieldValue.arrayRemove([friend_name]),
       'friends_id': FieldValue.arrayUnion([friend_id]),
       'friends_name': FieldValue.arrayUnion([friend_name])
     });
 
     await fishCatchesCollection.document(friend_id).updateData({
-      'friends_pending': FieldValue.arrayRemove([puid]),
+      'friends_pending_id': FieldValue.arrayRemove([puid]),
+      'friends_pending_name': FieldValue.arrayRemove([username]),
       'friends_id': FieldValue.arrayUnion([puid]),
       'friends_name': FieldValue.arrayUnion([username])
     });
@@ -79,21 +83,25 @@ class DatabaseService {
 
   Future denyFriendsRequest(friend_name, friend_id, puid, username) async {
     await fishCatchesCollection.document(puid).updateData({
-      'friends_request': FieldValue.arrayRemove([{friend_id: "Friend Name"}])
+      'friends_requests_id': FieldValue.arrayRemove([friend_id]),
+      'friends_requests_name': FieldValue.arrayRemove([friend_name])
     });
 
     await fishCatchesCollection.document(friend_id).updateData({
-      'friends_pending': FieldValue.arrayRemove([puid])
+      'friends_pending_id': FieldValue.arrayRemove([puid]),
+      'friends_pending_name': FieldValue.arrayUnion([username])
     });
   }
 
   Future removePendingFriend(friend_name, friend_id, puid, username) async {
     await fishCatchesCollection.document(puid).updateData({
-      'friends_pending': FieldValue.arrayRemove([friend_id])
+      'friends_pending_id': FieldValue.arrayRemove([friend_id]),
+      'friends_pending_name': FieldValue.arrayRemove([friend_name])
     });
 
     await fishCatchesCollection.document(friend_id).updateData({
-      'friends_request': FieldValue.arrayRemove([{friend_id: "Friend Name"}])
+      'friends_requests_id': FieldValue.arrayRemove([puid]),
+      'friends_requests_name': FieldValue.arrayRemove([username])
     });
   }
 
@@ -105,20 +113,12 @@ class DatabaseService {
 
     await fishCatchesCollection.document(friend_id).updateData({
       'friends_id': FieldValue.arrayRemove([puid]),
-      'friends_name': FieldValue.arrayRemove([friend_name])
+      'friends_name': FieldValue.arrayRemove([username])
     });
   }
 
   Future removeCatchesFromFriend(friend_id, puid) async {
     // loop through all friends catches and remove occurrences with the friends_id
-  }
-  
-
-  Future addFriends(friend_name, friend_id, uid) async {
-    await fishCatchesCollection.document(uid).updateData({
-      'friends_id': FieldValue.arrayUnion([friend_id]),
-      'friends_name': FieldValue.arrayUnion([friend_name])
-    });
   }
 
   Future addSpeciesToFriends(friends, data) async {
@@ -156,8 +156,10 @@ class DatabaseService {
       'name': name,
       'species': [],
       'friends_catches': {},
-      'friends_pending': [],
-      'friends_requests': [],
+      'friends_pending_id': [],
+      'friends_pending_name': [],
+      'friends_requests_name': [],
+      'friends_requests_id': [],
       'friends_id': [],
       'friends_name': [],
       'language': "en",

@@ -37,6 +37,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final AuthService _auth = AuthService();
 
+
+
   _logoutButton(text) {
     return Container(
         decoration: BoxDecoration(

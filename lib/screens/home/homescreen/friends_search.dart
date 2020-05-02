@@ -7,8 +7,9 @@ class FriendsSearch extends SearchDelegate<String> {
   final uid;
   final others;
   final added;
+  final username;
 
-  FriendsSearch(this.users, this.uid, this.others, this.added);
+  FriendsSearch(this.users, this.uid, this.others, this.added, this.username);
 
   @override
 
@@ -38,6 +39,8 @@ class FriendsSearch extends SearchDelegate<String> {
     var userList = [];
     var userIDs = [];
 
+    bool pending = false;
+
 
     checkQuery(user, query) {
       if (query == "") {
@@ -64,6 +67,9 @@ class FriendsSearch extends SearchDelegate<String> {
     return ListView.builder(
         itemCount: users.length,
         itemBuilder: (context, index) {
+          print(others);
+          print(users);
+
           if (users[index][0] == uid) {
             return SizedBox(height: 0);
           }
@@ -80,7 +86,8 @@ class FriendsSearch extends SearchDelegate<String> {
               trailing: IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () {
-                  DatabaseService().sendFriendsRequest(users[index][1], users[index][0], uid);
+                  DatabaseService().sendFriendsRequest(users[index][1], users[index][0], uid, username);
+                  close(context, null);
                 },
               ),
             );
