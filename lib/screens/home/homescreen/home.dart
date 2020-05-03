@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
+import 'package:intl/intl.dart';
 import 'settings.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:fishfinder_app/models/species.dart';
@@ -55,12 +56,19 @@ class _MainMenuState extends State<MainMenu> {
   String root_folder = '/data/user/0/machinelearningsolutions.fishfinder_app/app_flutter';
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  
+  Future checkSubscription() async {
+    final prefs = await _prefs;
+    
+    if (prefs.getBool("premiumSubscription") == null) {
+      await prefs.setBool("premiumSubscription", false);
+    }
+
+    return prefs.getBool("premiumSubscription");
+  }
 
   Future getLanguage() async {
     final prefs = await _prefs;
-
-
-
     if (prefs.getString("language") == null) {
       await prefs.setString("language", "nl");
     }
@@ -69,6 +77,25 @@ class _MainMenuState extends State<MainMenu> {
 
 
     return DefaultAssetBundle.of(context).loadString('assets/json/' + languageApp.toString() + '.json');
+  }
+
+  Future dailyScansAmount() async {
+    final prefs = await _prefs;
+
+    if (prefs.getStringList("date") == null) {
+      await prefs.setStringList("date", [DateFormat.y().format(DateTime.now()), DateFormat.M().format(DateTime.now()), DateFormat.d().format(DateTime.now())]);
+    }
+
+    else {
+      var dateList = prefs.getStringList("date");
+      var dates = [DateFormat.y().format(DateTime.now()), DateFormat.y().format(DateTime.now()), DateFormat.y().format(DateTime.now())];
+
+      for (int i = 0; i < dateList.length; i++) {
+        if (dateList[i] != dates[i]) {
+          await prefs.setInt("scansAmount", 5);
+        }
+      }
+    }
   }
 
   Widget _fishdexButton(text, link) {
@@ -279,7 +306,7 @@ class _MainMenuState extends State<MainMenu> {
                                                       alignment: Alignment.centerLeft,
                                                       child: Container(
                                                         width: 200,
-                                                        child: Text(language["fishdex_title"], textAlign: TextAlign.left, textDirection: TextDirection.ltr ,style: TextStyle(fontSize: 20, color: Colors.white)),
+                                                        child: Text(language["fishdex_title"], textAlign: TextAlign.left, style: TextStyle(fontSize: 20, color: Colors.white)),
                                                       )
                                                   ),
                                                 ],
@@ -437,7 +464,9 @@ class _MainMenuState extends State<MainMenu> {
                 child: FloatingActionButton(
                   backgroundColor: Colors.lightBlueAccent,
                   child: const Icon(Icons.camera_alt, size:30, color: Colors.white),
-                  onPressed:() {
+                  onPressed:() async {
+                    await checkSubscription();
+                    await dailyScansAmount();
                     // Put camera screen on top of home screen and pass camera down
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras, uid)));
                   },

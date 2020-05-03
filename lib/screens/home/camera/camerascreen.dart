@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:fishfinder_app/screens/home/camera/camerapreview.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // @author Ian Ronk
 // @class CameraScreen
@@ -26,6 +28,38 @@ class CameraScreenState extends State<CameraScreen> {
 
   CameraController controller;
   Future<void> _initializeControllerFuture;
+
+  var scansAmount;
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+
+  Future getScansAmount() async {
+    final prefs = await _prefs;
+
+    if (prefs.getInt("scansAmount") == null) {
+      await prefs.setInt("scansAmount", 5);
+    }
+
+    if (prefs.getBool("premiumSubscription")) {
+      return "\u221E";
+    }
+
+    scansAmount = prefs.getInt("scansAmount");
+
+    return scansAmount;
+  }
+
+  Future checkSubscription() async {
+    final prefs = await _prefs;
+
+    if (prefs.getBool("premiumSubscription") == null) {
+      await prefs.setBool("premiumSubscription", false);
+    }
+
+    return prefs.getBool("premiumSubscription");
+  }
+
 
   // function to add image from Gallery (note add extra information for iOS
   _accessGallery() async {
@@ -65,6 +99,9 @@ class CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     print(widget.uid);
 
+    print("Peace in the MIddle East");
+
+
     return Scaffold(
       // Wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner
@@ -84,14 +121,28 @@ class CameraScreenState extends State<CameraScreen> {
         ),
 
         Container(
-          margin: const EdgeInsets.only(left: 10.0, top: 20.0),
-          child: IconButton(
-              tooltip: "Go Back",
-              icon: new Icon(Icons.clear, color: Colors.white, size: 30.0),
-              onPressed: () {
-                Navigator.pop(context);
-              }
-          ),
+          margin: const EdgeInsets.only(left: 10.0, top: 20.0, right: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                  tooltip: "Go Back",
+                  icon: new Icon(Icons.clear, color: Colors.white, size: 30.0),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }
+              ),
+              FutureBuilder(
+                future: getScansAmount(),
+                builder: (context, snapshot) {
+                  print(snapshot.data);
+
+                  return Text("Scans Left:  " + snapshot.data.toString(), style: TextStyle(fontSize: 20, color: Colors.white));
+                }
+              )
+
+            ],
+          )
         ),
 
         Align(

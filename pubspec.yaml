@@ -33,6 +33,7 @@ dependencies:
   firebase_auth: ^0.14.0+5
   cloud_firestore: ^0.12.9+5
 
+
   http: ^0.12.0+4
   dio: ^3.0.8
 

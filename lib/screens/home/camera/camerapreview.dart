@@ -8,6 +8,7 @@ import 'package:tflite/tflite.dart';
 import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/screens/home/species/species.dart';
 import 'package:image/image.dart' as Img;
+import 'package:shared_preferences/shared_preferences.dart';
 
 // @author Ian Ronk
 // @class DisplayPictureScreen
@@ -35,6 +36,42 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   double _imageWidth;
   bool _busy = false;
 
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future getScansAmount() async {
+    final prefs = await _prefs;
+
+    if (prefs.getInt("scansAmount") == null) {
+      await prefs.setInt("scansAmount", 5);
+    }
+
+    var scansAmount = prefs.getInt("scansAmount");
+
+    await prefs.setInt("scansAmount", scansAmount - 1);
+
+    return prefs.getInt("scansAmount");
+  }
+
+  Future ScansAmount() async {
+    final prefs = await _prefs;
+
+    if (prefs.getBool("premiumSubscription")) {
+      return 1;
+    }
+
+    return prefs.getInt("scansAmount");
+  }
+
+  Future updateScansAmount() async {
+    final prefs = await _prefs;
+
+    if (prefs.getInt("scansAmount") == 0) {
+      return false;
+    }
+
+    return true;
+  }
 
   Future predictImagePicker() async {
 
@@ -104,15 +141,15 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       );
     }
   }
-    Future loadModel() async {
-      Tflite.close();
-      await Tflite.loadModel(
-        model: "assets/tflite/fishfinder.tflite",
-        labels: "assets/tflite/labels.txt",
-      );
-    }
+  Future loadModel() async {
+    Tflite.close();
+    await Tflite.loadModel(
+      model: "assets/tflite/fishfinder.tflite",
+      labels: "assets/tflite/labels.txt",
+    );
+  }
 
-    @override
+  @override
   void initState() {
     super.initState();
 
@@ -152,7 +189,28 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await predictImagePicker();
+
+          var scanAmount = await ScansAmount();
+          print(scanAmount);
+
+          if (scanAmount < 0) {
+            await getScansAmount();
+            await predictImagePicker();
+          }
+          else {
+            showDialog(context: context,
+                barrierDismissible: false,
+                child: AlertDialog(
+                  title: Text("No More Scans"),
+                  content: Text("No Scans Remaining, Watch an ad for 3 more scans"),
+                  actions: [
+                    FlatButton(child: Text("Watch an Ad")),
+                    FlatButton(child: Text("Dismiss"), onPressed: () {Navigator.of(context).pop(widget);})
+                  ],
+
+                )
+            );
+          }
         },
         label: Row(
           children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
