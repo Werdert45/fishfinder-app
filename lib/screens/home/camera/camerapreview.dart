@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:fishfinder_app/screens/home/species/preview_species.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,6 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // TODO Add the function of removing the image if the image is taken through the app
 // TODO add loading circle
+
+const testDevice = 'ca-app-pub-8771008967458694~3342723025';
 
 class DisplayPictureScreen extends StatefulWidget {
 
@@ -35,6 +38,17 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   double _imageHeight;
   double _imageWidth;
   bool _busy = false;
+
+
+  int scansLeft = 5;
+
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: testDevice != null ? <String>[testDevice] : null,
+    keywords: <String>['foo', 'bar'],
+    nonPersonalizedAds: true,
+    contentUrl: 'http://foo.com/bar.html',
+    childDirected: true,
+  );
 
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -160,6 +174,18 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         _busy = false;
       });
     });
+
+
+    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+    RewardedVideoAd.instance.listener =
+        (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+      print("RewardedVideoAd event $event");
+      if (event == RewardedVideoAdEvent.rewarded) {
+        setState(() {
+          scansLeft += rewardAmount;
+        });
+      }
+    };
   }
 
   @override
@@ -204,7 +230,12 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   title: Text("No More Scans"),
                   content: Text("No Scans Remaining, Watch an ad for 3 more scans"),
                   actions: [
-                    FlatButton(child: Text("Watch an Ad")),
+                    FlatButton(child: Text("Watch an Ad"), onPressed: () async {
+                      await RewardedVideoAd.instance.load(
+                          adUnitId: RewardedVideoAd.testAdUnitId,
+                          targetingInfo: targetingInfo);
+                      await RewardedVideoAd.instance.show();
+                    }),
                     FlatButton(child: Text("Dismiss"), onPressed: () {Navigator.of(context).pop(widget);})
                   ],
 

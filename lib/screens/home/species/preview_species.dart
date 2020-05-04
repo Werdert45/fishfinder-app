@@ -6,9 +6,13 @@ import 'package:fishfinder_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/shared/constants.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+
 
 // @author Ian Ronk
 // @class Species
+const testDevice = 'ca-app-pub-8771008967458694~3342723025';
+
 
 class PreviewSpeciesScreen extends StatefulWidget {
   final String single_species;
@@ -24,10 +28,41 @@ class PreviewSpeciesScreen extends StatefulWidget {
 }
 
 class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: testDevice != null ? [testDevice] : null,
+    keywords: <String>['foo', 'bar'],
+    contentUrl: 'http://foo.com/bar.html',
+    childDirected: true,
+    nonPersonalizedAds: true,
+  );
+
+
   @override
 
 
+  InterstitialAd _interstitialAd;
+
+  InterstitialAd createInterstitialAd() {
+    return InterstitialAd(
+      adUnitId: InterstitialAd.testAdUnitId,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("InterstitialAd event $event");
+      },
+    );
+  }
+
   void initState() {
+    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+  }
+
+  @override
+
+  void dispose() {
+    // TODO: implement dispose
+    _interstitialAd?.dispose();
+
+    super.dispose();
   }
 
 
@@ -74,12 +109,22 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
                           if (friends_id.isNotEmpty) {
                             await DatabaseService().addSpeciesToFriends(friends_id, [widget.uid, index + 1]);
                           }
+
+                          _interstitialAd?.dispose();
+                          _interstitialAd = createInterstitialAd()..load();
+
+
+                          await _interstitialAd?.show();
+
                           await DatabaseService().updateSpeciesList(widget.uid, index + 1);
+
+
+                          // AdMob here
 
                           Navigator.pop(context);
                           Navigator.pop(context);
                           Navigator.pop(context);
-//                          Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid)));
+//                          Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, language)));
                         },
                         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                         color: Colors.orange,

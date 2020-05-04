@@ -18,9 +18,11 @@ import 'package:fishfinder_app/shared/constants.dart';
 import 'package:fishfinder_app/models/species.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentscroll.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:firebase_admob/firebase_admob.dart';
 
 var languageApp;
+
+var testDevice = 'ca-app-pub-8771008967458694~3342723025';
 
 // @author Ian Ronk
 // @class MainMenu
@@ -29,6 +31,8 @@ class MainMenu extends StatefulWidget {
   final List<CameraDescription> cameras;
   MainMenu(this.cameras);
 
+
+
   @override
   _MainMenuState createState() => _MainMenuState();
 }
@@ -36,7 +40,29 @@ class MainMenu extends StatefulWidget {
 class _MainMenuState extends State<MainMenu> {
   @override
 
+  MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: [testDevice],
+    nonPersonalizedAds: true,
+  );
+
+  BannerAd _bannerAd;
+
+  BannerAd createBannerAd() {
+    return BannerAd(
+        adUnitId: BannerAd.testAdUnitId,
+        size: AdSize.fullBanner,
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event) {
+          print("BannerAd $event");
+        }
+    );
+  }
+
   void initState() {
+    FirebaseAdMob.instance.initialize(
+        appId: BannerAd.testAdUnitId
+    );
+//    _bannerAd = createBannerAd()..load()..show();
     super.initState();
     @override
     Future userId() async {
@@ -47,6 +73,15 @@ class _MainMenuState extends State<MainMenu> {
         userId();
     });
   }
+
+  void dispose() {
+    // TODO: implement dispose
+    _bannerAd.dispose();
+    super.dispose();
+  }
+
+  @override
+
 
   final AuthService _auth = AuthService();
 
