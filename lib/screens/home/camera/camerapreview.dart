@@ -294,7 +294,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
           var scanAmount = await ScansAmount();
           print(scanAmount);
 
-          if (scanAmount <= 0) {
+          if (scanAmount >= 0) {
             await getScansAmount();
             await predictImagePicker();
           }
