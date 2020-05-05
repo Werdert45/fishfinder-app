@@ -7,6 +7,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:fishfinder_app/screens/home/camera/camerapreview.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_crop/image_crop.dart';
+import 'dart:io';
 
 // @author Ian Ronk
 // @class CameraScreen
@@ -120,30 +122,88 @@ class CameraScreenState extends State<CameraScreen> {
           },
         ),
 
-        Container(
-          margin: const EdgeInsets.only(left: 10.0, top: 20.0, right: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                  tooltip: "Go Back",
-                  icon: new Icon(Icons.clear, color: Colors.white, size: 30.0),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }
-              ),
-              FutureBuilder(
-                future: getScansAmount(),
-                builder: (context, snapshot) {
-                  print(snapshot.data);
-
-                  return Text("Scans Left:  " + snapshot.data.toString(), style: TextStyle(fontSize: 20, color: Colors.white));
-                }
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Opacity(
+              opacity: 0.4,
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 2 - 112,
+                  color: Colors.blue,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height / 2 - 212),
+                    Text("Photograph the fish within the box, for the best result", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, backgroundColor: Colors.white))
+                  ],
               )
-
-            ],
-          )
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Opacity(
+                  opacity: 0.4,
+                  child: Container(
+                      width: MediaQuery.of(context).size.width / 2 - 132,
+                      height: 224,
+                      color: Colors.blue
+                  ),
+                ),
+                SizedBox(
+                  width: 264,
+                  height: 224
+                ),
+                Opacity(
+                  opacity: 0.4,
+                  child: Container(
+                      width: MediaQuery.of(context).size.width / 2 - 132,
+                      height: 224,
+                      color: Colors.blue
+                  ),
+                ),
+              ],
+            ),
+            Opacity(
+              opacity: 0.4,
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 2 - 112,
+                  color: Colors.blue
+              ),
+            ),
+          ],
         ),
+
+        Container(
+            margin: const EdgeInsets.only(left: 10.0, top: 20.0, right: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    tooltip: "Go Back",
+                    icon: new Icon(Icons.clear, color: Colors.white, size: 30.0),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }
+                ),
+                FutureBuilder(
+                    future: getScansAmount(),
+                    builder: (context, snapshot) {
+                      print(snapshot.data);
+
+                      return Text("Scans Left:  " + snapshot.data.toString(), style: TextStyle(fontSize: 20, color: Colors.white));
+                    }
+                )
+
+              ],
+            )
+        ),
+
 
         Align(
             alignment: Alignment.bottomCenter,
@@ -196,6 +256,7 @@ class CameraScreenState extends State<CameraScreen> {
 
             // Attempt to take a picture and log where it's been saved.
             await controller.takePicture(path);
+
 
             // If the picture was taken, display it on a new screen.
             Navigator.push(

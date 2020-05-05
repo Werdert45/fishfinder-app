@@ -40,6 +40,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   bool _busy = false;
 
 
+
+
+
   int scansLeft = 5;
 
   static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
@@ -93,6 +96,18 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     var directoryPlace = directory.toString().split(" ")[1].replaceAll(RegExp(r"[\']+"), '');
 
     var tempImage = Img.decodeImage(await File(widget.imagePath).readAsBytes());
+
+
+    new FileImage(File(widget.imagePath)).resolve(new ImageConfiguration())
+    .addListener(ImageStreamListener((ImageInfo info, bool _) {
+      setState(() {
+        _imageHeight = info.image.height.toDouble();
+        _imageWidth = info.image.width.toDouble();
+      });
+    }));
+
+    var new_image = Img.copyCrop(tempImage, (_imageHeight /2 - 112).round(), (_imageWidth / 2 - 112).round(), 223, 223);
+
     var cropped = Img.copyResize(tempImage, height: 224);
 
 //    var previewImage = widget.imagePath.split(".");
@@ -101,7 +116,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
     var previewImagePath = (directoryPlace + '/preview.png').toString();
 
-    File(previewImagePath).writeAsBytesSync(Img.encodePng(cropped));
+
+    File(previewImagePath).writeAsBytesSync(Img.encodePng(new_image));
 
     var image = await File(previewImagePath);
     if (image == null) return;
@@ -111,14 +127,14 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
     if (image == null) return;
 
-    new FileImage(image)
-        .resolve(new ImageConfiguration())
-        .addListener(ImageStreamListener((ImageInfo info, bool _) {
-      setState(() {
-        _imageHeight = info.image.height.toDouble();
-        _imageWidth = info.image.width.toDouble();
-      });
-    }));
+//    new FileImage(image)
+//        .resolve(new ImageConfiguration())
+//        .addListener(ImageStreamListener((ImageInfo info, bool _) {
+//      setState(() {
+//        _imageHeight = info.image.height.toDouble();
+//        _imageWidth = info.image.width.toDouble();
+//      });
+//    }));
 
     setState(() {
       _image = image;
@@ -132,8 +148,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       imageMean: 127.5,
       imageStd: 127.5,
     );
+
     setState(() {
       _recognitions = recognitions;
+
     });
 
     String speciesList = await DefaultAssetBundle.of(context).loadString(
@@ -144,6 +162,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
     // Check if _recognitions are made
     if (_recognitions != null) {
+      print(_recognitions);
       // convert the index from the list to a species object
       Species speciesType = Species.fromJSON(speciesName);
       Navigator.push(context, MaterialPageRoute(
@@ -162,6 +181,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       labels: "assets/tflite/labels.txt",
     );
   }
+
+
 
   @override
   void initState() {
@@ -198,6 +219,57 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         children: <Widget>[
           // Get image file by file path
           Image.file(File(widget.imagePath),fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Opacity(
+                opacity: 0.4,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 2 - 112,
+                  color: Colors.blue,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Opacity(
+                    opacity: 0.4,
+                    child: Container(
+                        width: MediaQuery.of(context).size.width / 2 - 132,
+                        height: 224,
+                        color: Colors.blue
+                    ),
+                  ),
+                  SizedBox(
+                      width: 264,
+                      height: 224
+                  ),
+                  Opacity(
+                    opacity: 0.4,
+                    child: Container(
+                        width: MediaQuery.of(context).size.width / 2 - 132,
+                        height: 224,
+                        color: Colors.blue
+                    ),
+                  ),
+                ],
+              ),
+              Opacity(
+                opacity: 0.4,
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 2 - 112,
+                    color: Colors.blue
+                ),
+              ),
+            ],
+          ),
+
           Align(
               alignment: Alignment.topRight,
               child: Container(
@@ -210,6 +282,9 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   )
               )
           ),
+
+
+
         ],
       ),
 
@@ -219,7 +294,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
           var scanAmount = await ScansAmount();
           print(scanAmount);
 
-          if (scanAmount < 0) {
+          if (scanAmount <= 0) {
             await getScansAmount();
             await predictImagePicker();
           }

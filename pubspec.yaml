@@ -26,6 +26,7 @@ dependencies:
   percent_indicator: ^2.1.1
   gradient_widgets: ^0.5.1
   intl:
+  image_crop: 0.3.2
 
 
   firebase_core: ^0.4.0+9
