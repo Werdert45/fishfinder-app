@@ -39,10 +39,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   double _imageWidth;
   bool _busy = false;
 
-
-
-
-
   int scansLeft = 5;
 
   static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
@@ -106,7 +102,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       });
     }));
 
-    var new_image = Img.copyCrop(tempImage, (_imageHeight /2 - 112).round(), (_imageWidth / 2 - 112).round(), 223, 223);
+    var new_image = Img.copyCrop(tempImage, (_imageWidth / 2 - 112).round(), (_imageHeight /2 - 112).round(), 223, 223);
 
     var cropped = Img.copyResize(tempImage, height: 224);
 
@@ -126,15 +122,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     });
 
     if (image == null) return;
-
-//    new FileImage(image)
-//        .resolve(new ImageConfiguration())
-//        .addListener(ImageStreamListener((ImageInfo info, bool _) {
-//      setState(() {
-//        _imageHeight = info.image.height.toDouble();
-//        _imageWidth = info.image.width.toDouble();
-//      });
-//    }));
 
     setState(() {
       _image = image;
@@ -166,7 +153,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       // convert the index from the list to a species object
       Species speciesType = Species.fromJSON(speciesName);
       Navigator.push(context, MaterialPageRoute(
-          builder: (context) => PreviewSpeciesScreen(index: _recognitions[0]['index'], uid: widget.uid),
+          builder: (context) => PreviewSpeciesScreen(index: _recognitions[0]['index'], uid: widget.uid, img: previewImagePath),
           settings: RouteSettings(
               arguments: speciesType
           )

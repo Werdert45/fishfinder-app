@@ -56,10 +56,10 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                   SizedBox(height: MediaQuery.of(context).size.height - 250),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      color: Colors.white
+                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                        color: Colors.white
                     ),
-                    height: 1000,
+                    height: 1400,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: <Widget>[
@@ -122,13 +122,43 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                             children: <Widget>[
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Container(child: Text("General Information", style: TextStyle(fontSize: 20))),
+                                child: Container(child: Text("General Information", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
+                              ),
+                              SizedBox(height: 15),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(child: Text(species.general_information, style: TextStyle(fontSize: 15))),
                               ),
                               SizedBox(height: 25),
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Container(child: Text(species.general_information)),
+                                child: Container(child: Text("Living area", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
                               ),
+                              SizedBox(height: 15),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(child: Text(species.living_area, style: TextStyle(fontSize: 15))),
+                              ),
+                              SizedBox(height: 25),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(child: Text("Life Cycle", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))),
+                              ),
+                              SizedBox(height: 15),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(child: Text(species.lifecycle, style: TextStyle(fontSize: 15))),
+                              ),
+                              Container(
+                                height: 400,
+                                child: ListView.builder(
+                                    itemCount: species.references.length,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return Text((index + 1).toString() + ". " + species.references[index]);
+                                    }
+                                )
+                              )
+
 
                             ],
                           ),

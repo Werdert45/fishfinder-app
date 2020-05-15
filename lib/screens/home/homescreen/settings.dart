@@ -37,11 +37,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final AuthService _auth = AuthService();
 
-
-
-
-
-
   _logoutButton(text) {
     return Container(
         decoration: BoxDecoration(
@@ -69,7 +64,6 @@ class _SettingsPageState extends State<SettingsPage> {
   List<Item> users = <Item>[
     const Item('English', 'en'),
     const Item('Nederlands (Dutch)', 'nl'),
-    const Item('Italiano (Italian)', 'it'),
   ];
 
 
@@ -115,6 +109,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       final prefs = await _prefs;
                                       await prefs.setString("language", languageID);
                                       languageApp = languageID;
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainMenu(widget.cameras)));
                                     }
                                     if (emailController.text != "") {
                                       DatabaseService().updateEmail(emailController.text, widget.uid);
@@ -221,7 +216,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                           onChanged: (Item Value) {
                                             setState(() {
                                               selectedUser = Value;
-                                            });
+                                            }
+                                            );
                                           },
                                           items: users.map((Item user) {
                                             return  DropdownMenuItem<Item>(

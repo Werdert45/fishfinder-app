@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:firebase_admob/firebase_admob.dart';
-
+import 'dart:io';
 
 // @author Ian Ronk
 // @class Species
@@ -17,9 +17,10 @@ const testDevice = 'ca-app-pub-8771008967458694~3342723025';
 class PreviewSpeciesScreen extends StatefulWidget {
   final String single_species;
   final String uid;
+  final String img;
 //  int index;
 
-  PreviewSpeciesScreen({Key key, @required this.single_species, this.index, this.uid}) : super(key: key);
+  PreviewSpeciesScreen({Key key, @required this.single_species, this.index, this.uid, this.img}) : super(key: key);
 
   int index;
 
@@ -140,7 +141,7 @@ class _PreviewSpeciesScreenState extends State<PreviewSpeciesScreen> {
                   child: Stack(
                       children: <Widget>[Column(
                         children: <Widget>[
-                          Image.asset('assets/images/preview/' + species.name.toLowerCase() + '.jpg', width:  MediaQuery.of(context).size.width),
+                          Image.file(File(widget.img)),
                           Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                               child: Row(
