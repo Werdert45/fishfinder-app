@@ -26,7 +26,6 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-
         body: Stack(
           children: <Widget>[
             Container(

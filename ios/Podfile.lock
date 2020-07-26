@@ -170,6 +170,9 @@ PODS:
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
     - Flutter
+  - Firebase/AdMob (6.23.0):
+    - Firebase/CoreOnly
+    - Google-Mobile-Ads-SDK (~> 7.50)
   - Firebase/Auth (6.23.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.5.2)
@@ -184,6 +187,10 @@ PODS:
   - Firebase/Firestore (6.23.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.12.1)
+  - firebase_admob (0.0.1):
+    - Firebase/AdMob
+    - Firebase/Core
+    - Flutter
   - firebase_auth (0.0.1):
     - Firebase/Auth (~> 6.0)
     - Firebase/Core
@@ -249,6 +256,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_plugin_android_lifecycle (0.0.1):
     - Flutter
+  - Google-Mobile-Ads-SDK (7.60.0):
+    - GoogleAppMeasurement (~> 6.0)
   - GoogleAppMeasurement (6.4.2):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -295,6 +304,8 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.3.1)
+  - image_crop (0.0.1):
+    - Flutter
   - image_picker (0.0.1):
     - Flutter
   - leveldb-library (1.22)
@@ -320,12 +331,14 @@ PODS:
 DEPENDENCIES:
   - camera (from `.symlinks/plugins/camera/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - firebase_admob (from `.symlinks/plugins/firebase_admob/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_core_web (from `.symlinks/plugins/firebase_core_web/ios`)
   - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - Flutter (from `Flutter`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
+  - image_crop (from `.symlinks/plugins/image_crop/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
@@ -347,6 +360,7 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseFirestore
     - FirebaseInstallations
+    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -364,6 +378,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/camera/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  firebase_admob:
+    :path: ".symlinks/plugins/firebase_admob/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -376,6 +392,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_plugin_android_lifecycle:
     :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
+  image_crop:
+    :path: ".symlinks/plugins/image_crop/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
   path_provider:
@@ -395,6 +413,7 @@ SPEC CHECKSUMS:
   camera: f57b2d15aca623c76383b6cbac3b8aee401d49db
   cloud_firestore: 7ff5d48905ba9aecb01629c14a63b5d988a86dba
   Firebase: 585ae467b3edda6a5444e788fda6888f024d8d6f
+  firebase_admob: d8c2bc95b5e0069406280ce6adb816cdee6aa595
   firebase_auth: 0de85b3e6f3e037f6bebb7b4a05945085b527232
   firebase_core: b0e0752efadf56cbf487712390ef1026f7d4f1da
   firebase_core_web: 2223a33d6da33b048d7fd598f2ead160af0b6020
@@ -410,6 +429,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 2119fb3e46b0a88bfdbf12562f855ee3252462fa
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_plugin_android_lifecycle: 035e2199b01d4fd97b908e966c723ea407e9ce4d
+  Google-Mobile-Ads-SDK: d70efb31e7ea19fe99d466dc5d4788966b6914f8
   GoogleAppMeasurement: 2253e99c1f22638cf234c059144660c338ad76c3
   GoogleDataTransport: 061fe7d9b476710e3cd8ea51e8e07d8b67c2b420
   GoogleDataTransportCCTSupport: 0f39025e8cf51f168711bd3fb773938d7e62ddb5
@@ -417,6 +437,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
+  image_crop: e0a67085d3ebf3cf46ca46d61c53a082507b0bc3
   image_picker: 5eda730e9235bf2a2fe7d56131e91bc6427aec82
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
