@@ -1,6 +1,6 @@
 import 'package:fishfinder_app/main.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fishfinder_app/screens/home/homescreen/home.dart';
+import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:fishfinder_app/screens/wrapper.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
@@ -12,6 +12,6 @@ import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 
 Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   '/': (BuildContext context) => Wrapper(cameras: cameras),
-  '/home': (BuildContext context) => MainMenu(cameras),
+  '/home': (BuildContext context) => DashboardPage(cameras),
 //  '/camera': (BuildContext context) => CameraScreen(cameras, uid),
 };

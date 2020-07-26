@@ -1,18 +1,22 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/friends_catch.dart';
+import 'package:fishfinder_app/models/user.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 import 'package:fishfinder_app/screens/home/homescreen/achievements.dart';
 import 'package:fishfinder_app/screens/home/homescreen/friends.dart';
 import 'package:fishfinder_app/screens/home/homescreen/history_search.dart';
 import 'package:fishfinder_app/screens/home/homescreen/recentfriendsscroll.dart';
 import 'package:fishfinder_app/services/backup.dart';
+import 'package:fishfinder_app/services/calculations/ads.dart';
+import 'package:fishfinder_app/services/calculations/language.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'settings.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:fishfinder_app/models/species.dart';
@@ -20,24 +24,22 @@ import 'package:fishfinder_app/screens/home/homescreen/recentscroll.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
-var languageApp;
-
 var testDevice = 'ca-app-pub-8771008967458694~3342723025';
 
 // @author Ian Ronk
-// @class MainMenu
+// @class DashboardPage
 
-class MainMenu extends StatefulWidget {
+class DashboardPage extends StatefulWidget {
   final List<CameraDescription> cameras;
-  MainMenu(this.cameras);
+  DashboardPage(this.cameras);
 
 
 
   @override
-  _MainMenuState createState() => _MainMenuState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _MainMenuState extends State<MainMenu> {
+class _DashboardPageState extends State<DashboardPage> {
   @override
 
   MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
@@ -47,16 +49,6 @@ class _MainMenuState extends State<MainMenu> {
 
   BannerAd _bannerAd;
 
-  BannerAd createBannerAd() {
-    return BannerAd(
-        adUnitId: BannerAd.testAdUnitId,
-        size: AdSize.fullBanner,
-        targetingInfo: targetingInfo,
-        listener: (MobileAdEvent event) {
-          print("BannerAd $event");
-        }
-    );
-  }
 
   void initState() {
     FirebaseAdMob.instance.initialize(
@@ -64,14 +56,7 @@ class _MainMenuState extends State<MainMenu> {
     );
 //    _bannerAd = createBannerAd()..load()..show();
     super.initState();
-    @override
-    Future userId() async {
-      uid = await getUser();
-    }
 
-    setState(() {
-        userId();
-    });
   }
 
   void dispose() {
@@ -87,7 +72,6 @@ class _MainMenuState extends State<MainMenu> {
 
   String languageFromSettings;
 
-  String uid;
   String root_folder = '/data/user/0/machinelearningsolutions.fishfinder_app/app_flutter';
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -102,17 +86,7 @@ class _MainMenuState extends State<MainMenu> {
     return prefs.getBool("premiumSubscription");
   }
 
-  Future getLanguage() async {
-    final prefs = await _prefs;
-    if (prefs.getString("language") == null) {
-      await prefs.setString("language", "nl");
-    }
 
-    languageApp = prefs.getString("language");
-
-
-    return DefaultAssetBundle.of(context).loadString('assets/json/' + languageApp.toString() + '.json');
-  }
 
   Future dailyScansAmount() async {
     final prefs = await _prefs;
@@ -136,7 +110,7 @@ class _MainMenuState extends State<MainMenu> {
   Widget _fishdexButton(text, link) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, link)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras)));
       },
       child: Container(
         width: 85,
@@ -154,17 +128,15 @@ class _MainMenuState extends State<MainMenu> {
     );
   }
 
+
   Widget build(BuildContext context) {
-    rebuildAllChildren(context);
+//    rebuildAllChildren(context);
+    var user = Provider.of<User>(context);
 
-    Future userId() async {
-      uid = await getUser();
-    }
-
-    userId();
+    createBannerAd(_bannerAd, targetingInfo);
 
     return FutureBuilder(
-        future: getLanguage(),
+        future: getLanguage(_prefs, context),
         builder: (context,snapshot) {
           var lang = snapshot.data;
           Map<String, dynamic> language = jsonDecode(snapshot.data)["home_page"];
@@ -198,9 +170,9 @@ class _MainMenuState extends State<MainMenu> {
                                                 IconButton(
                                                     icon: Icon(Icons.settings),
                                                     onPressed: () async {
-                                                      Navigator.pushReplacement(
-                                                          context, MaterialPageRoute(builder: (context) => SettingsPage(uid, otherLanguage, widget.cameras))
-                                                      );
+//                                                      Navigator.pushReplacement(
+//                                                          context, MaterialPageRoute(builder: (context) => SettingsPage(user.uid, otherLanguage, widget.cameras))
+//                                                      );
                                                     }
                                                 )
                                               ],
@@ -208,9 +180,7 @@ class _MainMenuState extends State<MainMenu> {
                                           )
                                       )
                                   ),
-
                                   SizedBox(height: 20),
-
                                   Container(
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -225,14 +195,14 @@ class _MainMenuState extends State<MainMenu> {
                                               ),
                                               onPressed: () {
                                                 Navigator.push(context, MaterialPageRoute(
-                                                    builder: (context) => FriendsPage(uid: uid)
+                                                    builder: (context) => FriendsPage(uid: user.uid)
                                                 ));
                                               },
                                               shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0))
                                           ),
 
                                           new StreamBuilder(
-                                              stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: uid).snapshots(),
+                                              stream: Firestore.instance.collection('fish_catches').where('uid', isEqualTo: user.uid).snapshots(),
                                               builder: (BuildContext context, snapshot) {
                                                 var jsonObject = jsonEncode(SyncBackup().backupLocally(snapshot.data.documents[0]));
 
@@ -285,7 +255,6 @@ class _MainMenuState extends State<MainMenu> {
                                                 }
 
                                                 else {
-
                                                   return new FutureBuilder(
                                                       future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
                                                       builder: (context, snapshot) {
@@ -309,10 +278,8 @@ class _MainMenuState extends State<MainMenu> {
                                                   );
                                                 }
                                               }
-
                                           )
                                         ],
-
                                       )
                                   ),
                                   SizedBox(height: 20),
@@ -376,7 +343,7 @@ class _MainMenuState extends State<MainMenu> {
                                               GestureDetector(
                                                 child: Text(language["see_all"]),
                                                 onTap: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, otherLanguage)));
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras)));
                                                 }
                                               )
                                             ],
@@ -396,7 +363,7 @@ class _MainMenuState extends State<MainMenu> {
                                                   builder: (context, snapshot) {
                                                     List<Species> species = parseJSON(snapshot.data.toString());
                                                     return species.isNotEmpty
-                                                        ? new RecentScroll(species: species, uid: uid, language: language)
+                                                        ? new RecentScroll(species: species, uid: user.uid, language: language)
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
@@ -420,7 +387,7 @@ class _MainMenuState extends State<MainMenu> {
                                                   builder: (context, snapshot) {
                                                     List<Species> species = parseJSON(snapshot.data.toString());
                                                     return species.isNotEmpty
-                                                        ? new RecentFriendsScroll(species: species, uid: uid, language: otherLanguage)
+                                                        ? new RecentFriendsScroll(species: species, uid: user.uid, language: otherLanguage)
                                                         : new Center(child: new CircularProgressIndicator());
                                                   }
                                               )
@@ -439,19 +406,14 @@ class _MainMenuState extends State<MainMenu> {
 
                                       child: Align(
                                           alignment: Alignment.centerLeft,
-                                          child: SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: new FutureBuilder(
-                                                  future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
-                                                  builder: (context, snapshot) {
-                                                    List<Species> species = parseJSON(snapshot.data.toString());
-                                                    return species.isNotEmpty
-                                                        ? new Achievements(species: species, uid: uid, language: "en")
-                                                        : new Center(child: new CircularProgressIndicator());
-                                                  }
-                                              )
-
-
+                                          child: new FutureBuilder(
+                                              future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
+                                              builder: (context, snapshot) {
+                                                List<Species> species = parseJSON(snapshot.data.toString());
+                                                return species.isNotEmpty
+                                                    ? new Achievements(species: species, uid: user.uid, language: "en")
+                                                    : new Center(child: new CircularProgressIndicator());
+                                              }
                                           ))),
 
                                   SizedBox(height: 85),
@@ -460,53 +422,8 @@ class _MainMenuState extends State<MainMenu> {
                             ]
                         )
                     ),
-                    Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white
-                            ),
-
-                            child: Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Row(
-
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      new Container(
-                                          margin: const EdgeInsets.only(left: 20, bottom: 5),
-                                          child: IconButton(icon: Icon(Icons.home, color: Colors.grey, size: 35, semanticLabel: 'Home'))),
-                                      new Container(
-                                          margin: const EdgeInsets.only(right: 20, bottom: 5),
-                                          child:IconButton(icon: Icon(Icons.book, color: Colors.grey, size: 35, semanticLabel: 'FishDex',), onPressed: () {
-                                            // Put the fishdex  screen on top of homescreen
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(widget.cameras, uid, otherLanguage)));
-                                          }
-                                          )
-                                      )
-                                    ]
-                                )
-                            )
-                        )
-                    ),
                   ]
               ),
-
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-              floatingActionButton: Container(
-                child: FloatingActionButton(
-                  backgroundColor: Colors.lightBlueAccent,
-                  child: const Icon(Icons.camera_alt, size:30, color: Colors.white),
-                  onPressed:() async {
-                    await checkSubscription();
-                    await dailyScansAmount();
-                    // Put camera screen on top of home screen and pass camera down
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras, uid)));
-                  },
-                ),
-              )
           );
         }
     );
@@ -521,12 +438,12 @@ class _MainMenuState extends State<MainMenu> {
   }
 }
 
-void rebuildAllChildren(BuildContext context) {
-  void rebuild(Element el) {
-    el.markNeedsBuild();
-    el.visitChildren(rebuild);
-  }
-  (context as Element).visitChildren(rebuild);
-}
+//void rebuildAllChildren(BuildContext context) {
+//  void rebuild(Element el) {
+//    el.markNeedsBuild();
+//    el.visitChildren(rebuild);
+//  }
+//  (context as Element).visitChildren(rebuild);
+//}
 
 

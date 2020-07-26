@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:fishfinder_app/models/user.dart';
 import 'package:fishfinder_app/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/models/species.dart';
@@ -7,12 +8,12 @@ import 'package:fishfinder_app/screens/home/fishdex/list.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FishDex extends StatefulWidget {
   final List<CameraDescription> cameras;
-  final String uid;
-  final Map language;
-  FishDex(this.cameras, this.uid, this.language);
+
+  FishDex(this.cameras);
 
   @override
   _FishDexState createState() => _FishDexState();
@@ -24,78 +25,62 @@ class _FishDexState extends State<FishDex> {
   List data;
   @override
 
+  String languageFromSettings;
+
+  String root_folder = '/data/user/0/machinelearningsolutions.fishfinder_app/app_flutter';
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+
+  Future getLanguage() async {
+    final prefs = await _prefs;
+    if (prefs.getString("language") == null) {
+      await prefs.setString("language", "nl");
+    }
+
+    var languageApp = prefs.getString("language");
+
+
+    return DefaultAssetBundle.of(context).loadString('assets/json/' + languageApp.toString() + '.json');
+  }
+
   Widget build(BuildContext context) {
 
-    var language = widget.language["fishdex"];
+//    var language = widget.language["fishdex"];
 
-    return StreamProvider<QuerySnapshot>.value(
-    child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: <Widget>[
-            new Container(
-            child: Center(
-                child: new FutureBuilder(
-                    future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
-                    builder: (context, snapshot) {
+    return FutureBuilder(
+      future: getLanguage(),
+      builder: (context, snapshot) {
 
-                      if (!snapshot.hasData) {
-                        return new Center(child: new Text(language["loading"]));
-                      }
+        // Get the language and user
+        Map<String, dynamic> language = jsonDecode(snapshot.data)["fishdex"];
+        var user = Provider.of<User>(context);
 
-                      List<Species> species = parseJSON(snapshot.data.toString());
-                      return species.isNotEmpty
-                          ? new SpeciesList(species: species, uid: widget.uid, language: language)
-                          : new Center(child: new CircularProgressIndicator());
-                    }
-                )
-            )
-            ),
-            Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white
-                    ),
-                    child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              new Container(
-                                  margin: const EdgeInsets.only(left: 20, bottom: 5),
-                                  child: IconButton(icon: Icon(Icons.home, color: Colors.grey, size: 35), onPressed: () {
-                                    Navigator.pop(context);
-                                  }
-                                  )
-                              ),
-                              new Container(
-                                  margin: const EdgeInsets.only(right: 20, bottom: 5),
-                                  child:IconButton(icon: Icon(Icons.book, color: Colors.grey, size: 35), onPressed: () {
-                                    //Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex(cameras)));
-                                  },
-                                  )
-                              )
-                            ]
-                        )
-                    )
-                )
-            )
-          ],
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Container(
-          child: FloatingActionButton(
-            backgroundColor: Colors.lightBlueAccent,
-            child: const Icon(Icons.camera_alt, size:30, color: Colors.white),
-            onPressed:() {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(widget.cameras, widget.uid)));
-            },
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Stack(
+            children: <Widget>[
+              new Container(
+                  child: Center(
+                      child: new FutureBuilder(
+                          future: DefaultAssetBundle.of(context).loadString('assets/json/species.json'),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return new Center(child: new Text(language["loading"]));
+                            }
+
+                            List<Species> species = parseJSON(snapshot.data.toString());
+                            return species.isNotEmpty
+                                ? new SpeciesList(species: species, uid: user.uid, language: language)
+                                : new Center(child: new CircularProgressIndicator());
+                          }
+                      )
+                  )
+              ),
+            ],
           ),
-        )
-    )
+        );
+      },
     );
   }
 
