@@ -14,7 +14,7 @@ import 'payment.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:fishfinder_app/screens/home/homescreen/home.dart';
+import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
 
 class Item {
   const Item(this.name, this.id);
@@ -108,8 +108,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                       Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
                                       final prefs = await _prefs;
                                       await prefs.setString("language", languageID);
-                                      languageApp = languageID;
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainMenu(widget.cameras)));
+//                                      languageApp = languageID;
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardPage(widget.cameras)));
                                     }
                                     if (emailController.text != "") {
                                       DatabaseService().updateEmail(emailController.text, widget.uid);
@@ -119,7 +119,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                       DatabaseService().updateName(nameController.text, widget.uid);
                                     }
 
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainMenu(widget.cameras)));
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardPage(widget.cameras)));
                                   },
                                 ),
                               ],
