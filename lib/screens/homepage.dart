@@ -1,6 +1,7 @@
 import 'package:fishfinder_app/models/user.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
+import 'package:fishfinder_app/screens/home/homescreen/dashboard-2.dart';
 import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
 import 'package:fishfinder_app/screens/home/partials/bottombaritem.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage>
     var user = Provider.of<User>(context);
 
     var pages = <Widget>[
-      DashboardPage(widget.camera),
+      DashBoardPage(),
       DashboardPage(widget.camera),
       DashboardPage(widget.camera),
       FishDex(widget.camera),
