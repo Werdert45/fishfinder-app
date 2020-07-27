@@ -2,8 +2,8 @@ import 'package:fishfinder_app/models/user.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
 import 'package:fishfinder_app/screens/home/homescreen/dashboard-2.dart';
-import 'package:fishfinder_app/screens/home/homescreen/discover.dart';
-import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
+import 'package:fishfinder_app/screens/home/homescreen/old_pages/discover.dart';
+import 'package:fishfinder_app/screens/home/homescreen/old_pages/dashboard.dart';
 import 'package:fishfinder_app/screens/home/partials/bottombaritem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage>
     super.initState();
     tabController = new TabController(length: 2, vsync: this);
 
-    _page = 1;
+    _page = 0;
   }
 
 

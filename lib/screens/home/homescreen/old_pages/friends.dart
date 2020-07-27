@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/users_db.dart';
-import 'package:fishfinder_app/screens/home/homescreen/friends_search.dart';
+import 'package:fishfinder_app/screens/home/homescreen/old_pages/friends_search.dart';
 import 'package:fishfinder_app/services/database.dart';
 import 'package:flutter/material.dart';
 

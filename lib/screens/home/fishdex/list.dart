@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fishfinder_app/screens/home/homescreen/search.dart';
+import 'package:fishfinder_app/screens/home/homescreen/old_pages/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

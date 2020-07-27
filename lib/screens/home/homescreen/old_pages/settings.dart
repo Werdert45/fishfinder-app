@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fishfinder_app/screens/authenticate/sign_in.dart';
+import 'package:fishfinder_app/screens/home/homescreen/old_pages/payment.dart';
 import 'package:fishfinder_app/screens/wrapper.dart';
 import 'package:fishfinder_app/services/backup.dart';
 import 'package:fishfinder_app/services/database.dart';
@@ -10,11 +11,10 @@ import 'package:fishfinder_app/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'payment.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
+import 'package:fishfinder_app/screens/home/homescreen/old_pages/dashboard.dart';
 
 class Item {
   const Item(this.name, this.id);

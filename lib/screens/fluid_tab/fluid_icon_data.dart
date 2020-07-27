@@ -3,6 +3,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+
+// Outdated
+
 class FluidFillIconData {
   final List<ui.Path> paths;
   FluidFillIconData(this.paths);
