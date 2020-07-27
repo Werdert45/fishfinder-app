@@ -1,32 +1,14 @@
-import 'dart:convert';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fishfinder_app/models/friends_catch.dart';
 import 'package:fishfinder_app/models/user.dart';
-import 'package:fishfinder_app/screens/authenticate/Widget/bezierContainer.dart';
+import 'package:fishfinder_app/screens/fluid_tab/content/account.dart';
+import 'package:fishfinder_app/screens/fluid_tab/content/grid.dart';
+import 'package:fishfinder_app/screens/fluid_tab/content/home.dart';
+import 'package:fishfinder_app/screens/fluid_tab/fluid_nav_bar.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
-import 'package:fishfinder_app/screens/home/homescreen/achievements.dart';
-import 'package:fishfinder_app/screens/home/homescreen/friends.dart';
-import 'package:fishfinder_app/screens/home/homescreen/history_search.dart';
-import 'package:fishfinder_app/screens/home/homescreen/recentfriendsscroll.dart';
-import 'package:fishfinder_app/services/backup.dart';
-import 'package:fishfinder_app/services/calculations/ads.dart';
-import 'package:fishfinder_app/services/calculations/language.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fishfinder_app/services/auth.dart';
-import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:camera/camera.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'settings.dart';
-import 'package:fishfinder_app/shared/constants.dart';
-import 'package:fishfinder_app/models/species.dart';
-import 'package:fishfinder_app/screens/home/homescreen/recentscroll.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 
-var testDevice = 'ca-app-pub-8771008967458694~3342723025';
 
 // @author Ian Ronk
 // @class DashBoardPage
@@ -35,61 +17,19 @@ class DashBoardPage extends StatefulWidget {
   final List<CameraDescription> cameras;
   DashBoardPage(this.cameras);
 
-
-
   @override
   _DashBoardPageState createState() => _DashBoardPageState();
 }
 
 class _DashBoardPageState extends State<DashBoardPage> {
+  Widget _child;
   @override
 
   void initState() {
-    FirebaseAdMob.instance.initialize(
-        appId: BannerAd.testAdUnitId
-    );
-//    _bannerAd = createBannerAd()..load()..show();
     super.initState();
 
   }
   final AuthService _auth = AuthService();
-
-  String languageFromSettings;
-
-  String root_folder = '/data/user/0/machinelearningsolutions.fishfinder_app/app_flutter';
-
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  Future checkSubscription() async {
-    final prefs = await _prefs;
-
-    if (prefs.getBool("premiumSubscription") == null) {
-      await prefs.setBool("premiumSubscription", false);
-    }
-
-    return prefs.getBool("premiumSubscription");
-  }
-
-
-
-  Future dailyScansAmount() async {
-    final prefs = await _prefs;
-
-    if (prefs.getStringList("date") == null) {
-      await prefs.setStringList("date", [DateFormat.y().format(DateTime.now()), DateFormat.M().format(DateTime.now()), DateFormat.d().format(DateTime.now())]);
-    }
-
-    else {
-      var dateList = prefs.getStringList("date");
-      var dates = [DateFormat.y().format(DateTime.now()), DateFormat.y().format(DateTime.now()), DateFormat.y().format(DateTime.now())];
-
-      for (int i = 0; i < dateList.length; i++) {
-        if (dateList[i] != dates[i]) {
-          await prefs.setInt("scansAmount", 5);
-        }
-      }
-    }
-  }
 
   Widget _fishdexButton(text, link) {
     return InkWell(
@@ -118,16 +58,43 @@ class _DashBoardPageState extends State<DashBoardPage> {
     var user = Provider.of<User>(context);
 
     return Scaffold(
+      backgroundColor: Color(0xFF75B7E1),
+      extendBody: true,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Container(height: 200, width: double.infinity),
+              FluidNavBar(onChange: _handleNavigationChange),
+              Container(height: 400, width: double.infinity, color: Colors.red, child: _child)
             ],
           ),
         ),
       ),
     );
 
+  }
+
+
+  void _handleNavigationChange(int index) {
+    setState(() {
+      switch (index) {
+        case 0:
+          _child = HomeContent();
+          break;
+        case 1:
+          _child = AccountContent();
+          break;
+        case 2:
+          _child = GridContent();
+          break;
+      }
+      _child = AnimatedSwitcher(
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        duration: Duration(milliseconds: 500),
+        child: _child,);
+    });
   }
 
 }
