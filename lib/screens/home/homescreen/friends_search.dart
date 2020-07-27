@@ -67,8 +67,6 @@ class FriendsSearch extends SearchDelegate<String> {
     return ListView.builder(
         itemCount: users.length,
         itemBuilder: (context, index) {
-          print(others);
-          print(users);
 
           if (users[index][0] == uid) {
             return SizedBox(height: 0);
