@@ -1,6 +1,8 @@
 import 'package:fishfinder_app/models/user.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
+import 'package:fishfinder_app/screens/home/homescreen/dashboard-2.dart';
+import 'package:fishfinder_app/screens/home/homescreen/discover.dart';
 import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
 import 'package:fishfinder_app/screens/home/partials/bottombaritem.dart';
 import 'package:flutter/material.dart';
@@ -53,10 +55,10 @@ class _HomePageState extends State<HomePage>
     var user = Provider.of<User>(context);
 
     var pages = <Widget>[
-      DashboardPage(widget.camera),
-      DashboardPage(widget.camera),
-      DashboardPage(widget.camera),
+      DashBoardPage(widget.camera),
+      DiscoverPage(),
       FishDex(widget.camera),
+      DashboardPage(widget.camera),
     ];
 
     return new Scaffold(
@@ -65,9 +67,9 @@ class _HomePageState extends State<HomePage>
         notchedShape: CircularNotchedRectangle(),
         items: [
           FABBottomAppBarItem(iconData: Icons.home, text: "Home"),
-          FABBottomAppBarItem(iconData: Icons.location_on, text: "Map"),
-          FABBottomAppBarItem(iconData: Icons.inbox, text: "Inbox"),
-          FABBottomAppBarItem(iconData: Icons.assignment, text: "FishDex")
+          FABBottomAppBarItem(iconData: Icons.search, text: "Discover"),
+          FABBottomAppBarItem(iconData: Icons.assignment, text: "FishDex"),
+          FABBottomAppBarItem(iconData: Icons.person, text: "Account"),
         ],
       ),
       body: pages[_page],

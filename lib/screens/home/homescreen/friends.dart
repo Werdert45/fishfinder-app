@@ -57,14 +57,9 @@ class _FriendsPageState extends State<FriendsPage> {
                                 stream: Firestore.instance.collection('general_information').document('IOpIw5GzEBdFtx7jHUqz').snapshots(),
                                 builder: (context, snapshot) {
                                   // Make an if statement if data is not present (also check the friends again)
-                                  print(snapper);
-
-
                                   var map = snapshot.data['users'];
-
                                   var users = [];
 
-//                                  map.forEach((k, v) => users.add(usersDB(k, v).list()));
                                   for (int i = 0; i < map.length; i++) {
                                     if (map[i].toList()[0][0] != snapper['name'] || !snapper['friends_id'].contains(map[i].toList()[0][0])) {
                                       map[i].forEach((k, v) => users.add(usersDB(k, v).list()));

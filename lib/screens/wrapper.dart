@@ -27,7 +27,6 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    print("Cameras: " + widget.cameras.toString());
     // if the user is instantiated by either register or login, user != null
     final user = Provider.of<User>(context);
 
@@ -37,7 +36,6 @@ class _WrapperState extends State<Wrapper> {
     } else {
       // pass camera element to main menu
 
-      print(widget.cameras);
       return HomePage(widget.cameras);
     }
   }

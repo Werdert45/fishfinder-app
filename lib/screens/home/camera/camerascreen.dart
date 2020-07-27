@@ -99,11 +99,6 @@ class CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.uid);
-
-    print("Peace in the MIddle East");
-
-
     return Scaffold(
       // Wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner
@@ -194,8 +189,6 @@ class CameraScreenState extends State<CameraScreen> {
                 FutureBuilder(
                     future: getScansAmount(),
                     builder: (context, snapshot) {
-                      print(snapshot.data);
-
                       return Text("Scans Left:  " + snapshot.data.toString(), style: TextStyle(fontSize: 20, color: Colors.white));
                     }
                 )
