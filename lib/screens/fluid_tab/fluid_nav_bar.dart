@@ -103,20 +103,20 @@ class _FluidNavBarState extends State<FluidNavBar> with TickerProviderStateMixin
           begin: Curves.easeInExpo.transform(_yController.value),
           end: inCurve.transform(_yController.value),
         ).transform(_yController.velocity.sign * 0.5 + 0.5),
-        Colors.white,
+        Colors.red,
       ),
     );
   }
 
   List<FluidNavBarButton> _buildButtons() {
-    List<FluidFillIconData> icons = [
-      FluidFillIcons.home,
-      FluidFillIcons.window,
-      FluidFillIcons.user,
+    List<String> text = [
+      "Home",
+      "Catches",
+      "Me"
     ];
     var buttons = List<FluidNavBarButton>(3);
     for (var i = 0; i < 3; ++i) {
-      buttons[i] = FluidNavBarButton(icons[i], _selectedIndex == i, () => _handlePressed(i));
+      buttons[i] = FluidNavBarButton(text[i], _selectedIndex == i, () => _handlePressed(i));
     }
     return buttons;
   }
@@ -172,14 +172,14 @@ class _BackgroundCurvePainter extends CustomPainter {
   // Top: 0.6 point, 0.35 horizontal
   // Bottom:
 
-  static const _radiusTop = 54.0;
-  static const _radiusBottom = 44.0;
+  static const _radiusTop = 40.0;
+  static const _radiusBottom = 90.0;
   static const _horizontalControlTop = 0.6;
   static const _horizontalControlBottom = 0.5;
   static const _pointControlTop = 0.35;
   static const _pointControlBottom = 0.85;
   static const _topY = -10.0;
-  static const _bottomY = 54.0;
+  static const _bottomY = 63.0;
   static const _topDistance = 0.0;
   static const _bottomDistance = 6.0;
 
@@ -203,12 +203,12 @@ class _BackgroundCurvePainter extends CustomPainter {
     final anchorControlOffset = Tween<double>(
         begin: radius * _horizontalControlTop,
         end: radius * _horizontalControlBottom
-      ).transform(LinearPointCurve(0.5, 0.75).transform(norm));
+      ).transform(LinearPointCurve(0.5, 1).transform(norm));
     // Point that slides up and down depending on distance for the target x position
     final dipControlOffset = Tween<double>(
         begin: radius * _pointControlTop,
         end: radius * _pointControlBottom
-      ).transform(LinearPointCurve(0.5, 0.8).transform(norm));
+      ).transform(LinearPointCurve(0.5, 1).transform(norm));
     final y = Tween<double>(
         begin: _topY,
         end: _bottomY

@@ -1,6 +1,6 @@
 import 'package:fishfinder_app/main.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
+import 'package:fishfinder_app/screens/home/homescreen/old_pages/dashboard.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:fishfinder_app/screens/wrapper.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';

@@ -9,33 +9,32 @@ typedef void FluidNavBarButtonPressedCallback();
 class FluidNavBarButton extends StatefulWidget {
   static const nominalExtent = const Size(64, 64);
 
-  final FluidFillIconData _iconData;
+  final String text;
   final bool _selected;
   final FluidNavBarButtonPressedCallback _onPressed;
 
-  FluidNavBarButton(FluidFillIconData iconData, bool selected, FluidNavBarButtonPressedCallback onPressed)
-      : _iconData = iconData, _selected = selected, _onPressed = onPressed;
+  FluidNavBarButton(String text, bool selected, FluidNavBarButtonPressedCallback onPressed)
+      : text = text, _selected = selected, _onPressed = onPressed;
 
   @override
   State createState() {
-    return _FluidNavBarButtonState(_iconData, _selected, _onPressed);
+    return _FluidNavBarButtonState(text, _selected, _onPressed);
   }
 }
 
 class _FluidNavBarButtonState extends State<FluidNavBarButton> with SingleTickerProviderStateMixin {
   static const double _activeOffset = 16;
   static const double _defaultOffset = 0;
-  static const double _radius = 25;
 
-  FluidFillIconData _iconData;
+  String tabName;
   bool _selected;
   FluidNavBarButtonPressedCallback _onPressed;
 
   AnimationController _animationController;
   Animation<double> _animation;
 
-  _FluidNavBarButtonState(FluidFillIconData iconData, bool selected, FluidNavBarButtonPressedCallback onPressed)
-      : _iconData = iconData,
+  _FluidNavBarButtonState(tabName, bool selected, FluidNavBarButtonPressedCallback onPressed)
+      : tabName = tabName,
       _selected = selected,
       _onPressed = onPressed;
 
@@ -86,19 +85,12 @@ class _FluidNavBarButtonState extends State<FluidNavBarButton> with SingleTicker
         constraints: BoxConstraints.tight(ne),
         alignment: Alignment.center,
         child: Container(
-          // This container just draws a circle with a certain radius and offset
-          margin: EdgeInsets.all(ne.width / 2 - _radius),
-          constraints: BoxConstraints.tight(Size.square(_radius * 2)),
-          decoration: ShapeDecoration(
-            color: Colors.white,
-            shape: CircleBorder(),
-          ),
-          transform: Matrix4.translationValues(0, -offset, 0),
           // Create a fluid fill icon that get's filled in with a slight delay to the buttons animation
-          child: FluidFillIcon(
-              _iconData,
-              LinearPointCurve(0.25, 1.0).transform(_animation.value),
-              scaleY,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Center(
+              child: Text(tabName),
+            ),
           ),
         ),
       ),
