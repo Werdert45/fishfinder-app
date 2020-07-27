@@ -9,22 +9,22 @@ import 'package:image/image.dart' as img;
 List positioning = [[1,1], [1,1], [1,1], [1,2], [2,1], [1,1], [1,1]];
 
 List<Widget> _tiles = const <Widget>[
-  const _Example01Tile(Colors.green, Icons.widgets),
-  const _Example01Tile(Colors.lightBlue, Icons.wifi),
-  const _Example01Tile(Colors.amber, Icons.panorama_wide_angle),
-  const _Example01Tile(Colors.brown, Icons.map),
-  const _Example01Tile(Colors.deepOrange, Icons.send),
-  const _Example01Tile(Colors.indigo, Icons.airline_seat_flat),
-  const _Example01Tile(Colors.red, Icons.bluetooth),
-  const _Example01Tile(Colors.pink, Icons.battery_alert),
-  const _Example01Tile(Colors.green, Icons.widgets),
-  const _Example01Tile(Colors.lightBlue, Icons.wifi),
-  const _Example01Tile(Colors.amber, Icons.panorama_wide_angle),
-  const _Example01Tile(Colors.brown, Icons.map),
-  const _Example01Tile(Colors.deepOrange, Icons.send),
-  const _Example01Tile(Colors.indigo, Icons.airline_seat_flat),
-  const _Example01Tile(Colors.red, Icons.bluetooth),
-  const _Example01Tile(Colors.pink, Icons.battery_alert),
+  const _PictureTileTile(Colors.green, Icons.widgets),
+  const _PictureTileTile(Colors.lightBlue, Icons.wifi),
+  const _PictureTileTile(Colors.amber, Icons.panorama_wide_angle),
+  const _PictureTileTile(Colors.brown, Icons.map),
+  const _PictureTileTile(Colors.deepOrange, Icons.send),
+  const _PictureTileTile(Colors.indigo, Icons.airline_seat_flat),
+  const _PictureTileTile(Colors.red, Icons.bluetooth),
+  const _PictureTileTile(Colors.pink, Icons.battery_alert),
+  const _PictureTileTile(Colors.green, Icons.widgets),
+  const _PictureTileTile(Colors.lightBlue, Icons.wifi),
+  const _PictureTileTile(Colors.amber, Icons.panorama_wide_angle),
+  const _PictureTileTile(Colors.brown, Icons.map),
+  const _PictureTileTile(Colors.deepOrange, Icons.send),
+  const _PictureTileTile(Colors.indigo, Icons.airline_seat_flat),
+  const _PictureTileTile(Colors.red, Icons.bluetooth),
+  const _PictureTileTile(Colors.pink, Icons.battery_alert),
 ];
 
 class DiscoverPage extends StatefulWidget {
@@ -140,7 +140,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.group, size: 20,),
+                    Icon(Icons.group, size: 20),
                     SizedBox(width: 5),
                     Text("Friends", style: TextStyle(fontSize: 14))
                   ],
@@ -186,8 +186,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
   }
 }
 
-class _Example01Tile extends StatelessWidget {
-  const _Example01Tile(this.backgroundColor, this.iconData);
+class _PictureTileTile extends StatelessWidget {
+  const _PictureTileTile(this.backgroundColor, this.iconData);
 
   final Color backgroundColor;
   final IconData iconData;
@@ -219,7 +219,7 @@ class _Example01Tile extends StatelessWidget {
                       child: Container(
                         width: constraints.maxWidth,
                         height: 50,
-                        color: Color.fromRGBO(255, 255, 255, 0.19),
+                        color: Color.fromRGBO(0, 0, 0, 0.5),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8.0, top: 3),
                           child: Column(

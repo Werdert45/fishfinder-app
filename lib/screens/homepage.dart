@@ -1,6 +1,7 @@
 import 'package:fishfinder_app/models/user.dart';
 import 'package:fishfinder_app/screens/home/camera/camerascreen.dart';
 import 'package:fishfinder_app/screens/home/fishdex/fishdex.dart';
+import 'package:fishfinder_app/screens/home/homescreen/dashboard-2.dart';
 import 'package:fishfinder_app/screens/home/homescreen/discover.dart';
 import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
 import 'package:fishfinder_app/screens/home/partials/bottombaritem.dart';
@@ -54,10 +55,10 @@ class _HomePageState extends State<HomePage>
     var user = Provider.of<User>(context);
 
     var pages = <Widget>[
-      DashboardPage(widget.camera),
+      DashBoardPage(widget.camera),
       DiscoverPage(),
-      DashboardPage(widget.camera),
       FishDex(widget.camera),
+      DashboardPage(widget.camera),
     ];
 
     return new Scaffold(
@@ -67,8 +68,8 @@ class _HomePageState extends State<HomePage>
         items: [
           FABBottomAppBarItem(iconData: Icons.home, text: "Home"),
           FABBottomAppBarItem(iconData: Icons.search, text: "Discover"),
-          FABBottomAppBarItem(iconData: Icons.inbox, text: "Inbox"),
-          FABBottomAppBarItem(iconData: Icons.assignment, text: "FishDex")
+          FABBottomAppBarItem(iconData: Icons.assignment, text: "FishDex"),
+          FABBottomAppBarItem(iconData: Icons.person, text: "Account"),
         ],
       ),
       body: pages[_page],
