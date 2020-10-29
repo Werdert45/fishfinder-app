@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'package:fishfinder_app/models/user.dart';
-import 'package:fishfinder_app/screens/app/main_pages/homepage.dart';
-import 'package:fishfinder_app/screens/authentication/authentication_pages/register.dart';
-import 'package:fishfinder_app/screens/authentication/authentication_pages/sign_in.dart';
 import 'package:fishfinder_app/screens/wrapper.dart';
 import 'package:flutter/material.dart';
-import 'package:fishfinder_app/services/auth_service.dart';
+import 'package:fishfinder_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:camera/camera.dart';
+import 'package:fishfinder_app/routes.dart';
 
 // @author Ian Ronk
 // @class MyApp
@@ -27,21 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get stream of information and pass down user
-    print(cameras);
-
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
-        theme: ThemeData(
-            primarySwatch: Colors.teal,
-        ),
-        home: Wrapper(cameras: cameras),
-//        initialRoute: '/',
-        routes: <String, WidgetBuilder>{
-        '/signup': (BuildContext context) => new SignUpPage(),
-        '/login': (BuildContext context) => new LoginPage(),
-        '/homepage': (BuildContext context) => new HomePage(cameras),
-      },
+        initialRoute: '/',
+        routes: routes,
 
       ),
     );

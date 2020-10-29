@@ -1,5 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:fishfinder_app/screens/authenticate/welcome.dart';
+import 'package:fishfinder_app/screens/authentication/authentication_pages/welcome.dart';
 import 'package:flutter/material.dart';
 
 // @author Ian Ronk

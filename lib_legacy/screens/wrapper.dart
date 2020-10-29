@@ -1,9 +1,10 @@
 import 'package:camera/camera.dart';
-import 'package:fishfinder_app/screens/authentication/authentication.dart';
-import 'package:fishfinder_app/screens/app/main_pages/homepage.dart';
+import 'package:fishfinder_app/screens/authenticate/authenticate.dart';
+import 'package:fishfinder_app/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fishfinder_app/models/user.dart';
+import 'package:fishfinder_app/screens/home/homescreen/dashboard.dart';
 
 class Wrapper extends StatefulWidget {
   // Set cameras, to pass down to other screens
