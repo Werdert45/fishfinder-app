@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/user.dart';
 import 'package:fishfinder_app/screens/app/fishdex_pages/fishdex.dart';
+import 'package:fishfinder_app/screens/elements/accountDropDown.dart';
 import 'package:fishfinder_app/services/auth_service.dart';
 import 'package:fishfinder_app/services/database_service.dart';
 import 'package:fishfinder_app/shared/dashboardFunction.dart';
@@ -86,8 +87,34 @@ class _DashBoardState extends State<DashBoard> {
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
-                                child: Padding(padding: EdgeInsets.only(right: 20), child: Icon(Icons.email, size:50)),
-                              )
+                                child: Padding(padding: EdgeInsets.only(right: 20), child: Container(
+                                    child: SimpleAccountMenu(
+                                      icons: [
+                                        IconButton(
+                                          icon: Icon(Icons.people),
+                                          onPressed: () {
+//                                            Navigator.push();
+                                          },
+                                        ),
+                                        IconButton(
+                                          icon: Icon(Icons.settings),
+                                          onPressed: () {
+
+                                          },
+                                        ),
+                                        IconButton(
+                                          icon: Icon(Icons.logout),
+                                          onPressed: () async {
+                                            await _auth.signOut();
+                                          },
+                                        ),
+                                      ],
+                                      iconColor: Colors.white,
+                                      onChange: (index) {
+                                        print(index);
+                                      },
+                                    )),
+                                )),
                             ],
                           ),
                         ),
@@ -95,7 +122,7 @@ class _DashBoardState extends State<DashBoard> {
                           top: 110,
                           child: Container(
                               width: (MediaQuery.of(context).size.width - 40),
-                              height: 140,
+                              height: 165,
                               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                               margin: EdgeInsets.symmetric(horizontal: 20),
                               decoration: BoxDecoration(
@@ -143,7 +170,7 @@ class _DashBoardState extends State<DashBoard> {
                           ),
                         ),
                         Positioned(
-                          top: 260,
+                          top: 290,
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             child: Column(
