@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'list.dart';
+
 class FishDex extends StatefulWidget {
   final List<CameraDescription> cameras;
 

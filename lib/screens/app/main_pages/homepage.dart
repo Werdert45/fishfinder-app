@@ -1,6 +1,6 @@
 import 'package:fishfinder_app/models/user.dart';
 import 'package:fishfinder_app/screens/app/camera_pages/camerascreen.dart';
-import 'package:fishfinder_app/screens/app/main_pages/fishdex.dart';
+import 'package:fishfinder_app/screens/app/fishdex_pages/fishdex.dart';
 import 'package:fishfinder_app/screens/app/main_pages/dashboard.dart';
 import 'package:fishfinder_app/screens/partials/FABBottomAppBarItem.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage>
     var pages = <Widget>[
 //      DashBoard(widget.camera),
       DashBoard(uid: user.uid),
-      FishDex()
+      FishDex(widget.camera)
 //      FishDex(widget.camera),
     ];
 

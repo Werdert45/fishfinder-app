@@ -21,7 +21,6 @@ class SpeciesList extends StatefulWidget {
   _SpeciesListState createState() => _SpeciesListState();
 }
 
-
 class _SpeciesListState extends State<SpeciesList> {
   @override
 

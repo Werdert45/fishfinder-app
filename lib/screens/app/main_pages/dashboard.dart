@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/user.dart';
-import 'package:fishfinder_app/screens/app/main_pages/fishdex.dart';
+import 'package:fishfinder_app/screens/app/fishdex_pages/fishdex.dart';
 import 'package:fishfinder_app/services/auth_service.dart';
 import 'package:fishfinder_app/services/database_service.dart';
 import 'package:fishfinder_app/shared/dashboardFunction.dart';
@@ -29,7 +29,7 @@ class _DashBoardState extends State<DashBoard> {
     Widget _fishdexButton(text) {
       return InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex()));
+//          Navigator.push(context, MaterialPageRoute(builder: (context) => FishDex()));
         },
         child: Container(
           width: 85,
