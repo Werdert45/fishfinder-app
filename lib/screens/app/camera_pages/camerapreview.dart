@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:firebase_admob/firebase_admob.dart';
+//import 'package:firebase_admob/firebase_admob.dart';
 //import 'package:fishfinder_app/screens/home/species/preview_species.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,7 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // TODO Add the function of removing the image if the image is taken through the app
 // TODO add loading circle
 
-const testDevice = 'ca-app-pub-8771008967458694~3342723025';
+//const testDevice = 'ca-app-pub-8771008967458694~3342723025';
 
 class DisplayPictureScreen extends StatefulWidget {
 
@@ -41,13 +41,13 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   int scansLeft = 5;
 
-  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    testDevices: testDevice != null ? <String>[testDevice] : null,
-    keywords: <String>['foo', 'bar'],
-    nonPersonalizedAds: true,
-    contentUrl: 'http://foo.com/bar.html',
-    childDirected: true,
-  );
+//  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+//    testDevices: testDevice != null ? <String>[testDevice] : null,
+//    keywords: <String>['foo', 'bar'],
+//    nonPersonalizedAds: true,
+//    contentUrl: 'http://foo.com/bar.html',
+//    childDirected: true,
+//  );
 
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -87,22 +87,23 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
   }
 
   Future predictImagePicker() async {
-
     var directory = await getApplicationDocumentsDirectory();
-    var directoryPlace = directory.toString().split(" ")[1].replaceAll(RegExp(r"[\']+"), '');
+    var directoryPlace = directory.toString().split(" ")[1].replaceAll(
+        RegExp(r"[\']+"), '');
 
     var tempImage = Img.decodeImage(await File(widget.imagePath).readAsBytes());
 
 
     new FileImage(File(widget.imagePath)).resolve(new ImageConfiguration())
-    .addListener(ImageStreamListener((ImageInfo info, bool _) {
+        .addListener(ImageStreamListener((ImageInfo info, bool _) {
       setState(() {
         _imageHeight = info.image.height.toDouble();
         _imageWidth = info.image.width.toDouble();
       });
     }));
 
-    var new_image = Img.copyCrop(tempImage, (_imageWidth / 2 - 112).round(), (_imageHeight /2 - 112).round(), 223, 223);
+    var new_image = Img.copyCrop(tempImage, (_imageWidth / 2 - 112).round(),
+        (_imageHeight / 2 - 112).round(), 223, 223);
 
     var cropped = Img.copyResize(tempImage, height: 224);
 
@@ -138,7 +139,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
     setState(() {
       _recognitions = recognitions;
-
     });
 
     String speciesList = await DefaultAssetBundle.of(context).loadString(
@@ -161,6 +161,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 //      );
     }
   }
+
   Future loadModel() async {
     Tflite.close();
     await Tflite.loadModel(
@@ -168,7 +169,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       labels: "assets/tflite/labels.txt",
     );
   }
-
 
 
   @override
@@ -184,19 +184,21 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     });
 
 
-    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
-    RewardedVideoAd.instance.listener =
-        (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-      print("RewardedVideoAd event $event");
-      if (event == RewardedVideoAdEvent.rewarded) {
-        setState(() {
-          scansLeft += rewardAmount;
-        });
-      }
-    };
+//    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+//    RewardedVideoAd.instance.listener =
+//        (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+//      print("RewardedVideoAd event $event");
+//      if (event == RewardedVideoAdEvent.rewarded) {
+//        setState(() {
+//          scansLeft += rewardAmount;
+//        });
+//      }
+//    };
+//  }
+
   }
 
-  @override
+
   Widget build(BuildContext context) {
     print(widget.uid);
 
@@ -205,7 +207,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
       body: Stack(
         children: <Widget>[
           // Get image file by file path
-          Image.file(File(widget.imagePath),fit: BoxFit.cover, height: double.infinity, width: double.infinity, alignment: Alignment.center),
+          Image.file(File(widget.imagePath), fit: BoxFit.cover,
+              height: double.infinity,
+              width: double.infinity,
+              alignment: Alignment.center),
 
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -215,8 +220,14 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
               Opacity(
                 opacity: 0.4,
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 2 - 112,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height / 2 - 112,
                   color: Colors.blue,
                 ),
               ),
@@ -227,7 +238,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   Opacity(
                     opacity: 0.4,
                     child: Container(
-                        width: MediaQuery.of(context).size.width / 2 - 132,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 2 - 132,
                         height: 224,
                         color: Colors.blue
                     ),
@@ -239,7 +253,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
                   Opacity(
                     opacity: 0.4,
                     child: Container(
-                        width: MediaQuery.of(context).size.width / 2 - 132,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width / 2 - 132,
                         height: 224,
                         color: Colors.blue
                     ),
@@ -249,8 +266,14 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
               Opacity(
                 opacity: 0.4,
                 child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 2 - 112,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 2 - 112,
                     color: Colors.blue
                 ),
               ),
@@ -271,42 +294,44 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
           ),
 
 
-
         ],
       ),
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-
           var scanAmount = await ScansAmount();
           print(scanAmount);
 
-          if (scanAmount >= 0) {
-            await getScansAmount();
-            await predictImagePicker();
-          }
-          else {
-            showDialog(context: context,
-                barrierDismissible: false,
-                child: AlertDialog(
-                  title: Text("No More Scans"),
-                  content: Text("No Scans Remaining, Watch an ad for 3 more scans"),
-                  actions: [
-                    FlatButton(child: Text("Watch an Ad"), onPressed: () async {
-                      await RewardedVideoAd.instance.load(
-                          adUnitId: RewardedVideoAd.testAdUnitId,
-                          targetingInfo: targetingInfo);
-                      await RewardedVideoAd.instance.show();
-                    }),
-                    FlatButton(child: Text("Dismiss"), onPressed: () {Navigator.of(context).pop(widget);})
-                  ],
-
-                )
-            );
-          }
+//          if (scanAmount >= 0) {
+//            await getScansAmount();
+//            await predictImagePicker();
+//          }
+//          else {
+//            showDialog(context: context,
+//                barrierDismissible: false,
+//                child: AlertDialog(
+//                  title: Text("No More Scans"),
+//                  content: Text("No Scans Remaining, Watch an ad for 3 more scans"),
+//                  actions: [
+//                    FlatButton(child: Text("Watch an Ad"), onPressed: () async {
+//                      await RewardedVideoAd.instance.load(
+//                          adUnitId: RewardedVideoAd.testAdUnitId,
+//                          targetingInfo: targetingInfo);
+//                      await RewardedVideoAd.instance.show();
+//                    }),
+//                    FlatButton(child: Text("Dismiss"), onPressed: () {Navigator.of(context).pop(widget);})
+//                  ],
+//
+//                )
+//            );
+//          }
         },
         label: Row(
-          children: <Widget>[Text("SCAN"), SizedBox(width: 10), Icon(Icons.done)],
+          children: <Widget>[
+            Text("SCAN"),
+            SizedBox(width: 10),
+            Icon(Icons.done)
+          ],
         ),
         icon: Container(),
         backgroundColor: Color(0xff63d5fb),

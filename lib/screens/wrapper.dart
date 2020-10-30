@@ -25,7 +25,7 @@ class _WrapperState extends State<Wrapper> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     // if the user is instantiated by either register or login, user != null
     final user = Provider.of<User>(context);
 

@@ -49,12 +49,12 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     var user = Provider.of<User>(context);
 
     var pages = <Widget>[
 //      DashBoard(widget.camera),
-      DashBoard(),
+      DashBoard(uid: user.uid),
       FishDex()
 //      FishDex(widget.camera),
     ];

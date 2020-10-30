@@ -16,6 +16,7 @@ List<CameraDescription> cameras;
 
 // Add a future to app
 Future<Null> main() async {
+  print("TEST");
   // Set the app
   WidgetsFlutterBinding.ensureInitialized();
   cameras  = await availableCameras();
@@ -25,7 +26,7 @@ Future<Null> main() async {
 class MyApp extends StatelessWidget {
   // This widget is the root of the application
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     // Get stream of information and pass down user
     print(cameras);
 
@@ -38,9 +39,9 @@ class MyApp extends StatelessWidget {
         home: Wrapper(cameras: cameras),
 //        initialRoute: '/',
         routes: <String, WidgetBuilder>{
-        '/signup': (BuildContext context) => new SignUpPage(),
-        '/login': (BuildContext context) => new LoginPage(),
-        '/homepage': (BuildContext context) => new HomePage(cameras),
+        '/signup': (context) => new SignUpPage(),
+        '/login': (context) => new LoginPage(),
+        '/homepage': (context) => new HomePage(cameras),
       },
 
       ),
