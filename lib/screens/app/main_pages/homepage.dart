@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage>
     super.initState();
     tabController = new TabController(length: 2, vsync: this);
 
-    _page = 1;
+    _page = 0;
   }
 
 

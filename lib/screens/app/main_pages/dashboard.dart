@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fishfinder_app/models/user.dart';
-import 'package:fishfinder_app/screens/app/fishdex_pages/fishdex.dart';
 import 'package:fishfinder_app/screens/elements/accountDropDown.dart';
 import 'package:fishfinder_app/services/auth_service.dart';
 import 'package:fishfinder_app/services/database_service.dart';
@@ -51,6 +49,11 @@ class _DashBoardState extends State<DashBoard> {
 
     final Streams streams = Streams(uid: widget.uid);
 
+    Future logout() async {
+      await _auth.signOut();
+    }
+
+
     return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -86,35 +89,20 @@ class _DashBoardState extends State<DashBoard> {
                                 child: Padding(padding: EdgeInsets.only(left: 20), child: Text("fishFinder", style: TextStyle(fontSize: 24))),
                               ),
                               Align(
-                                alignment: Alignment.centerRight,
-                                child: Padding(padding: EdgeInsets.only(right: 20), child: Container(
-                                    child: SimpleAccountMenu(
-                                      icons: [
-                                        IconButton(
-                                          icon: Icon(Icons.people),
-                                          onPressed: () {
-//                                            Navigator.push();
-                                          },
-                                        ),
-                                        IconButton(
-                                          icon: Icon(Icons.settings),
-                                          onPressed: () {
-
-                                          },
-                                        ),
-                                        IconButton(
-                                          icon: Icon(Icons.logout),
-                                          onPressed: () async {
-                                            await _auth.signOut();
-                                          },
-                                        ),
-                                      ],
-                                      iconColor: Colors.white,
-                                      onChange: (index) {
-                                        print(index);
-                                      },
-                                    )),
-                                )),
+                                  alignment: Alignment.centerRight,
+                                  child: Padding(padding: EdgeInsets.only(right: 20), child: Container(
+                                      child: SimpleAccountMenu(
+                                        icons: [
+                                          Icon(Icons.people),
+                                          Icon(Icons.settings),
+                                          Icon(Icons.logout)
+                                        ],
+                                        iconColor: Colors.white,
+                                        onChange: (index) {
+                                          print(index);
+                                        },
+                                      )),
+                                  )),
                             ],
                           ),
                         ),
