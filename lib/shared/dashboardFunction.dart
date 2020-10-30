@@ -65,3 +65,53 @@ String giveDateInformation(int time) {
     return "Now";
   }
 }
+
+List achievementsCalc(Map species, Map friends)
+{
+  List species_list = [];
+  Map unique_species = {};
+
+  List achievements = [];
+
+  species.forEach((key, value) {
+    species_list.add(value);
+
+    if (!unique_species.containsKey(value.toString()))
+    {
+      unique_species[value.toString()] = value.toString();
+    }
+  });
+
+  // Achievement 1: More than 5 catches
+  if (species_list.length >= 5)
+  {
+    achievements.add("achievement_1");
+  }
+
+  // Achievement 2: More than 50 catches
+  if (species_list.length >= 50)
+  {
+    achievements.add("achievement_2");
+  }
+
+
+  // Achievement 3: More than 5 friends
+  if (friends.length >= 5)
+  {
+    achievements.add("achievement_3");
+  }
+
+  // Achievement 4: More than 25 unique catches
+  if (unique_species.length >= 25)
+  {
+    achievements.add("achievement_4");
+  }
+
+  // Achievement 5: All species caught
+  if (unique_species.length == 61)
+  {
+    achievements.add("achievement_5");
+  }
+
+  return achievements;
+}
