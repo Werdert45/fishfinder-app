@@ -39,7 +39,8 @@ class DatabaseService {
       'friends': {},
       'friend_request': {},
       'catch_record': {},
-      'updates': {}
+      'updates': {},
+      'pending_friends': {}
     });
   }
 

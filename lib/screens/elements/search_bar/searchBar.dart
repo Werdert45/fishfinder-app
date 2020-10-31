@@ -186,18 +186,6 @@ class MySingleChoiceSearchState<T> extends State<SearchWidget<T>> {
             link: _layerLink,
             child: textField,
           ),
-        if (notifier.value != null)
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: const BorderRadius.all(Radius.circular(4)),
-            ),
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            child: widget.selectedItemBuilder(
-              notifier.value,
-              onDeleteSelectedItem,
-            ),
-          ),
       ],
     );
     return column;
