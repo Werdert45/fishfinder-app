@@ -13,10 +13,11 @@ class CompleteUser {
   final String name;
   final Map catch_record;
   final Map friend_request;
+  final Map pending_friends;
   final Map friends;
   final Map updates;
 
-  CompleteUser({ this.uid, this.email, this.name, this.catch_record, this.friend_request, this.friends, this.updates });
+  CompleteUser({ this.uid, this.email, this.name, this.catch_record, this.friend_request, this.friends, this.updates, this.pending_friends });
 
   factory CompleteUser.fromMap(Map data) {
     data = data ?? {};
@@ -27,7 +28,8 @@ class CompleteUser {
         catch_record: data['catch_record'] ?? {},
         friend_request: data['friend_request'] ?? {},
         friends: data['friends'] ?? {},
-        updates: data['updates'] ?? {}
+        updates: data['updates'] ?? {},
+        pending_friends: data['pending_friends'] ?? {}
     );
   }
 }

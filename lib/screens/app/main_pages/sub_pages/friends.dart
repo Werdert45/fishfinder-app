@@ -34,6 +34,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     var user = Provider.of<User>(context);
 
     final Streams streams = Streams(uid: user.uid);
+    final DatabaseService database = DatabaseService();
 
     return Scaffold(
       body: StreamBuilder<Object>(
@@ -258,24 +259,32 @@ class PopupListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-    height: 50,
-      child: ListTile(
-        leading: Icon(Icons.people, size: 25),
-        title: Text(
-          item.name,
-          style: const TextStyle(fontSize: 16),
-        ),
-        trailing: Container(
-          child: TrailingFriend(item.name, item.uid, currentUser['friend_request'], currentUser['friends'], currentUser['pending_friends'])
-        ),
-      ),
-    );
+    if (currentUser['uid'] != item.uid)
+      {
+        return Container(
+          height: 50,
+          child: ListTile(
+            leading: Icon(Icons.people, size: 25),
+            title: Text(
+              item.name,
+              style: const TextStyle(fontSize: 16),
+            ),
+            trailing: Container(
+                child: TrailingFriend(currentUser, item.name, item.uid, currentUser['friend_request'], currentUser['friends'], currentUser['pending_friends'])
+            ),
+          ),
+        );
+      }
+    else {
+      return SizedBox();
+    }
   }
 }
 
-Widget TrailingFriend(name, uid, Map friend_request, Map friend_list, Map pending_friends)
+Widget TrailingFriend(user, name, uid, Map friend_request, Map friend_list, Map pending_friends)
 {
+  final DatabaseService database = DatabaseService();
+
   var requestIDs = friend_request.keys.toList();
   var friendIDs = friend_list.keys.toList();
   var pendingIDs = pending_friends.keys.toList();
@@ -326,7 +335,9 @@ Widget TrailingFriend(name, uid, Map friend_request, Map friend_list, Map pendin
     // Get as unknown person
     return IconButton(
       icon: Icon(Icons.add),
-      onPressed: () {},
+      onPressed: () async {
+        await database.sendFriendRequest(user['uid'], uid);
+      },
     );
   }
 

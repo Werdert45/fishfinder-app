@@ -56,5 +56,37 @@ class DatabaseService {
       'updates': updates
     });
   }
+
+  Future sendFriendRequest(puid, friend_uid) async {
+    var user_1 = await usersCollection.document(puid).get();
+    var complete_user_1 = CompleteUser.fromMap(user_1.data);
+
+    var user_2 = await usersCollection.document(friend_uid).get();
+    var complete_user_2 = CompleteUser.fromMap(user_2.data);
+
+    var pending_map = complete_user_1.pending_friends;
+    var request_map = complete_user_2.friend_request;
+
+    pending_map[friend_uid] = complete_user_2.name;
+    request_map[puid] = complete_user_1.name;
+
+    // Set the update for the User 2, to receive
+    var updates_map = complete_user_2.updates;
+    var now = DateTime.now().millisecondsSinceEpoch.toString();
+
+    updates_map[now] = [2, friend_uid, complete_user_2.name, null];
+
+    // Set the Pending Friends of User 1 to contain the User 1
+    await usersCollection.document(puid).updateData({
+      'pending_friends': pending_map
+    });
+
+    // Set the Friend Requests of User 2 to contain the User 1
+    // Set the update
+    await usersCollection.document(friend_uid).updateData({
+      'friend_request': request_map,
+      'updates': updates_map
+    });
+  }
 }
 
