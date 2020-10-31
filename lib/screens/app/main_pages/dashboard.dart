@@ -132,7 +132,7 @@ class _DashBoardState extends State<DashBoard> {
                                           Align(
                                               alignment: Alignment.centerLeft,
                                               child: Container(
-                                                width: 200,
+                                                width: 170,
                                                 child: Text("Which Fish are you going to catch today?", textAlign: TextAlign.left, style: TextStyle(fontSize: 20, color: Colors.white)),
                                               )
                                           ),
@@ -142,7 +142,7 @@ class _DashBoardState extends State<DashBoard> {
                                       Row(
                                         children: <Widget>[
                                           Container(
-                                              width: 200,
+                                              width: 170,
                                               child: Align(
                                                   alignment: Alignment.centerLeft,
                                                   child: _fishdexButton("Fishdex")

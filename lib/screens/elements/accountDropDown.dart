@@ -1,4 +1,5 @@
 import 'package:fishfinder_app/screens/app/main_pages/sub_pages/friends.dart';
+import 'package:fishfinder_app/screens/app/main_pages/sub_pages/settings.dart';
 import 'package:fishfinder_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -152,7 +153,7 @@ class _SimpleAccountMenuState extends State<SimpleAccountMenu>
                               }
 
                               if (index == 1) {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => FriendsScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
                               }
 
                               if (index == 2) {
