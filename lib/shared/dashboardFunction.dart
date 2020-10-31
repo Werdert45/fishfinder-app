@@ -10,12 +10,8 @@ getUpdates(Map updates) {
 
   dates.sort();
 
-  print(dates.length);
-
   for (int i = 0; i < dates.length; i++) {
     var update = [];
-
-
 
     update.add(updates[dates[i].toString()][0]);
     update.add(updates[dates[i].toString()][1]);

@@ -16,7 +16,6 @@ List<CameraDescription> cameras;
 
 // Add a future to app
 Future<Null> main() async {
-  print("TEST");
   // Set the app
   WidgetsFlutterBinding.ensureInitialized();
   cameras  = await availableCameras();

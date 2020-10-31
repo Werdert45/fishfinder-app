@@ -13,13 +13,11 @@ class Streams {
   // collection reference
   final CollectionReference usersCollection = Firestore.instance.collection('users');
 
-  Stream<DocumentSnapshot> get users {
-    return usersCollection.document(uid).snapshots();
+  Stream<QuerySnapshot> get users {
+    return usersCollection.snapshots();
   }
 
   Stream get UserData {
-
-
     return usersCollection.document(uid).snapshots();
   }
 }

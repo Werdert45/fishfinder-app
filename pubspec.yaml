@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+
   shared_preferences: ^0.5.7
   image_picker:
   flutter:
@@ -28,6 +29,7 @@ dependencies:
   intl:
   image_crop: 0.3.2
 
+  flutter_keyboard_visibility: ^2.0.0
   shared:
     path: ./_shared
 

@@ -99,7 +99,6 @@ class _DashBoardState extends State<DashBoard> {
                                         ],
                                         iconColor: Colors.white,
                                         onChange: (index) {
-                                          print(index);
                                         },
                                       )),
                                   )),
