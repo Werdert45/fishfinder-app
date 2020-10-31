@@ -116,64 +116,6 @@ class CameraScreenState extends State<CameraScreen> {
             }
           },
         ),
-
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Opacity(
-              opacity: 0.4,
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 2 - 112,
-                  color: Colors.blue,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height / 2 - 212),
-                    Text("Photograph the fish within the box, for the best result", style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, backgroundColor: Colors.white))
-                  ],
-              )
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Opacity(
-                  opacity: 0.4,
-                  child: Container(
-                      width: MediaQuery.of(context).size.width / 2 - 132,
-                      height: 224,
-                      color: Colors.blue
-                  ),
-                ),
-                SizedBox(
-                  width: 264,
-                  height: 224
-                ),
-                Opacity(
-                  opacity: 0.4,
-                  child: Container(
-                      width: MediaQuery.of(context).size.width / 2 - 132,
-                      height: 224,
-                      color: Colors.blue
-                  ),
-                ),
-              ],
-            ),
-            Opacity(
-              opacity: 0.4,
-              child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 2 - 112,
-                  color: Colors.blue
-              ),
-            ),
-          ],
-        ),
-
         Container(
             margin: const EdgeInsets.only(left: 10.0, top: 20.0, right: 20.0),
             child: Row(
@@ -250,6 +192,7 @@ class CameraScreenState extends State<CameraScreen> {
             // Attempt to take a picture and log where it's been saved.
             await controller.takePicture(path);
 
+            print(path);
 
             // If the picture was taken, display it on a new screen.
             Navigator.push(

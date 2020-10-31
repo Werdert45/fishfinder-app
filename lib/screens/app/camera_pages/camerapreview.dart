@@ -1,4 +1,9 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
+import 'dart:async';
+//import 'package:flutter/material.dart';
+import 'package:fishfinder_app/screens/app/camera_pages/nextSteps/previewSpecies.dart';
+import 'package:flutter/services.dart';
 //import 'package:firebase_admob/firebase_admob.dart';
 //import 'package:fishfinder_app/screens/home/species/preview_species.dart';
 import 'package:flutter/material.dart';
@@ -41,13 +46,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
   int scansLeft = 5;
 
-//  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-//    testDevices: testDevice != null ? <String>[testDevice] : null,
-//    keywords: <String>['foo', 'bar'],
-//    nonPersonalizedAds: true,
-//    contentUrl: 'http://foo.com/bar.html',
-//    childDirected: true,
-//  );
 
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -101,12 +99,20 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         _imageWidth = info.image.width.toDouble();
       });
     }));
+//
+//    var new_image = Img.copyCrop(tempImage, (_imageWidth / 2 - 112).round(),
+//        (_imageHeight / 2 - 112).round(), 223, 223);
 
-    var new_image = Img.copyCrop(tempImage, (_imageWidth / 2 - 112).round(),
-        (_imageHeight / 2 - 112).round(), 223, 223);
+    var cropped;
 
-    var cropped = Img.copyResize(tempImage, height: 224);
-
+    if (_imageHeight > _imageWidth)
+    {
+      cropped = Img.copyResize(tempImage, height: 224);
+    }
+    else
+    {
+      cropped = Img.copyResize(tempImage, width: 224);
+    }
 //    var previewImage = widget.imagePath.split(".");
 //    var previewImagePath = previewImage[0] + "_preview.png";
 
@@ -114,7 +120,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     var previewImagePath = (directoryPlace + '/preview.png').toString();
 
 
-    File(previewImagePath).writeAsBytesSync(Img.encodePng(new_image));
+    File(previewImagePath).writeAsBytesSync(Img.encodePng(cropped));
 
     var image = await File(previewImagePath);
     if (image == null) return;
@@ -149,17 +155,29 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
     // Check if _recognitions are made
     if (_recognitions != null) {
-      print(_recognitions);
-      // convert the index from the list to a species object
-//      Species speciesType = Species.fromJSON(speciesName);
-//      Navigator.push(context, MaterialPageRoute(
-//          builder: (context) => PreviewSpeciesScreen(index: _recognitions[0]['index'], uid: widget.uid, img: previewImagePath),
-//          settings: RouteSettings(
-//              arguments: speciesType
-//          )
-//      )
-//      );
+      return _recognitions;
+
+//      print(_recognitions);
     }
+  }
+
+  Future getImageInformation() async {
+    var directory = await getApplicationDocumentsDirectory();
+//    var directoryPlace = directory.toString().split(" ")[1].replaceAll(
+//        RegExp(r"[\']+"), '');
+
+//    var tempImage = Img.decodeImage(await File(widget.imagePath).readAsBytes());
+
+
+    new FileImage(File(widget.imagePath)).resolve(new ImageConfiguration())
+        .addListener(ImageStreamListener((ImageInfo info, bool _) {
+      setState(() {
+        _imageHeight = info.image.height.toDouble();
+        _imageWidth = info.image.width.toDouble();
+      });
+    }));
+
+    return [_imageHeight, _imageWidth];
   }
 
   Future loadModel() async {
@@ -200,111 +218,58 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
 
   Widget build(BuildContext context) {
-    print(widget.uid);
 
     return Scaffold(
       // The image is extracted from either gallery or made picture
-      body: Stack(
-        children: <Widget>[
-          // Get image file by file path
-          Image.file(File(widget.imagePath), fit: BoxFit.cover,
-              height: double.infinity,
-              width: double.infinity,
-              alignment: Alignment.center),
+      body: FutureBuilder(
+        future: getImageInformation(),
+        builder: (context, snapshot) {
 
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Opacity(
-                opacity: 0.4,
-                child: Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height / 2 - 112,
-                  color: Colors.blue,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Opacity(
-                    opacity: 0.4,
-                    child: Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width / 2 - 132,
-                        height: 224,
-                        color: Colors.blue
-                    ),
-                  ),
-                  SizedBox(
-                      width: 264,
-                      height: 224
-                  ),
-                  Opacity(
-                    opacity: 0.4,
-                    child: Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width / 2 - 132,
-                        height: 224,
-                        color: Colors.blue
-                    ),
-                  ),
-                ],
-              ),
-              Opacity(
-                opacity: 0.4,
-                child: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height / 2 - 112,
-                    color: Colors.blue
-                ),
-              ),
-            ],
-          ),
+          return Stack(
+            children: <Widget>[
+              // Get image file by file path
+              snapshot.data[0] < snapshot.data[1] ?
+              Image.file(File(widget.imagePath), fit: BoxFit.fitWidth,
+                  height: double.infinity,
+                  width: double.infinity,
+                  alignment: Alignment.center)
+                  :
+              Image.file(File(widget.imagePath), fit: BoxFit.fitHeight,
+                  height: double.infinity,
+                  width: double.infinity,
+                  alignment: Alignment.center),
 
-          Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                  margin: const EdgeInsets.only(top: 30, right: 30),
-                  child: IconButton(
-                    icon: Icon(Icons.clear, size: 40, color: Colors.white),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                      margin: const EdgeInsets.only(top: 30, right: 30),
+                      child: IconButton(
+                        icon: Icon(Icons.clear, size: 40, color: Colors.white),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
                   )
-              )
-          ),
+              ),
 
 
-        ],
+            ],
+          );
+        }
       ),
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          var scanAmount = await ScansAmount();
-          print(scanAmount);
+//          var scanAmount = await ScansAmount();
+//          print(scanAmount);
 
 //          if (scanAmount >= 0) {
-//            await getScansAmount();
-//            await predictImagePicker();
+            await getScansAmount();
+            var predictions = await predictImagePicker();
+
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PreviewSpeciesScreen(species_list: predictions)));
+
+
 //          }
 //          else {
 //            showDialog(context: context,
