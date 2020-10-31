@@ -53,6 +53,25 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   list.add(FriendTile(users[i]['uid'], users[i]['name']));
                 }
 
+                DocumentSnapshot currentUser = current_user.data;
+                print(currentUser['friend_request'].length);
+
+                List requestFriendsList = [];
+                List requestFriendsUIDs = [];
+
+                List friendsList = [];
+                List friendsUIDs = [];
+
+                currentUser['friend_request'].forEach((k,v) {
+                  requestFriendsList.add(v);
+                  requestFriendsUIDs.add(k);
+                });
+
+                currentUser['friends'].forEach((k,v) {
+                  friendsList.add(v);
+                  friendsUIDs.add(k);
+                });
+
                 return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -87,14 +106,14 @@ class _FriendsScreenState extends State<FriendsScreen> {
                       ),
                       SizedBox(height: 20),
                       // Body of the friends
-                      Padding(
+                      currentUser['friend_request'].length != 0 ? Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: Container(
                           width: MediaQuery.of(context).size.width - 20,
                           child: Text("Friend Requests", style: TextStyle(fontSize: 18)),
                         )
-                      ),
-                      Padding(
+                      ) : SizedBox(),
+                      currentUser['friend_request'].length != 0 ? Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +125,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                 {
                                   return ListTile(
                                     visualDensity: VisualDensity(horizontal: -2, vertical: -2),
-                                    title: Text("Kelvin Baldwin"),
+                                    title: Text(requestFriendsList[index]),
                                     leading: Icon(Icons.email, size:30),
                                     trailing: Container(
                                       width: 120,
@@ -117,7 +136,9 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                             minWidth: 50,
                                             child: RaisedButton(
                                               child: Text("Accept", style: TextStyle(fontSize: 10)),
-                                              onPressed: () {},
+                                              onPressed: () async {
+                                                await database.addUserToFriends(currentUser['uid'], requestFriendsUIDs[index]);
+                                              },
                                             ),
                                           ),
                                           IconButton(
@@ -128,34 +149,33 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                     ),
                                   );
                                 },
-                                itemCount: 3,
+                                itemCount: currentUser['friend_request'].length,
                               ),
                             )
                           ],
                         ),
-                      ),
-                      SizedBox(height: 30),
-                      Padding(
+                      ) : SizedBox(),
+                      friendsList.length != 0 ? SizedBox(height: 30) : SizedBox(),
+                      friendsList.length != 0 ? Padding(
                           padding: EdgeInsets.only(left: 20),
                           child: Container(
                             width: MediaQuery.of(context).size.width - 20,
                             child: Text("Friends List", style: TextStyle(fontSize: 18)),
                           )
-                      ),
-                      Padding(
+                      ) : SizedBox(),
+                      friendsList.length != 0 ? Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               height: 3*50.0,
-//                      width: MediaQuery.of(context).size.width,
                               child: ListView.builder(
                                 itemBuilder: (context, index)
                                 {
                                   return ListTile(
                                     visualDensity: VisualDensity(horizontal: -2, vertical: -2),
-                                    title: Text("Kelvin Baldwin"),
+                                    title: Text(friendsList[index][0]),
                                     leading: Icon(Icons.email, size:30),
                                     trailing: Container(
                                       width: 150,
@@ -170,14 +190,14 @@ class _FriendsScreenState extends State<FriendsScreen> {
                                     ),
                                   );
                                 },
-                                itemCount: 3,
-                              ),
+                                itemCount: friendsList.length
+                              )
                             )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                          ]
+                        )
+                      ) : SizedBox()
+                    ]
+                  )
                 );
               }
             ),
