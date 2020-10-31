@@ -301,7 +301,11 @@ Widget TrailingFriend(user, name, uid, Map friend_request, Map friend_list, Map 
               minWidth: 50,
               child: RaisedButton(
                 child: Text("Accept", style: TextStyle(fontSize: 10)),
-                onPressed: () {},
+                onPressed: () async {
+                  print(user['uid']);
+
+                  await database.addUserToFriends(user['uid'], uid);
+                },
               ),
             ),
             IconButton(
@@ -328,7 +332,17 @@ Widget TrailingFriend(user, name, uid, Map friend_request, Map friend_list, Map 
   else if (pendingIDs.contains(uid))
     {
       // Get friend as pending
-      return Text("Pending");
+      return SizedBox(
+        width: 105,
+        child: Row(
+          children: [
+            Text("Pending"),
+            IconButton(icon: Icon(Icons.cancel), onPressed: () async {
+              await database.removeFromPending(user['uid'], uid);
+            })
+          ],
+        ),
+      );
     }
 
   else {
